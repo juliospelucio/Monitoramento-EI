@@ -44,7 +44,6 @@ CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`units` (
   `users_id` INT(11) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_units_users1_idx` (`users_id` ASC),
-  UNIQUE INDEX `users_id_UNIQUE` (`users_id` ASC),
   CONSTRAINT `fk_units_users1`
     FOREIGN KEY (`users_id`)
     REFERENCES `infantil_education_mch`.`users` (`id`)
@@ -100,21 +99,38 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `infantil_education_mch`.`address`
+-- Table `infantil_education_mch`.`addresses`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `infantil_education_mch`.`address` ;
+DROP TABLE IF EXISTS `infantil_education_mch`.`addresses` ;
 
-CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`address` (
+CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`addresses` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `address` VARCHAR(255) NOT NULL,
   `number` INT NOT NULL,
   `neighborhood` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `infantil_education_mch`.`addresses_has_candidates`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `infantil_education_mch`.`addresses_has_candidates` ;
+
+CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`addresses_has_candidates` (
+  `addresses_id` INT NOT NULL,
   `candidates_id` INT(11) NOT NULL,
   `candidates_units_id` INT(11) NOT NULL,
   `candidates_parents_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `candidates_id`, `candidates_units_id`, `candidates_parents_id`),
-  INDEX `fk_address_candidates1_idx` (`candidates_id` ASC, `candidates_units_id` ASC, `candidates_parents_id` ASC),
-  CONSTRAINT `fk_address_candidates1`
+  PRIMARY KEY (`addresses_id`, `candidates_id`, `candidates_units_id`, `candidates_parents_id`),
+  INDEX `fk_addresses_has_candidates_candidates1_idx` (`candidates_id` ASC, `candidates_units_id` ASC, `candidates_parents_id` ASC),
+  INDEX `fk_addresses_has_candidates_addresses1_idx` (`addresses_id` ASC),
+  CONSTRAINT `fk_addresses_has_candidates_addresses1`
+    FOREIGN KEY (`addresses_id`)
+    REFERENCES `infantil_education_mch`.`addresses` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_addresses_has_candidates_candidates1`
     FOREIGN KEY (`candidates_id` , `candidates_units_id` , `candidates_parents_id`)
     REFERENCES `infantil_education_mch`.`candidates` (`id` , `units_id` , `parents_id`)
     ON DELETE NO ACTION

@@ -7,18 +7,18 @@ require_once('../model/Address.php');
 //---------------------------------------------------------
 $address = new Address($dbconfig);
 $address->setAttributes(array("address"=>"Rua1","number"=>1,"neighborhood"=>"Bairro1"));
-echo $address;
+// echo $address;
 
 echo "<pre>";
  print_r($address->getAddresses());
 echo "-------------------------<br>";
-// print_r($unit->getUnit(1));
+// print_r($address->getAddress(1));
 echo "-------------------------<br>";
-// print_r($unit->insertUnit());
+print_r($address->insertAddress());
 echo "-------------------------<br>";
-// print_r($unit->deleteUnit(1));
+// print_r($address->deleteUnit(1));
 echo "-------------------------<br>";
-// print_r($unit->updateUnit(array(":id"=>1,":name"=>"Julio")));
+// print_r($address->updateUnit(array(":id"=>1,":name"=>"Julio")));
 echo "</pre>";
 
 //UNITS END

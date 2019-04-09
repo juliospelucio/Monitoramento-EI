@@ -1,42 +1,40 @@
 <?php 
 require_once('../model/settings.config.php');
 require_once('../model/Address.php');
+require_once('../model/User.php');
 
 
-//UNITS
+//ADDRESS
 //---------------------------------------------------------
 $address = new Address($dbconfig);
 $address->setAttributes(array("address"=>"Rua1","number"=>1,"neighborhood"=>"Bairro1"));
-// echo $address;
+echo $address;
 
 echo "<pre>";
- print_r($address->getAddresses());
+// print_r($address->getAddresses());
 echo "-------------------------<br>";
-// print_r($address->getAddress(1));
+print_r($address->getAddress(1));
 echo "-------------------------<br>";
-print_r($address->insertAddress());
+// print_r($address->insertAddress());
 echo "-------------------------<br>";
-// print_r($address->deleteUnit(1));
+// print_r($address->deleteAddress(3));
 echo "-------------------------<br>";
-// print_r($address->updateUnit(array(":id"=>1,":name"=>"Julio")));
+// print_r($address->updateAddress(array(":id"=>1,":address"=>"RuaUpdate",":number"=>5,":neighborhood"=>"BairroUpdate")));
 echo "</pre>";
 
-//UNITS END
+//ADDRESS END
 //------------------------------------------------------------
 
 
 //USERS
 //---------------------------------------------------------
-/*$user = new User($dbconfig);
-$user->setName("usuário");
-$user->setEmail("usuário@gmail.com");
-$user->setPassword("123");
-$user->setAdmin(1);
+$user = new User($dbconfig);
+$user->setAttributes(array("name"=>"usuário","email"=>"usuário@gmail.com","password"=>"123","admin"=>1));
 
 echo "<pre>";
 // print_r($user->getUsers());
 echo "-------------------------<br>";
-// print_r($user->getUser(5));
+// print_r($user->getUser(1));
 echo "-------------------------<br>";
 // print_r($user->insertUser());
 echo "-------------------------<br>";
@@ -48,7 +46,7 @@ echo "-------------------------<br>";
 // 								":admin"=>0,
 // 								":units_id"=>2)));
 echo "-------------------------<br>";
-echo "</pre>";*/
+echo "</pre>";
 //USERS END
 //------------------------------------------------------------
 

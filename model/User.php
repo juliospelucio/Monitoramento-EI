@@ -60,7 +60,7 @@ Class User{
 		try {
 			$sql = "SELECT * FROM `users` WHERE id = :id";
 			$dbc = new DBConnection($this->dbconfig);
-			return $dbc->getQuery($sql);
+			return $dbc->getQuery($sql,$id);
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
 		}

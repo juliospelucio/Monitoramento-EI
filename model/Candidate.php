@@ -19,6 +19,7 @@ Class Candidate extends Model{
 
 	protected $parents_id;
 
+
 	/* Function getCandidates
      * Get all candidates
      * @return Associate array candidate

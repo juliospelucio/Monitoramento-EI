@@ -5,13 +5,14 @@ require_once('../model/User.php');
 require_once('../model/Parents.php');
 require_once('../model/Unit.php');
 require_once('../model/Candidate.php');
+require_once('../model/CandidatesAddresses.php');
 
 
 //ADDRESS
 //---------------------------------------------------------
-/*$address = new Address($dbconfig);
+$address = new Address($dbconfig);
 $address->setAttributes(array("address"=>"Rua1","number"=>1,"neighborhood"=>"Bairro1"));
-echo $address;*/
+echo $address;
 
 echo "<pre>";
 // print_r($address->getAddresses());
@@ -30,9 +31,9 @@ echo "</pre>";
 
 //USERS
 //---------------------------------------------------------
-/*$user = new User($dbconfig);
+$user = new User($dbconfig);
 $user->setAttributes(array("name"=>"usuário","email"=>"usuário@gmail.com","password"=>"123","admin"=>1));
-echo $user;*/
+echo $user;
 
 echo "<pre>";
 // print_r($user->getUsers());
@@ -52,9 +53,9 @@ echo "</pre>";
 
 //PARENTS
 //---------------------------------------------------------
-/*$parents = new Parents($dbconfig);
+$parents = new Parents($dbconfig);
 $parents->setAttributes(array("mother"=>"Maria", "father"=>"João"));
-echo $parents;*/
+echo $parents;
 
 echo "<pre>";
 // print_r($parents->getParents());
@@ -73,9 +74,9 @@ echo "</pre>";
 
 //UNITS
 //---------------------------------------------------------
-/*$unit = new Unit($dbconfig);
+$unit = new Unit($dbconfig);
 $unit->setAttributes(array("name"=>"SEMED","users_id"=>null));
-echo $unit;*/
+echo $unit;
 
 echo "<pre>";
 // print_r($unit->getUnits());
@@ -94,9 +95,9 @@ echo "</pre>";
 
 //CANDIDATES
 //---------------------------------------------------------
-/*$candidate = new Candidate($dbconfig);
-$candidate->setAttributes(array("name"=>"Junior","birth_date"=>"2017-02-27","tel1"=>32958700,"tel2"=>32958714,"inscription_date"=>date("Y-m-d"),"situation"=> "","units_id"=>4,"parents_id"=>1));
-echo $candidate;*/
+$candidate = new Candidate($dbconfig);
+$candidate->setAttributes(array("name"=>"Junior","birth_date"=>"2017-02-27","tel1"=>32958700,"tel2"=>32958714,"inscription_date"=>date("Y-m-d"),"situation"=> "","units_id"=>1,"parents_id"=>1));
+echo $candidate;
 
 echo "<pre>";
 // print_r($candidate->getCandidates());
@@ -113,6 +114,13 @@ echo "</pre>";
 
 //ADDRESSES_HAS_CANDIDATES
 //---------------------------------------------------------
+$candidateAddress = new CandidatesAddresses($dbconfig);
+$candidateAddress->setAttributes(array("addresses_id"=>1,"candidates_id"=>1));
+echo $candidateAddress;
+echo "<pre>";
+echo "-------------------------<br>";
+print_r($candidateAddress->insertRelationship());
+echo "</pre>";
 
 //ADDRESSES_HAS_CANDIDATES END
 //---------------------------------------------------------

@@ -5,6 +5,8 @@ abstract Class Model{
 
 	protected $dbconfig;
 
+	protected $attributes;
+
 	/* Function __construct
      * Set Atributes to the class
      * @param $name unit's name
@@ -19,6 +21,7 @@ abstract Class Model{
      * @param $attributes array with class attributes
      */
 	function setAttributes(array $attributes){
+		$this->attributes = $attributes;
 		foreach ($attributes as $key => $value) {
 			$this->$key = $value;
 		}
@@ -28,10 +31,8 @@ abstract Class Model{
      * Returns a (string) class attributes
      */
 	function __toString(){
-
-		$class_vars = get_class_vars(static::class);
 		$vars = "";
-		foreach ($class_vars as $name => $value) {
+		foreach ($this->attributes as $name => $value) {
 		    $vars .= "$name : $value"."<br>";
 		}
         return $vars;

@@ -14,8 +14,39 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema infantil_education_mch
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `infantil_education_mch` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `infantil_education_mch` DEFAULT CHARACTER SET latin1 ;
 USE `infantil_education_mch` ;
+
+-- -----------------------------------------------------
+-- Table `infantil_education_mch`.`addresses`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `infantil_education_mch`.`addresses` ;
+
+CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`addresses` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `address` VARCHAR(255) NOT NULL,
+  `number` INT(11) NOT NULL,
+  `neighborhood` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 9
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `infantil_education_mch`.`parents`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `infantil_education_mch`.`parents` ;
+
+CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`parents` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `mother` VARCHAR(255) NOT NULL,
+  `father` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
+DEFAULT CHARACTER SET = latin1;
+
 
 -- -----------------------------------------------------
 -- Table `infantil_education_mch`.`users`
@@ -30,6 +61,7 @@ CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`users` (
   `admin` TINYINT(3) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -41,7 +73,7 @@ DROP TABLE IF EXISTS `infantil_education_mch`.`units` ;
 CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`units` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
-  `users_id` INT(11) NULL,
+  `users_id` INT(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_units_users1_idx` (`users_id` ASC),
   CONSTRAINT `fk_units_users1`
@@ -50,20 +82,8 @@ CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`units` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `infantil_education_mch`.`parents`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `infantil_education_mch`.`parents` ;
-
-CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`parents` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `mother` VARCHAR(255) NOT NULL,
-  `father` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -76,40 +96,27 @@ CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`candidates` (
   `name` VARCHAR(255) NOT NULL,
   `birth_date` DATE NOT NULL,
   `tel1` BIGINT(12) NOT NULL,
-  `tel2` BIGINT(12) NULL,
+  `tel2` BIGINT(12) NULL DEFAULT NULL,
   `inscription_date` DATE NOT NULL,
   `situation` VARCHAR(45) NOT NULL,
   `units_id` INT(11) NOT NULL,
-  `parents_id` INT NOT NULL,
+  `parents_id` INT(11) NOT NULL,
   PRIMARY KEY (`id`, `units_id`, `parents_id`),
   INDEX `fk_candidates_units_idx` (`units_id` ASC),
   INDEX `fk_candidates_parents1_idx` (`parents_id` ASC),
-  CONSTRAINT `fk_candidates_units`
-    FOREIGN KEY (`units_id`)
-    REFERENCES `infantil_education_mch`.`units` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_candidates_parents1`
     FOREIGN KEY (`parents_id`)
     REFERENCES `infantil_education_mch`.`parents` (`id`)
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_candidates_units`
+    FOREIGN KEY (`units_id`)
+    REFERENCES `infantil_education_mch`.`units` (`id`)
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `infantil_education_mch`.`addresses`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `infantil_education_mch`.`addresses` ;
-
-CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`addresses` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `address` VARCHAR(255) NOT NULL,
-  `number` INT NOT NULL,
-  `neighborhood` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -118,12 +125,10 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `infantil_education_mch`.`addresses_has_candidates` ;
 
 CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`addresses_has_candidates` (
-  `addresses_id` INT NOT NULL,
+  `addresses_id` INT(11) NOT NULL,
   `candidates_id` INT(11) NOT NULL,
-  `candidates_units_id` INT(11) NOT NULL,
-  `candidates_parents_id` INT NOT NULL,
-  PRIMARY KEY (`addresses_id`, `candidates_id`, `candidates_units_id`, `candidates_parents_id`),
-  INDEX `fk_addresses_has_candidates_candidates1_idx` (`candidates_id` ASC, `candidates_units_id` ASC, `candidates_parents_id` ASC),
+  PRIMARY KEY (`addresses_id`, `candidates_id`),
+  INDEX `fk_addresses_has_candidates_candidates1_idx` (`candidates_id` ASC),
   INDEX `fk_addresses_has_candidates_addresses1_idx` (`addresses_id` ASC),
   CONSTRAINT `fk_addresses_has_candidates_addresses1`
     FOREIGN KEY (`addresses_id`)
@@ -131,11 +136,12 @@ CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`addresses_has_candidates` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_addresses_has_candidates_candidates1`
-    FOREIGN KEY (`candidates_id` , `candidates_units_id` , `candidates_parents_id`)
-    REFERENCES `infantil_education_mch`.`candidates` (`id` , `units_id` , `parents_id`)
+    FOREIGN KEY (`candidates_id`)
+    REFERENCES `infantil_education_mch`.`candidates` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

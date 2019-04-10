@@ -1,47 +1,28 @@
 <?php 
-require_once('DBConnection.php');
+require_once('Model.php');
 
-Class Address{
+Class Address extends Model{
 
-	private $address;
+	protected $address;
 
-	private $number;
+	protected $number;
 
-	private $neighborhood;
+	protected $neighborhood;
 
-	private $dbconfig;
-
-	/* Function __construct
-     * Set Atributes to the class
-     * @param $name unit's name
-     * @param $dbconfig is a db configuration arrays 
-     */
-	function __construct($dbconfig){
-		$this->dbconfig = $dbconfig;
-	}
-
-	/* Function setName
-     * Set name to the Address
-     * @param $attributes array with Address attributes
-     */
-	function setAttributes(array $attributes){
-		foreach ($attributes as $key => $value) {
-			$this->$key = $value;
-		}
-	}
-
-	/* Function __toString
-     * Returns a (string) class attributes
-     */
-	public function __toString(){
-        return "address: ". $this->address ."<br>number: " . $this->number ."<br>neighborhood: ".$this->neighborhood;
-    }
 
     /* Function getAddress
      * Get all addresses
-     * @return Associate array unit
+     * @return Associate array address
      */
 	function getAddresses(){
+
+		$class_vars = get_class_vars(static::class);
+		$vars = "";
+		foreach ($class_vars as $name => $value) {
+		    $vars .= "$name : $value"."<br>";
+		}
+        print_r($vars);
+
 		try {
 			$sql = "SELECT * FROM `addresses` ";
 			$dbc = new DBConnection($this->dbconfig);
@@ -49,6 +30,8 @@ Class Address{
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
 		}
+
+
 	}
 
 	/* Function getAddress
@@ -59,8 +42,9 @@ Class Address{
 	function getAddress($id){
 		try {
 			$sql = "SELECT * FROM `addresses` WHERE id = :id";
+			$params = array(':id' => $id);
 			$dbc = new DBConnection($this->dbconfig);
-			return $dbc->getQuery($sql);
+			return $dbc->getQuery($sql,$params);
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
 		}

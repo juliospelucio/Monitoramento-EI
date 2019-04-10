@@ -1,45 +1,20 @@
 <?php 
-require_once('DBConnection.php');
+require_once('Model.php');
 
-Class User{
+Class User extends Model{
 
-	private $name;
+	protected $name;
 
-	private $email;
+	protected $email;
 
-	private $password;
+	protected $password;
 
-	private $admin;
+	protected $admin;
 
-	/* Function __construct
-     * Set Atributes to the class
-     * @param $name unit's name
-     * @param $dbconfig is a db configuration arrays 
-     */
-	function __construct($dbconfig){
-		$this->dbconfig = $dbconfig;
-	}
-
-	/* Function setName
-     * Set name to the Address
-     * @param $attributes array with Address attributes
-     */
-	function setAttributes(array $attributes){
-		foreach ($attributes as $key => $value) {
-			$this->$key = $value;
-		}
-	}
-
-	/* Function __toString
-     * Returns a (string) class attributes
-     */
-	public function __toString(){
-        return "name: ". $this->name ."<br>email: " . $this->email ."<br>password: ".$this->password ."<br>admin: ".$this->admin;
-    }
 
     /* Function getUsers
      * Get all users
-     * @return Associate array unit
+     * @return Associate array users
      */
 	function getUsers(){
 		try {
@@ -59,8 +34,9 @@ Class User{
 	function getUser($id){
 		try {
 			$sql = "SELECT * FROM `users` WHERE id = :id";
+			$params = array(':id' => $id);
 			$dbc = new DBConnection($this->dbconfig);
-			return $dbc->getQuery($sql,$id);
+			return $dbc->getQuery($sql,$params);
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
 		}
@@ -87,7 +63,7 @@ Class User{
 	/* Function deleteUser
      * Delete a user
      * @param $id user's id
-     * @return int count of records affected by running the sql statement into address.
+     * @return int count of records affected by running the sql statement into users.
      */
 	function deleteUser($id){
 		try {
@@ -103,11 +79,11 @@ Class User{
 	/* Function updateUser
      * Update a user
      * @param $params array with User's atributes
-     * @return int count of records affected by running the sql statement into user.
+     * @return int count of records affected by running the sql statement into users.
      */
-	function updateAddress(array $params){
+	function updateUser(array $params){
 		try {
-			$sql = "UPDATE `users` SET name = :name, email = :email, password = :password WHERE id = :id";
+			$sql = "UPDATE `users` SET name = :name, email = :email, password = :password, admin = :admin WHERE id = :id";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->runQuery($sql,$params);
 		} catch (PDOException $e) {

@@ -3,16 +3,11 @@
 /*DATA-LOAD FOR HUGE AMOUNTS OF DATA, DATATABLES
 https://datatables.net/extensions/scroller/examples/initialisation/server-side_processing.html*/
 
+require_once $_SERVER['DOCUMENT_ROOT']."/Monitoramento-EI/assets/helpers.php";
 
-/* Script para redirecionar a página index na view */
-//header('location:view/frontend/index.php');
-
-require_once $_SERVER['DOCUMENT_ROOT']."/Controle-Infantil/assets/helpers.php";
-
-require_once abspath().'/controller/manage_candidate.php';
-require_once abspath().'/view/template/frontend/header.php';
-// $rows = loadAllCandidates();
-// validateSession();
+require_once '../controller/IndexController.php';
+require_once 'template/header.php';
+//$rows = loadAllCandidates();
 ?>
 
 <!-- Page Content -->
@@ -34,20 +29,20 @@ require_once abspath().'/view/template/frontend/header.php';
                     </tr>
                 </thead>
                 <tbody>
-                    <?php //foreach ($rows as $row => $column): ?>
+                    <?php foreach ($rows as $row => $column): ?>
                     <tr>
-                        <td scope="row" class="text-center"><a href="edit_candidate.php?id=<?php //echo $column->id ?>"><img src="../assets/img/edit.png" width="30" height="30"></a></td>
-                        <td scope="row" class="text-center"><?php //echo dateDifference(date("Y")."-02-31", $column->birth,'%y') ?></td>
-                        <td scope="row" class="text-center"><?php //echo $column->name ?></td>
-                        <td scope="row" class="text-center"><?php //echo stringToDate($column->inscription) ?></td>
-                        <td scope="row" class="text-center"><?php //echo stringToDate($column->birth) ?></td>
-                        <td scope="row" class="text-center"><?php //echo $column->mother ?></td>
-                        <td scope="row" class="text-center"><?php //echo $column->situation ?></td>
+                        <td scope="row" class="text-center"><a href="edit_candidate.php?id=<?php echo $column['id'] ?>"><img src="../assets/img/edit.png" width="30" height="30"></a></td>
+                        <td scope="row" class="text-center"><?php echo dateDifference(date("Y")."-02-31", $column['birth_date'],'%y') ?></td>
+                        <td scope="row" class="text-center"><?php echo $column['name'] ?></td>
+                        <td scope="row" class="text-center"><?php echo stringToDate($column['inscription_date']) ?></td>
+                        <td scope="row" class="text-center"><?php echo stringToDate($column['birth_date']) ?></td>
+                        <td scope="row" class="text-center"><?php echo $column['mother'] ?></td>
+                        <td scope="row" class="text-center"><?php echo $column['situation'] ?></td>
                         <td scope="row" class="text-center">
-                            <a href="#" data-href="delete_candidate.php?id=<?php //echo $column->id ?>" data-toggle="modal" data-target="#confirm-delete"><img src="../assets/img/delete.png" width="30" height="30"></a>
+                            <a href="#" data-href="delete_candidate.php?id=<?php echo $column['id'] ?>" data-toggle="modal" data-target="#confirm-delete"><img src="../assets/img/delete.png" width="30" height="30"></a>
                         </td>
                     </tr>
-                    <?php //endforeach ?>
+                    <?php endforeach ?>
                 </tbody>
             </table>
         </section>
@@ -57,8 +52,8 @@ require_once abspath().'/view/template/frontend/header.php';
     </div>
 
 <?php
-require_once abspath().'/view/template/frontend/footer.php';
-require_once abspath().'/view/template/frontend/delete_candidate_modal.php';
+require_once '/template/footer.php';
+require_once '/template/delete_candidate_modal.php';
 ?>
 <script type="text/javascript">
     datatableApplyIndex();

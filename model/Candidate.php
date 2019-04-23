@@ -26,7 +26,9 @@ Class Candidate extends Model{
      */
 	function getCandidates(){
 		try {
-			$sql = "SELECT * FROM `candidates` ";
+			$sql = "SELECT c.id,c.name,c.birth_date,c.tel1,c.tel2,
+			c.inscription_date,c.situation,p.mother,p.father 
+			FROM `candidates` c INNER JOIN `parents` p ON c.parents_id = p.id ";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql);
 		} catch (PDOException $e) {
@@ -41,7 +43,8 @@ Class Candidate extends Model{
      */
 	function getCandidate($id){
 		try {
-			$sql = "SELECT * FROM `candidates` WHERE id = :id";
+			$sql = "SELECT c.id,c.name,c.birth_date,c.tel1,c.tel2,
+			c.inscription_date,c.situation,p.mother,p.father FROM `candidates` c INNER JOIN `parents` p ON c.parents_id = p.id WHERE c.id = :id";
 			$params = array(':id' => $id);
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql,$params);

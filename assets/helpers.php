@@ -1,13 +1,13 @@
 <?php 
 
 
-/*Abs Path*/
+/*Absolute Path*/
 function abspath(){
 	return dirname(__DIR__);
 }
 
 function myURL(){
-	return 'http://localhost/Controle-Infantil/';
+	return 'http://localhost/Monitoramento-EI/';
 }
 
 

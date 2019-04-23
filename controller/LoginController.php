@@ -17,7 +17,6 @@ Class LoginController {
 
 	
 	public function __construct($dbconfig){
-		require_once '..\model\User.php';
 		$this->dbconfig = $dbconfig;
 	}
 
@@ -72,7 +71,7 @@ Class LoginController {
 	}
 }
 
-
+// -------------------------------------------------------
 session_start();
 $controller = new LoginController($dbconfig);
 if ($controller->isSigned()) {

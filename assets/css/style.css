@@ -1,0 +1,215 @@
+/*HTML STYLES*/
+html{
+	position: relative;
+  min-height: 100%;
+  font-size: 1rem;
+}
+
+@include media-breakpoint-up(sm) {
+  html {
+    font-size: 1.2rem;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  html {
+    font-size: 1.4rem;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  html {
+    font-size: 1.6rem;
+  }
+}
+
+body {
+	padding-top: 10rem;
+	font-family: Arial, Calibri;
+  background-color: #f5f5f5;
+}
+
+/* SELECTION
+---------------------------------- */
+/*** Works on common browsers ***/
+::selection {
+    background-color: #000;
+    color: #fff;
+}
+
+/*** Mozilla based browsers ***/
+::-moz-selection {
+    background-color: #000;
+    color: #fff;
+}
+
+/***For Other Browsers ***/
+::-o-selection {
+    background-color: #000;
+    color: #fff;
+}
+
+::-ms-selection {
+    background-color: #000;
+    color: #fff;
+}
+
+/*** For Webkit ***/
+::-webkit-selection {
+    background-color: #000;
+    color: #fff;
+}
+
+/* start menu */
+.bareffect li a::before,
+.bareffect li a::after{ /*efeito no menu ao passar o mouse*/
+content: '';
+background-color: #fff;
+width: 100%;
+height: 0.125rem;
+position: absolute;
+left: 0;
+opacity: 0;
+transition: all 0.5s;
+}
+
+.bareffect li a::before{
+top: 0;
+transform: translateY(0.625rem);
+}
+.bareffect li a::after{
+  bottom: 0;
+  transform: translateY(-0.625rem);
+}
+.bareffect li a:hover::before,
+.bareffect li a:hover::after{
+  opacity: 1;
+  transform: translateY(0);
+} 
+
+/* CONTAINER MAIN 
+---------------------------------- */
+.main{
+  margin-bottom: 7rem;
+}
+
+/* HEADER
+---------------------------------- */
+.navbar-brand img{
+	width: 5.9rem;
+	height: 85px;	
+}
+
+.navbar li{
+	font-size: 1.2rem;
+}
+
+@media only screen and (max-width: 991px) {
+    .navbar li {
+        font-size: 1rem;
+    }
+}
+
+.navbar{
+	background-color: #cdcdcd;
+	opacity: 0.7;
+	-webkit-transition: opacity 1s ease-in-out;
+	-moz-transition: opacity 1s ease-in-out;
+	-ms-transition: opacity 1s ease-in-out;
+	-o-transition: opacity 1s ease-in-out;
+	transition: opacity 0.5s ease-in-out;
+}
+
+.navbar:hover{
+	opacity: 1;
+}
+
+.decoClear, .decoClear:hover{
+    color: #000000; /*color of your choosing*/
+    text-decoration: none;
+    font-weight: normal;
+}
+
+/* SOBRE 
+-------------------------------------------------- */
+.arredondar{
+  border: 2px solid #951;
+  border-radius: 40px;
+}
+
+/* RODAPÉ FIXO
+-------------------------------------------------- */
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 4.0rem; /* Set the fixed height of the footer here */
+  line-height: 2.1rem; /* Vertically center the text there */
+  font-size: 1.2rem;
+  background-color: #cdcdcd;
+}
+
+/* Media Queries */
+@media screen and (max-width: 1024px){
+  .bareffect li a::before,
+  .bareffect li a::after{ /*efeito no menu ao passar o mouse*/
+  width: 7rem;
+  }
+}
+
+@media screen and (max-width: 320px){
+  .titulo2{
+    font-size: 2rem;
+  }
+}
+
+/* CHECK-BUTTON BOOTSTRAP 4
+--------------------------*/
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+    background-color: #fff;
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+    background-color: #cecece;
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+    background-color: #000;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    background-color: #007bff;
+}
+
+/* DROPDOWN COLOR 
+------------------------------*/
+.navbar-nav > li > .dropdown-menu a:focus{ 
+  background-color: #cecece; 
+}
+
+/* DATATABLE BOOTSTRAP 4
+-------------------------------*/
+.page-link {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #000;
+    background-color: #cecece;
+    border: 1px solid #fff;
+}
+
+.page-link:hover {
+    color: #fff;
+    background-color: #3e3e3e;
+    border: 1px solid #fff;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #000;
+    background-color: #cecece;
+    border-color: #fff;
+}

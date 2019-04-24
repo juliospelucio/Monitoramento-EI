@@ -1,7 +1,7 @@
 <?php 
 require_once $_SERVER['DOCUMENT_ROOT']."/Controle-Infantil/assets/helpers.php";
 
-require_once '../controller/IndexController.php';
+require_once '../controller/CandidateController.php';
 require_once 'template/header.php';
 ?>
 
@@ -112,9 +112,7 @@ require_once 'template/header.php';
 	                       <label class="sr-only" for="cancel">Cancelar</label>
 	                       <a href="index.php" class="btn btn-outline-secondary btn-block" id="cancel" name="cancel">Cancelar</a>
 	                    </div>
-	                </div>
-
-	                    
+	                </div>            
                 </form>
             </section>
         </div>

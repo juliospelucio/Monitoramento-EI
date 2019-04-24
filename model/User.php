@@ -97,11 +97,11 @@ Class User extends Model{
      * @param $password User's password in database
      * return a single row with a User
      */
-	public static function checkCredentials($dbconfig,$email, $password){
+	public function checkCredentials(){
 		try {
 			$sql = "SELECT * FROM `users` WHERE email = :email AND password = :password LIMIT 1";
-			$params = array(':email' => $email,':password' => $password);
-			$dbc = new DBConnection($dbconfig);
+			$params = array(':email' => $this->email,':password' => $this->password);
+			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql,$params);
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();

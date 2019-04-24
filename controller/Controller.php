@@ -4,6 +4,8 @@ Class Controller {
 
 	protected $dbconfig;
 
+	protected $attributes;
+
 	protected static $error = "Erro";
 
 	protected static $success = "Sucesso";
@@ -11,7 +13,6 @@ Class Controller {
 	public function __construct($dbconfig){
 		$this->dbconfig = $dbconfig;
 	}
-
 
 	/* Function validateSession
      * Checks if a session is valid or redirects

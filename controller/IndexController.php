@@ -19,7 +19,3 @@ session_start();
 $controller = new IndexController($dbconfig);
 $controller->validateSession();
 $rows = $controller->loadAllCandidates();
-/*
-echo "<pre>";
-print_r($rows);
-echo "</pre>";*/

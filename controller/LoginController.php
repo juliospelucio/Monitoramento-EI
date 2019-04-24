@@ -5,10 +5,13 @@ require_once '..\model\User.php';
 
 Class LoginController extends Controller{
 
-	private $email;
+	private $user;
 
-	private $password;
-
+	public function __construct($dbconfig){
+		parent::__construct($dbconfig);
+		$this->user = new User($dbconfig);
+	}
+	
 	public function __toString(){
 		return $this->email."<br>".$this->password;
 	}
@@ -19,8 +22,9 @@ Class LoginController extends Controller{
      */
 	public function isSigned(){
 		if(isset($_POST['signed'])) { // comes from login form
-			$this->email = $_POST['email'];
-			$this->password = $_POST['password'];
+			$attributes = array('email'=>$_POST['email'],'password'=>$_POST['password']);
+			$this->checkFields($attributes);
+			$this->user->setAttributes($attributes);
 			return true;
 		}
 		return false;
@@ -30,7 +34,7 @@ Class LoginController extends Controller{
      * Checks fields that comes from login form, if not redirects back to login form
      * @param $fields array with form's fields
      */
-	public function checkFields($fields){
+	private function checkFields($fields){
 		foreach ($fields as $field) {
 			if (!isset($field)) {
 				$dados = array('msg' => 'Todos os campos são necessários', 'type' => $error);
@@ -45,12 +49,12 @@ Class LoginController extends Controller{
      * Checks if a user exist in data base and redirects
      */
 	public function login(){
-		$user = User::checkCredentials($this->dbconfig,$this->email,$this->password);
-		$user = array_pop($user);
-		if($user != null) {
-			$_SESSION['id'] = $user['id'];
-			$_SESSION['name'] = $user['name'];
-			$_SESSION['admin'] = $user['admin'];
+		$this->user = $this->user->checkCredentials();
+		$this->user = array_pop($this->user);
+		if($this->user != null) {
+			$_SESSION['id'] = $this->user['id'];
+			$_SESSION['name'] = $this->user['name'];
+			$_SESSION['admin'] = $this->user['admin'];
 	  		header('location: ../view/index.php');
 	  		exit;
 	  	}
@@ -77,8 +81,6 @@ $controller = new LoginController($dbconfig);
 
 //Realiza login
 if ($controller->isSigned()) {
-	$fields = array($_POST['email'],$_POST['password']);
-	$controller->checkFields($fields);
 	$controller->login();
 }
 

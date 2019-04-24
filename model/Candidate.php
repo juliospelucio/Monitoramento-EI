@@ -3,6 +3,17 @@ require_once('Model.php');
 
 Class Candidate extends Model{
 
+	/*$attributes = array('name'=>$_POST['name'],
+						'birth_date'=>$_POST['birth_date'],
+						'tel1'=>$_POST['tel1'],
+						'tel2'=>$_POST['tel2'],
+						'inscription_date'=>$_POST['inscription_date'],
+						'neighborhood'=>$_POST['neighborhood'],
+						'street'=>$_POST['street'],
+						'number'=>$_POST['number'],
+						'father'=>$_POST['father'],
+						'mother'=>$_POST['mother']);
+*/
 	protected $name;
 
 	protected $birth_date;

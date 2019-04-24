@@ -44,14 +44,14 @@
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php /*echo $_SESSION['name']*/ ?></a>
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['name'] ?></a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUser">
                 <a class="dropdown-item" href="edit_user.php">Meus dados</a>
-                <!-- <?php if ($_SESSION['admin']==1): ?> -->
+                <?php if ($_SESSION['admin']): ?>
                 <a class="dropdown-item" href="users.php">Usuários</a>
-                <!-- <?php endif ?> -->
+                <?php endif ?>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="../controller/logoff.php">Sair</a>
+                <a class="dropdown-item" href="../controller/LoginController.php?logoff=1">Sair</a>
               </div>
             </li>
           </ul>

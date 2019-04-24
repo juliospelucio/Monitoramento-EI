@@ -1,24 +1,13 @@
 <?php
-// require_once $_SERVER['DOCUMENT_ROOT']."/Controle-Infantil/assets/helpers.php";
-require_once '..\model\User.php';
+require_once 'Controller.php';
 require_once('..\model\settings.config.php');
+require_once '..\model\User.php';
 
-Class LoginController {
+Class LoginController extends Controller{
 
 	private $email;
 
 	private $password;
-
-	private $dbconfig;
-
-	public static $error = "Erro";
-
-	public static $success = "Sucesso";
-
-	
-	public function __construct($dbconfig){
-		$this->dbconfig = $dbconfig;
-	}
 
 	public function __toString(){
 		return $this->email."<br>".$this->password;
@@ -61,6 +50,7 @@ Class LoginController {
 		if($user != null) {
 			$_SESSION['id'] = $user['id'];
 			$_SESSION['name'] = $user['name'];
+			$_SESSION['admin'] = $user['admin'];
 	  		header('location: ../view/index.php');
 	  		exit;
 	  	}
@@ -69,13 +59,30 @@ Class LoginController {
 		header('location: ../view/login.php');
   		exit;
 	}
+
+	/* Function logoff
+     * Redirects to view.login and destroy session
+     */
+	public function logoff(){
+		session_destroy();
+		header('location: ../view/login.php');
+		exit;
+	}
+	
 }
 
 // -------------------------------------------------------
 session_start();
 $controller = new LoginController($dbconfig);
+
+//Realiza login
 if ($controller->isSigned()) {
 	$fields = array($_POST['email'],$_POST['password']);
 	$controller->checkFields($fields);
 	$controller->login();
+}
+
+//Realiza logoff
+if (isset($_GET['logoff'])) {
+	$controller->logoff();
 }

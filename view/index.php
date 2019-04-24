@@ -7,7 +7,6 @@ require_once $_SERVER['DOCUMENT_ROOT']."/Monitoramento-EI/assets/helpers.php";
 
 require_once '../controller/IndexController.php';
 require_once 'template/header.php';
-//$rows = loadAllCandidates();
 ?>
 
 <!-- Page Content -->
@@ -52,8 +51,8 @@ require_once 'template/header.php';
     </div>
 
 <?php
-require_once '/template/footer.php';
-require_once '/template/delete_candidate_modal.php';
+require_once 'template/footer.php';
+require_once 'template/delete_candidate_modal.php';
 ?>
 <script type="text/javascript">
     datatableApplyIndex();

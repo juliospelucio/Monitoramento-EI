@@ -1,0 +1,10 @@
+<?php
+require_once 'Controller.php';
+require_once('..\model\settings.config.php');
+require_once '..\model\Candidate.php';
+
+Class LoginController extends Controller{
+
+	
+
+}

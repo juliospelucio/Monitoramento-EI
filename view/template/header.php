@@ -36,10 +36,18 @@
               <a class="nav-link" href="index.php">Home</a>
             </li>
             <li class="position-relative">
-              <a class="nav-link" href="new_candidate.php">Inserir</a>
-            </li>
-            <li class="position-relative">
               <a class="nav-link" href="categories.php">Categorias</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkInserir" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Inserir</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkInserir">
+                <a class="dropdown-item" href="candidates.php">Candidato</a>
+                <?php if ($_SESSION['admin']): ?>
+                <a class="dropdown-item" href="units.php">Unidade</a>
+                <?php endif ?>
+              </div>
             </li>
           </ul>
           <ul class="navbar-nav">

@@ -2,6 +2,7 @@
 require_once 'Controller.php';
 require_once('..\model\settings.config.php');
 require_once '..\model\Candidate.php';
+require_once '..\model\Parents.php';
 
 Class CandidateController extends Controller{
 

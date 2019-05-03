@@ -44,7 +44,6 @@ Class CandidateController extends Controller{
 			}
 		}
 	}
-
 }
 
 // -------------------------------------------------------

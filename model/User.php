@@ -18,7 +18,7 @@ Class User extends Model{
      */
 	function getUsers(){
 		try {
-			$sql = "SELECT * FROM `users` ";
+			$sql = "SELECT * FROM `users`";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql);
 		} catch (PDOException $e) {
@@ -106,5 +106,19 @@ Class User extends Model{
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
 		}		
+	}
+
+	/* Function getUsers
+     * Get all non directors from users table
+     * @return Associate array users
+     */
+	function getNonDirectors(){
+		try {
+			$sql = "SELECT a.name FROM `users` a INNER JOIN `units` b ON a.id != b.users_id";
+			$dbc = new DBConnection($this->dbconfig);
+			return $dbc->getQuery($sql);
+		} catch (PDOException $e) {
+			echo __LINE__.$e->getMessage();
+		}
 	}
 }

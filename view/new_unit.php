@@ -1,7 +1,7 @@
 <?php 
 require_once $_SERVER['DOCUMENT_ROOT']."/Controle-Infantil/assets/helpers.php";
 
-require_once '../controller/CandidateController.php';
+require_once '../controller/UnitController.php';
 require_once 'template/header.php';
 ?>
 
@@ -15,20 +15,24 @@ require_once 'template/header.php';
 	                    <div class="col-md-6 col-sm-12">
 	                    	<div class="input-group mb-md-3 mb-sm-1">
 							  <div class="input-group-prepend">
-							    <span class="input-group-text" id="basic-addon-name">Nome da Unidade</span>
-							  </div>
-							  <input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name">
+							  	<span class="input-group-text" id="basic-addon-name">Nome da Unidade</span>
+							</div>
+							<input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name">
 							</div>                      
 	                    </div>
 	                    <div class="col-md-6 col-sm-12">
 	                    	<div class="input-group mb-md-3 mb-sm-1">
-							  <div class="input-group-prepend">
-							    <span class="input-group-text" id="basic-addon-user">Responsável pela Unidade</span>
-							  </div>
-							  <input type="text" required class="form-control" id="user" name="user" aria-describedby="basic-addon-user">
+							  	<div class="input-group-prepend">
+							    	<span class="input-group-text" id="basic-addon-users_id">Responsável pela Unidade</span>
+							  	</div>
+							  	<select class="custom-select" id="users_id" name="users_id" aria-describedby="basic-addon-users_id">
+						  			<?php foreach ($users as $user): ?>
+									<option value="<?php echo $user['id'] ?>"><?php echo $user['name'] ?></option>
+						  			<?php endforeach ?>
+						  		</select>
 							</div>                      
 	                    </div>
-					</div>					
+					</div>
 
 					<div class="row my-md-2 justify-content-around mt-5">
 	                    <div class="form-group col-md-6 col-sm-6">
@@ -37,7 +41,7 @@ require_once 'template/header.php';
 	                    </div>
 	                    <div class="form-group col-md-6 col-sm-6">
 	                       <label class="sr-only" for="cancel">Cancelar</label>
-	                       <a href="index.php" class="btn btn-outline-secondary btn-block" id="cancel" name="cancel">Cancelar</a>
+	                       <a href="units.php" class="btn btn-outline-secondary btn-block" id="cancel" name="cancel">Cancelar</a>
 	                    </div>
 	                </div>            
                 </form>

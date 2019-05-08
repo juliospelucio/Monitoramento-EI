@@ -17,7 +17,7 @@ require_once 'template/header.php';
                     <p><h3><u>Unidades Cadastradas</u></h3></p>
                 </div>
                 <div class="col-09">
-                    <a href="new_unit.php"><img src="../assets/img/add.png" width="100" height="100"></a>
+                    <a href="new_unit.php"><img src="../assets/img/add.png" width="100" height="100" title="Adicionar Unidade"></a>
                 </div>
             </div>
             <table id="table_id" class="display table table-bordered table-hover">
@@ -33,11 +33,11 @@ require_once 'template/header.php';
                 <tbody>
                     <?php foreach ($rows as $row => $column): ?>
                     <tr>
-                        <td scope="row" class="text-center"><a href="edit_unit.php?id=<?php echo $column['id'] ?>"><img src="../assets/img/edit.png" width="30" height="30"></a></td>
+                        <td scope="row" class="text-center"><a href="edit_unit.php?id=<?php echo $column['id'] ?>"><img src="../assets/img/edit.png" width="30" height="30" title="Editar Unidade"></a></td>
                         <td scope="row" class="text-center"><?php echo $column['uname'] ?></td>
                         <td scope="row" class="text-center"><?php echo $column['usname'] ?></td>
                         <td scope="row" class="text-center">
-                            <a href="#" data-href="delete_candidate.php?id=<?php echo $column['id'] ?>" data-toggle="modal" data-target="#confirm-delete"><img src="../assets/img/delete.png" width="30" height="30"></a>
+                            <a href="#" data-href="delete_candidate.php?id=<?php echo $column['id'] ?>" data-toggle="modal" data-target="#confirm-delete"><img src="../assets/img/delete.png" width="30" height="30" title="Apagar Unidade"></a>
                         </td>
                     </tr>
                     <?php endforeach ?>

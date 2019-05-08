@@ -15,27 +15,27 @@ Class UnitController extends Controller {
 		$this->user = new User($dbconfig);
 	}
 
-	/* Function loadAllCandidates
-     * Get all candidate from cadidate table
+	/* Function validateSession
+     * Checks if a session is valid or redirects
      */
-	public function loadAllUnits(){
-		$units = new Unit($this->dbconfig);
-		return $units->getUnits();
+	public function validateSession(){
+		parent::validateSession();
 	}
 
 	/* Function checkFields
      * Checks fields that comes from new_unit form, if not redirects back to new_unit form
      * @param $fields array with form's fields
      */
-	private function checkFields($fields){
-		foreach ($fields as $field) {
-			if (!isset($field)) {
-				$dados = array('msg' => 'Todos os campos são necessários', 'type' => $error);
-				$_SESSION['data'] = $dados;
-				header('location: ../view/new_unit.php');
-				exit;
-			}
-		}
+	public function checkFields($fields){
+		parent::checkFields($fields);
+	}
+
+	/* Function loadAllCandidates
+     * Get all candidate from cadidate table
+     */
+	public function loadAllUnits(){
+		$units = new Unit($this->dbconfig);
+		return $units->getUnits();
 	}
 
 	/* Function insert
@@ -57,15 +57,48 @@ Class UnitController extends Controller {
 		exit;
 	}
 
+	/* Function edit
+     * Update unit data
+     * @param $fields array with form's fields
+     */
+	public function edit($fields){
+		$this->checkFields($fields);
+		if($this->unit->updateUnit($fields)){
+			$dados = array('msg' => 'Unidade cadastrada com sucesso', 'type' => $success);
+			$_SESSION['data'] = $dados;
+			header('location: ../view/units.php');
+			exit;
+		}
+		$dados = array('msg' => 'Erro ao cadastrar nova unidade', 'type' => $error);
+		$_SESSION['data'] = $dados;
+		header('location: ../view/units.php');
+		exit;
+	}
+
 	/* Function getDirectors
-     * Get all not associated diretors from users table, if table empty get all users
+     * Get all diretors not associated with a unit from users and units table, if table empty get a invalid user
      */
 	public function getDirectors(){
 		$users = $this->user->getNonDirectors();
 		if ($users) {
 			return $users;
 		}
-		return array (array('id'=>'','name'=>'Sem usuários disponíveis'));
+		if ($id) {//--------------------------AQUI MÉTODO PARA BUSCAR USUÁRIO QUE NÃO TENHA UNIDADE EDIT DIRECTOR----------------------
+			
+		}
+		return array (array('id'=>'','name'=>'Nenhum diretor disponível'));
+	}
+
+
+	/* Function getAllUsers
+     * Get all users from `users` table, if table empty get a invalid user
+     */
+	public function getAllUsers(){
+		$users = $this->user->getUsers();
+		if ($users) {
+			return $users;
+		}
+		return array (array('id'=>'','name'=>'Nenhum diretor disponível'));
 	}
 
 	/* Function getDirectors
@@ -85,14 +118,16 @@ session_start();
 $controller = new UnitController($dbconfig);
 $controller->validateSession();
 $rows = $controller->loadAllUnits();
-$users = $controller->getDirectors();
-$editUser = $controller->getUnit();
+$users = $controller->getAllUsers();
+$directors = $controller->getDirectors();
+$units = $controller->getUnit();
+
 
 if (isset($_POST['insert'])) {
 	$fields = array('name' => $_POST['name'],'users_id' =>$_POST['users_id']);
 	$controller->insert($fields);
 }
 if (isset($_POST['edit'])) {
-	$fields = array('name' => $_POST['name'],'users_id' =>$_POST['users_id']);
-	$controller->updateUnit($fields);//CRIAR MÉTODO NA CLASSE
+	$fields = array(":id"=>$_POST['id'],":name"=>$_POST['name'],":users_id"=>$_POST['users_id']);
+	$controller->edit($fields);
 }

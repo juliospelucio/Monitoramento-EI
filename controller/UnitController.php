@@ -65,8 +65,19 @@ Class UnitController extends Controller {
 		if ($users) {
 			return $users;
 		}
-		return $this->user->getUsers();
+		return array (array('id'=>'','name'=>'Sem usuários disponíveis'));
 	}
+
+	/* Function getDirectors
+     * Get all not associated diretors from users table, if table empty get all users
+     */
+	public function getUnit(){
+		if (isset($_GET['id'])) {
+			 return $this->unit->getUnitEdit($_GET['id']);
+		}
+		return array (array('name'=>'Unidade indisponível','id'=>''));
+	}
+
 }
 
 // -------------------------------------------------------
@@ -75,8 +86,13 @@ $controller = new UnitController($dbconfig);
 $controller->validateSession();
 $rows = $controller->loadAllUnits();
 $users = $controller->getDirectors();
+$editUser = $controller->getUnit();
 
 if (isset($_POST['insert'])) {
 	$fields = array('name' => $_POST['name'],'users_id' =>$_POST['users_id']);
 	$controller->insert($fields);
+}
+if (isset($_POST['edit'])) {
+	$fields = array('name' => $_POST['name'],'users_id' =>$_POST['users_id']);
+	$controller->updateUnit($fields);//CRIAR MÉTODO NA CLASSE
 }

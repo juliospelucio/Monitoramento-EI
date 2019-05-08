@@ -25,9 +25,11 @@ require_once 'template/header.php';
 							  	<div class="input-group-prepend">
 							    	<span class="input-group-text" id="basic-addon-users_id">Responsável pela Unidade</span>
 							  	</div>
-							  	<select class="custom-select" id="users_id" name="users_id" aria-describedby="basic-addon-users_id">
+							  	<select class="custom-select" id="users_id" name="users_id" aria-describedby="basic-addon-users_id"><!-- ADICIONAR UM CAMPO DISABLE CASO NÃO HOUVER USUÁRIOS -->
 						  			<?php foreach ($users as $user): ?>
-									<option value="<?php echo $user['id'] ?>"><?php echo $user['name'] ?></option>
+									<option <?php echo "value=".$user['id'] ?>>
+										<?php echo $user['name'] ?>
+									</option>
 						  			<?php endforeach ?>
 						  		</select>
 							</div>                      

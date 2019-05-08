@@ -114,7 +114,7 @@ Class User extends Model{
      */
 	function getNonDirectors(){
 		try {
-			$sql = "SELECT a.name FROM `users` a INNER JOIN `units` b ON a.id != b.users_id";
+			$sql = "SELECT a.name,a.id FROM `users` a INNER JOIN `units` b ON a.id != b.users_id";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql);
 		} catch (PDOException $e) {

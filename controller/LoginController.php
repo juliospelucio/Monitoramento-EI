@@ -23,26 +23,11 @@ Class LoginController extends Controller{
 	public function isSigned(){
 		if(isset($_POST['signed'])) { // comes from login form
 			$attributes = array('email'=>$_POST['email'],'password'=>$_POST['password']);
-			$this->checkFields($attributes);
+			parent::checkFields($attributes);
 			$this->user->setAttributes($attributes);
 			return true;
 		}
 		return false;
-	}
-
-	/* Function checkFields
-     * Checks fields that comes from login form, if not redirects back to login form
-     * @param $fields array with form's fields
-     */
-	private function checkFields($fields){
-		foreach ($fields as $field) {
-			if (!isset($field)) {
-				$dados = array('msg' => 'Todos os campos são necessários', 'type' => $error);
-				$_SESSION['data'] = $dados;
-				header('location: ../view/login.php');
-				exit;
-			}
-		}
 	}
 
 	/* Function login

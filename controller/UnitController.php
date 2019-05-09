@@ -13,21 +13,7 @@ Class UnitController extends Controller {
 		parent::__construct($dbconfig);
 		$this->unit = new Unit($dbconfig);
 		$this->user = new User($dbconfig);
-	}
-
-	/* Function validateSession
-     * Checks if a session is valid or redirects
-     */
-	public function validateSession(){
 		parent::validateSession();
-	}
-
-	/* Function checkFields
-     * Checks fields that comes from new_unit form, if not redirects back to new_unit form
-     * @param $fields array with form's fields
-     */
-	public function checkFields($fields){
-		parent::checkFields($fields);
 	}
 
 	/* Function loadAllCandidates
@@ -43,15 +29,15 @@ Class UnitController extends Controller {
      * @param $fields array with form's fields
      */
 	public function insert($fields){
-		$this->checkFields($fields);
+		parent::checkFields($fields);
 		$this->unit->setAttributes($fields);
 		if($this->unit->insertUnit()){
-			$dados = array('msg' => 'Unidade cadastrada com sucesso', 'type' => $success);
+			$dados = array('msg' => 'Unidade cadastrada com sucesso', 'type' => parent::$success);
 			$_SESSION['data'] = $dados;
 			header('location: ../view/units.php');
 			exit;
 		}
-		$dados = array('msg' => 'Erro ao cadastrar nova unidade', 'type' => $error);
+		$dados = array('msg' => 'Erro ao cadastrar nova unidade', 'type' => parent::$error);
 		$_SESSION['data'] = $dados;
 		header('location: ../view/units.php');
 		exit;
@@ -64,12 +50,29 @@ Class UnitController extends Controller {
 	public function edit($fields){
 		$this->checkFields($fields);
 		if($this->unit->updateUnit($fields)){
-			$dados = array('msg' => 'Unidade cadastrada com sucesso', 'type' => $success);
+			$dados = array('msg' => 'Unidade editada com sucesso', 'type' => parent::$success);
 			$_SESSION['data'] = $dados;
 			header('location: ../view/units.php');
 			exit;
 		}
-		$dados = array('msg' => 'Erro ao cadastrar nova unidade', 'type' => $error);
+		$dados = array('msg' => 'Erro ao editar a unidade', 'type' => parent::$error);
+		$_SESSION['data'] = $dados;
+		header('location: ../view/units.php');
+		exit;
+	}
+
+	/* Function delete
+     * Delete a unit data
+     * @param $fields array with form's fields
+     */
+	public function delete($id){
+		if ($this->user->deleteUnit($id)) {
+			$dados = array('msg' => 'Unidade apagada com sucesso', 'type' => parent::$success);
+			$_SESSION['data'] = $dados;
+			header('location: ../view/units.php');
+			exit;
+		}
+		$dados = array('msg' => 'Erro ao apagada unidade', 'type' => parent::$error);
 		$_SESSION['data'] = $dados;
 		header('location: ../view/units.php');
 		exit;
@@ -116,7 +119,6 @@ Class UnitController extends Controller {
 // -------------------------------------------------------
 session_start();
 $controller = new UnitController($dbconfig);
-$controller->validateSession();
 $rows = $controller->loadAllUnits();
 $users = $controller->getAllUsers();
 $directors = $controller->getDirectors();
@@ -130,4 +132,11 @@ if (isset($_POST['insert'])) {
 if (isset($_POST['edit'])) {
 	$fields = array(":id"=>$_POST['id'],":name"=>$_POST['name'],":users_id"=>$_POST['users_id']);
 	$controller->edit($fields);
+}
+
+echo $_GET['delete'];
+echo $_GET['id'];
+
+if (isset($_GET['delete'])) {
+	$controller->delete($_GET['id']);
 }

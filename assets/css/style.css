@@ -182,10 +182,14 @@ transform: translateY(0.625rem);
     background-color: #007bff;
 }
 
-/* DROPDOWN COLOR 
+/* DROPDOWN MENU 
 ------------------------------*/
 .navbar-nav > li > .dropdown-menu a:focus{ 
   background-color: #cecece; 
+}
+
+.dropdown:hover>.dropdown-menu {
+  display: block;
 }
 
 /* DATATABLE BOOTSTRAP 4

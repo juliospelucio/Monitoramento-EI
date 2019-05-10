@@ -3,6 +3,17 @@ require_once('Model.php');
 
 Class Candidate extends Model{
 
+	/*$attributes = array('name'=>$_POST['name'],
+						'birth_date'=>$_POST['birth_date'],
+						'tel1'=>$_POST['tel1'],
+						'tel2'=>$_POST['tel2'],
+						'inscription_date'=>$_POST['inscription_date'],
+						'neighborhood'=>$_POST['neighborhood'],
+						'street'=>$_POST['street'],
+						'number'=>$_POST['number'],
+						'father'=>$_POST['father'],
+						'mother'=>$_POST['mother']);
+*/
 	protected $name;
 
 	protected $birth_date;
@@ -26,7 +37,9 @@ Class Candidate extends Model{
      */
 	function getCandidates(){
 		try {
-			$sql = "SELECT * FROM `candidates` ";
+			$sql = "SELECT c.id,c.name,c.birth_date,c.tel1,c.tel2,
+			c.inscription_date,c.situation,p.mother,p.father 
+			FROM `candidates` c INNER JOIN `parents` p ON c.parents_id = p.id ";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql);
 		} catch (PDOException $e) {
@@ -41,7 +54,8 @@ Class Candidate extends Model{
      */
 	function getCandidate($id){
 		try {
-			$sql = "SELECT * FROM `candidates` WHERE id = :id";
+			$sql = "SELECT c.id,c.name,c.birth_date,c.tel1,c.tel2,
+			c.inscription_date,c.situation,p.mother,p.father FROM `candidates` c INNER JOIN `parents` p ON c.parents_id = p.id WHERE c.id = :id";
 			$params = array(':id' => $id);
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql,$params);

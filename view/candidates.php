@@ -12,7 +12,15 @@ require_once 'template/header.php';
 <!-- Page Content -->
     <div id="page-content-wrapper" style="width: 100%">
         <section class="container-fluid">
-            <p><h3><u>Bem vindo <?php echo $_SESSION['name'] ?></u></h3></p><br>
+            <div class="row justify-content-around"> 
+                <div class="col-03">
+                    <p><h3><u>Usuários Cadastrados</u></h3></p>
+                </div>
+                <div class="col-09">
+                    <img src="../assets/img/add.png" width="100" height="100">
+                </div>
+            </div>
+            <br>
             <table id="table_id" class="display table table-bordered table-hover">
                 <thead>
                     <!-- 15306 default column size javascrip file  -->

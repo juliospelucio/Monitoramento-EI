@@ -18,7 +18,7 @@ Class User extends Model{
      */
 	function getUsers(){
 		try {
-			$sql = "SELECT * FROM `users` ";
+			$sql = "SELECT * FROM `users`";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql);
 		} catch (PDOException $e) {
@@ -97,14 +97,29 @@ Class User extends Model{
      * @param $password User's password in database
      * return a single row with a User
      */
-	public static function checkCredentials($dbconfig,$email, $password){
+	public function checkCredentials(){
 		try {
 			$sql = "SELECT * FROM `users` WHERE email = :email AND password = :password LIMIT 1";
-			$params = array(':email' => $email,':password' => $password);
-			$dbc = new DBConnection($dbconfig);
+			$params = array(':email' => $this->email,':password' => $this->password);
+			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql,$params);
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
 		}		
+	}
+
+	/* Function getUsers
+     * Get all non directors from users table
+     * @return Associate array users
+     */
+	function getNonDirectors(){
+		try {
+			$sql = 
+			"SELECT DISTINCT a.name,a.id FROM `users` a LEFT OUTER JOIN `units` b ON a.id = b.users_id WHERE b.users_id IS NULL";
+			$dbc = new DBConnection($this->dbconfig);
+			return $dbc->getQuery($sql);
+		} catch (PDOException $e) {
+			echo __LINE__.$e->getMessage();
+		}
 	}
 }

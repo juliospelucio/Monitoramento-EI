@@ -1,13 +1,13 @@
 <?php 
 
 
-/*Abs Path*/
+/*Absolute Path*/
 function abspath(){
 	return dirname(__DIR__);
 }
 
 function myURL(){
-	return 'http://localhost/Controle-Infantil/';
+	return 'http://localhost/Monitoramento-EI/';
 }
 
 
@@ -126,9 +126,9 @@ function formatDate($string){
 /*Activates a modal success or error*/
 function triggerModal(){
     if ($_SESSION['data']['type']=="Erro") {
-        include_once abspath()."/view/template/frontend/modalError.php";
+        include_once abspath()."/view/template/modalError.php";
     } else if ($_SESSION['data']['type']=="Sucesso") {
-        include_once abspath()."/view/template/frontend/modalSuccess.php";
+        include_once abspath()."/view/template/modalSuccess.php";
     }
     //print_r($_SESSION['data']);
     // unset($_SESSION['data']['type']);

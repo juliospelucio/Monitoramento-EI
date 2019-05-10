@@ -13,7 +13,7 @@ Class Unit extends Model{
      */
 	function getUnits(){
 		try {
-			$sql = "SELECT * FROM `units` ";
+			$sql = "SELECT a.id, a.name aname, b.name bname FROM `units` a INNER JOIN `users` b ON a.users_id = b.id";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql);
 		} catch (PDOException $e) {
@@ -78,6 +78,22 @@ Class Unit extends Model{
 			$sql = "UPDATE `units` SET name = :name, users_id = :users_id WHERE id = :id";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->runQuery($sql,$params);
+		} catch (PDOException $e) {
+			echo __LINE__.$e->getMessage();
+		}
+	}
+
+	/* Function getUnit
+     * Get a unit by id
+     * @param $id unit in database
+     * @return a single row with a Unit
+     */
+	function getUnitEdit($id){
+		try {
+			$sql = "SELECT a.id aid, a.name aname, b.id bid FROM `units` a INNER JOIN `users` b ON a.users_id = b.id WHERE a.id = :id";
+			$params = array(':id' => $id);
+			$dbc = new DBConnection($this->dbconfig);
+			return $dbc->getQuery($sql,$params);
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
 		}

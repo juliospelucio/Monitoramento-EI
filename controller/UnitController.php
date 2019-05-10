@@ -66,7 +66,7 @@ Class UnitController extends Controller {
      * @param $fields array with form's fields
      */
 	public function delete($id){
-		if ($this->user->deleteUnit($id)) {
+		if ($this->unit->deleteUnit($id)) {
 			$dados = array('msg' => 'Unidade apagada com sucesso', 'type' => parent::$success);
 			$_SESSION['data'] = $dados;
 			header('location: ../view/units.php');
@@ -86,7 +86,7 @@ Class UnitController extends Controller {
 		if ($users) {
 			return $users;
 		}
-		if ($id) {//--------------------------AQUI MÉTODO PARA BUSCAR USUÁRIO QUE NÃO TENHA UNIDADE EDIT DIRECTOR----------------------
+		if ($id) {//--------------------------AQUI MÉTODO PARA BUSCAR USUÁRIO QUE NÃO TENHA UNIDADE (EDIT DIRECTOR)----------------------
 			
 		}
 		return array (array('id'=>'','name'=>'Nenhum diretor disponível'));
@@ -107,23 +107,25 @@ Class UnitController extends Controller {
 	/* Function getDirectors
      * Get all not associated diretors from users table, if table empty get all users
      */
-	public function getUnit(){
-		if (isset($_GET['id'])) {
-			 return $this->unit->getUnitEdit($_GET['id']);
-		}
+	public function getUnit($id){
+	 	$unit =  $this->unit->getUnitEdit($id);
+	 	if ($unit) {
+	 		return $this->unit->getUnitEdit($id);
+	 	}
 		return array (array('name'=>'Unidade indisponível','id'=>''));
 	}
-
 }
 
-// -------------------------------------------------------
+// CHAMADA DE MÉTODOS -------------------------------------------------------
 session_start();
 $controller = new UnitController($dbconfig);
 $rows = $controller->loadAllUnits();
 $users = $controller->getAllUsers();
 $directors = $controller->getDirectors();
-$units = $controller->getUnit();
 
+if (isset($_GET['id'])) {
+	$units = $controller->getUnit($_GET['id']);
+}
 
 if (isset($_POST['insert'])) {
 	$fields = array('name' => $_POST['name'],'users_id' =>$_POST['users_id']);
@@ -133,9 +135,6 @@ if (isset($_POST['edit'])) {
 	$fields = array(":id"=>$_POST['id'],":name"=>$_POST['name'],":users_id"=>$_POST['users_id']);
 	$controller->edit($fields);
 }
-
-echo $_GET['delete'];
-echo $_GET['id'];
 
 if (isset($_GET['delete'])) {
 	$controller->delete($_GET['id']);

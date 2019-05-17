@@ -17,7 +17,7 @@ require_once 'template/header.php';
                     <p><h3><u>Usuários Cadastrados</u></h3></p>
                 </div>
                 <div class="col-09">
-                    <img src="../assets/img/add.png" width="100" height="100">
+                    <a href="new_candidate.php"><img src="../assets/img/add.png" width="100" height="100"></a>
                 </div>
             </div>
             <br>

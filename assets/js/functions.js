@@ -93,6 +93,6 @@ function setCorrectPhoneMask(element){
 }
 
  function applyMask(){
-    setupPhoneMaskOnField('#tel');
+    setupPhoneMaskOnField('#tel1');
     setupPhoneMaskOnField('#tel2');
 };

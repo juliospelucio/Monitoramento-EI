@@ -1,8 +1,10 @@
 <?php
 require_once 'Controller.php';
-require_once('..\model\settings.config.php');
-require_once '..\model\Candidate.php';
-require_once '..\model\Parents.php';
+require_once '../assets/helpers.php';
+require_once '../model/settings.config.php';
+require_once '../model/Candidate.php';
+require_once '../model/Parents.php';
+require_once '../model/Unit.php';
 
 Class CandidateController extends Controller{
 
@@ -10,47 +12,97 @@ Class CandidateController extends Controller{
 
 	private $parents;
 
+	private $unit;
+
 	public function __construct($dbconfig){
 		parent::__construct($dbconfig);
 		$this->candidate = new Candidate($dbconfig);
 		$this->parents = new Parents($dbconfig);
+		$this->unit = new Unit($dbconfig);
 	}
 
-	/* Function isInserted
-     * Checks if form is submitted
-     * @return boolean true if is insert.
-     */
-	public function isInserted(){
-		if(isset($_POST['insert'])) { // comes from new_candidate form
-			checkFields();
-			return true;
-		}
-		return false;
-	}
-
-	/* Function checkFields
-     * Checks fields that comes from new_candidate form, if not redirects back to new_candidate form
+	/* Function insertParents
+     * Insert a new Parents into parents table
      * @param $fields array with form's fields
      */
-	public function checkFields($fields){
-		foreach ($fields as $field) {
-			if (!isset($field)) {
-				$this->candidate->setAttributes($attributes);
-				$this->parents->setAttributes($attributes);
-				$dados = array('msg' => 'Todos os campos são necessários', 'type' => $error);
-				$_SESSION['data'] = $dados;
-				header('location: ../view/new_candidate.php');
-				exit;
-			}
+	private function insertParents($fields){
+		$this->parents->setAttributes($fields);
+		if($this->parents->insertParents()){
+			header('location: ../view/candidates.php');
+			exit;
 		}
+		$dados = array('msg' => 'Erro ao cadastrar pais', 'type' => parent::$error);
+		$_SESSION['data'] = $dados;
+		header('location: ../view/candidates.php');
+		exit;
+	}
+
+	/* Function insert
+     * Insert a new Candidate into candidates table
+     * @param $fields array with form's fields
+     */
+	public function insert($fields){
+		parent::checkFields($fields);
+		/*echo "<pre>";
+		print_r($fields);
+		echo "</pre>";
+		exit;*/
+		$this->candidate->setAttributes($fields);
+		/*echo "$this->candidate";
+		exit;*/
+		if($this->candidate->insertCandidate()){
+			$dados = array('msg' => 'Candidato cadastrado com sucesso', 'type' => parent::$success);
+			$_SESSION['data'] = $dados;
+			header('location: ../view/candidates.php');
+			exit;
+		}
+		$dados = array('msg' => 'Erro ao cadastrar novo candidato', 'type' => parent::$error);
+		$_SESSION['data'] = $dados;
+		header('location: ../view/candidates.php');
+		exit;
+	}
+
+	/* Function loadAllCandidates
+     * Get all candidate from cadidate table
+     */
+	public function loadAllCandidates(){
+		$candidates = new Candidate($this->dbconfig);
+		return $candidates->getCandidates();
+	}
+
+	/* Function loadAllUnits
+     * Get all units from units table
+     */
+	public function loadAllUnits(){
+		$units = new Unit($this->dbconfig);
+		return $units->getUnits();
 	}
 }
 
 // -------------------------------------------------------
 session_start();
 $controller = new CandidateController($dbconfig);
+$rows = $controller->loadAllCandidates();
+$units = $controller->loadAllUnits();
 
-if (isset($_POST['insert'])) {
+if(isset($_POST['insert'])) { // comes from new_candidate form
+	$controller->filename = $_POST['filename'];
+	$fields = array('name' => $_POST['name'],
+					'birth_date' => $_POST['birth_date'],
+					'tel1' => numberTransform($_POST['tel1']),
+					'tel2' => numberTransform($_POST['tel2']),
+					'inscription_date' => date("Y-m-d"),
+					'situation' => $_POST['situation'],
+					'father' => $_POST['father'],
+					'mother' => $_POST['mother']);
+	$controller->insert($fields);
+}
+
+
+
+
+
+/*if (isset($_POST['insert'])) {
 	if (!isset($_POST['name']) || !isset($_POST['birth']) || !isset($_POST['tel']) || !isset($_POST['tel2']) || !isset($_POST['inscription'])  || !isset($_POST['neighborhood']) || !isset($_POST['street'])  || !isset($_POST['number'])  || !isset($_POST['father'])  || !isset($_POST['mother'])) {
 
 		$data = array('msg' => 'Campos Inválidos preecha novamente.', 'type' => $error);
@@ -79,7 +131,7 @@ if (isset($_POST['insert'])) {
 		header('location: ../view/index.php');
 		exit;
 	}
-}
+}*/
 
 
 

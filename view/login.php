@@ -1,6 +1,7 @@
 <?php 
 require_once '../assets/helpers.php';
 require_once '../controller/LoginController.php';
+$controller->filename = basename(__FILE__);
 ?>
 <!doctype html>
 <html lang="pt-br">

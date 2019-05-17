@@ -28,7 +28,15 @@ Class Candidate extends Model{
 
 	protected $units_id;
 
-	protected $parents_id;
+	protected $address;
+
+	protected $number;
+
+	protected $neighborhood;
+
+	protected $father;
+	
+	protected $mother;
 
 	
 	/* Function getCandidates
@@ -70,12 +78,33 @@ Class Candidate extends Model{
      */
 	function insertCandidate(){
 		try {
-			$sql = "INSERT INTO `candidates` (name, birth_date, tel1, tel2, inscription_date, situation, units_id, parents_id) VALUES (:name, :birth_date, :tel1, :tel2, :inscription_date, :situation, :units_id, :parents_id)";
-			$params = array(":name"=>$this->name, ":birth_date"=>$this->birth_date,
+			// $sql = "INSERT INTO `candidates` (name, birth_date, tel1, tel2, inscription_date, situation, units_id, parents_id) VALUES (:name, :birth_date, :tel1, :tel2, :inscription_date, :situation, :units_id, :parents_id)";
+
+
+		$sql = "INSERT INTO parents (father,mother) VALUES (:father,:mother);
+		SET @parents_id = LAST_INSERT_ID();
+
+		INSERT IGNORE INTO candidates (name,birth_date,tel1,tel2,inscription_date,situation,units_id,parents_id) VALUES (:name,:birth_date,:tel1,:tel2,:inscription_date,:situation,NULL,@parents_id);
+		SET @candidate_id = LAST_INSERT_ID();
+
+		INSERT INTO addresses (address,number,neighborhood) VALUES (:address,:number,:neighborhood);
+		SET @address_id = LAST_INSERT_ID();
+
+		INSERT	INTO addresses_has_candidates (addresses_id,candidates_id) VALUES (@address_id,@candidate_id);";
+		//MUDAR NO BANCO A COLUNA units_id
+
+			$params = array(":name"=>$this->name,
+							":birth_date"=>$this->birth_date,
 			 				":tel1"=>$this->tel1, ":tel2"=>$this->tel2,
 			 				":inscription_date"=>$this->inscription_date,
-			 				":situation"=>$this->situation, 
-			 				":units_id"=>$this->units_id, ":parents_id"=>$this->parents_id);
+			 				":situation"=>$this->situation,
+			 				":parents_id"=>$this->parents_id,
+			 				":address"=>$this->address,
+			 				":number"=>$this->number,
+			 				":neighborhood"=>$this->neighborhood,
+			 				":father"=>$this->father,
+			 				":mother"=>$this->mother
+			 				);
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->runQuery($sql,$params);
 		} catch (PDOException $e) {

@@ -1,5 +1,5 @@
 <?php 
-require_once $_SERVER['DOCUMENT_ROOT']."/Controle-Infantil/assets/helpers.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/Monitoramento-EI/assets/helpers.php";
 
 require_once '../controller/CandidateController.php';
 require_once 'template/header.php';
@@ -23,36 +23,9 @@ require_once 'template/header.php';
 	                    <div class="col-md-4 col-sm-12">
 	                    	<div class="input-group mb-md-3 mb-sm-1">
 							  <div class="input-group-prepend">
-							    <span class="input-group-text" id="basic-addon-birth">Data de Nascimento</span>
+							    <span class="input-group-text" id="basic-addon-birth_date">Data de Nascimento</span>
 							  </div>
-							  <input type="date" required class="form-control" id="birth" name="birth" aria-describedby="basic-addon-birth">
-							</div>
-	                    </div>
-					</div>
-
-					<div class="row my-md-2"> 
-	                    <div class="col-md-4 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
-							  <div class="input-group-prepend">
-							    <span class="input-group-text" id="basic-addon-tel">Telefone</span>
-							  </div>
-							  <input type="tel" required class="form-control" id="tel" name="tel" aria-describedby="basic-addon-tel">
-							</div>                      
-	                    </div>
-	                    <div class="col-md-4 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
-							  <div class="input-group-prepend">
-							    <span class="input-group-text" id="basic-addon-tel2">telefone</span>
-							  </div>
-							  <input type="tel" required class="form-control" id="tel2" name="tel2" aria-describedby="basic-addon-tel2">
-							</div>                      
-	                    </div>
-	                    <div class="col-md-4 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
-							  <div class="input-group-prepend">
-							    <span class="input-group-text" id="basic-addon-inscription">Data do Cadastro</span>
-							  </div>
-							  <input type="date" required class="form-control" id="inscription" name="inscription" aria-describedby="basic-addon-inscription">
+							  <input type="date" required class="form-control" id="birth_date" name="birth_date" aria-describedby="basic-addon-birth_date">
 							</div>
 	                    </div>
 					</div>
@@ -102,6 +75,62 @@ require_once 'template/header.php';
 							</div>
 	                    </div>
 					</div>
+
+					<div class="row my-md-2"> 
+	                    <div class="col-md-3 col-sm-12">
+	                    	<div class="input-group mb-md-3 mb-sm-1">
+							  <div class="input-group-prepend">
+							    <span class="input-group-text" id="basic-addon-tel1">telefone</span>
+							  </div>
+							  <input type="tel" required class="form-control" id="tel1" name="tel1" aria-describedby="basic-addon-tel1">
+							</div>                      
+	                    </div>
+	                    <div class="col-md-3 col-sm-12">
+	                    	<div class="input-group mb-md-3 mb-sm-1">
+							  <div class="input-group-prepend">
+							    <span class="input-group-text" id="basic-addon-tel2">telefone</span>
+							  </div>
+							  <input type="tel" required class="form-control" id="tel2" name="tel2" aria-describedby="basic-addon-tel2">
+							</div>                      
+	                    </div>
+	                    <!-- ADICIONAR NA EDIÇÃO DE CANDIDATO  -->
+	                    <!-- <div class="col-md-4 col-sm-12">
+	                    	<div class="input-group mb-md-3 mb-sm-1">
+	                    							  <div class="input-group-prepend">
+	                    							    <span class="input-group-text" id="basic-addon-inscription">Data do Cadastro</span>
+	                    							  </div>
+	                    							  <input type="date" required class="form-control" id="inscription" name="inscription" aria-describedby="basic-addon-inscription">
+	                    							</div>
+	                    </div> -->
+	                    <div class="col-md-3 col-sm-12">
+	                    	<div class="input-group mb-md-3 mb-sm-1">
+							  <div class="input-group-prepend">
+							    <span class="input-group-text" id="basic-addon-situation">Situação</span>
+							  </div>
+							  <select class="custom-select" id="situation" name="situation" aria-describedby="basic-addon-situation">
+									<option value="aguardando" selected>Aguardando</option>
+									<option value="confirmado">Confirmado</option>
+									<option value="dessistente">Dessistente</option>
+						  		</select>
+							</div>
+	                    </div>
+	                    <div class="col-md-3 col-sm-12">
+	                    	<div class="input-group mb-md-3 mb-sm-1">
+							  <div class="input-group-prepend">
+							    <span class="input-group-text" id="basic-addon-situation">Unidade</span>
+							  </div>
+							  	<select class="custom-select" id="units_id" name="units_id" aria-describedby="basic-addon-units_id">
+						  			<?php foreach ($units as $unit): ?>
+									<option <?php echo "value=".$unit['id'] ?>>
+										<?php echo $unit['aname'] ?>
+									</option>
+						  			<?php endforeach ?>
+						  		</select>
+							</div>
+	                    </div>
+					</div>
+
+					<input type="hidden" id="filename" name="filename" value="<?php echo basename(__FILE__) ?>">
 
 					<div class="row my-md-2 justify-content-around mt-5">
 	                    <div class="form-group col-md-6 col-sm-6">

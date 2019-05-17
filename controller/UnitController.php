@@ -86,9 +86,7 @@ Class UnitController extends Controller {
 		if ($users) {
 			return $users;
 		}
-		if ($id) {//--------------------------AQUI MÉTODO PARA BUSCAR USUÁRIO QUE NÃO TENHA UNIDADE (EDIT DIRECTOR)----------------------
-			
-		}
+		
 		return array (array('id'=>'','name'=>'Nenhum diretor disponível'));
 	}
 
@@ -120,7 +118,7 @@ Class UnitController extends Controller {
 session_start();
 $controller = new UnitController($dbconfig);
 $rows = $controller->loadAllUnits();
-$users = $controller->getAllUsers();
+// $users = $controller->getAllUsers();
 $directors = $controller->getDirectors();
 
 if (isset($_GET['id'])) {

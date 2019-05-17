@@ -3,6 +3,7 @@ require_once $_SERVER['DOCUMENT_ROOT']."/Controle-Infantil/assets/helpers.php";
 
 require_once '../controller/UnitController.php';
 require_once 'template/header.php';
+$controller->filename = basename(__FILE__);
 ?>
 
 <!-- Page Content -->

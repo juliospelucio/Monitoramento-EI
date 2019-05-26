@@ -4,7 +4,7 @@
         <span>Secretaria Municipal de Educação - Machado/MG</span>
       </div>
       <div class="container text-muted text-center align-content-around">
-        <span>Júlio Pelúcio &copy; 2019</span>
+        <span>MVEI &copy; 2019</span>
       </div>
     </footer>
     <!-- Footer fim -->

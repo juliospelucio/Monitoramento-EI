@@ -1,51 +1,44 @@
 <?php 
 require_once $_SERVER['DOCUMENT_ROOT']."/Monitoramento-EI/assets/helpers.php";
 
-require_once '../controller/UnitController.php';
+require_once '../controller/UserController.php';
 require_once 'template/header.php';
-$controller->setFileName = basename(__FILE__);
+$controller->filename = basename(__FILE__);
 ?>
+
+
 
 <!-- Page Content -->
 	<div class="container">
         <div id="page-content-wrapper">
             <section class="container-fluid text-center">
                 <h1 class="mb-5">Atualizar Dados</h1>
-                <form action="../controller/UnitController.php" method="post" class="was-validated">
+                <form action="../controller/UserController.php" method="post" class="was-validated">
 	                <div class="row my-md-2"> 
 	                    <div class="col-md-6 col-sm-12">
 	                    	<div class="input-group mb-md-3 mb-sm-1">
 	                    		<div class="input-group-prepend">
-							  		<span class="input-group-text" id="basic-addon-name">Nome da Unidade</span>
+							  		<span class="input-group-text" id="basic-addon-name">Nome do Usuário</span>
 							  	</div>
-							  	<?php foreach ($units as $user): ?>
-							  	<input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name" value="<?php echo $user['aname'] ?>">
+							  	<input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name" value="<?php echo $user['name'] ?>">
 							  	<div class="invalid-feedback">
 					          		Por favor escolha um nome válido.
 						        </div>	
-							  	<?php endforeach ?>
 							</div>                      
-                                <input type="hidden" id="id" name="id" value="<?php echo $user['aid'] ?>">
 	                    </div>
 	                    <div class="col-md-6 col-sm-12">
 	                    	<div class="input-group mb-md-3 mb-sm-1">
-							  	<div class="input-group-prepend">
-							    	<span class="input-group-text" id="basic-addon-users_id">Responsável pela Unidade</span>
+	                    		<div class="input-group-prepend">
+							  		<span class="input-group-text" id="basic-addon-email">Email</span>
 							  	</div>
-							  	<select class="custom-select" id="users_id" name="users_id" aria-describedby="basic-addon-users_id"><!-- ADICIONAR UM CAMPO DISABLE CASO NÃO HOUVER USUÁRIOS -->
-						  			<?php foreach ($users as $user): ?>
-									<option 
-									<?php 
-										echo "value='".$user['id']."'"; 
-										if($units[0]['bid']==$user['id'])
-											echo "selected" 
-									?>>
-									<?php echo $user['name'] ?>
-									</option>
-						  			<?php endforeach ?>
-						  		</select>
+							  	<input type="text" required class="form-control" id="email" name="email" aria-describedby="basic-addon-email" value="<?php echo $user['email'] ?>">
+							  	<div class="invalid-feedback">
+					          		Por favor escolha um email válido.
+						        </div>	
 							</div>                      
 	                    </div>
+                        <input type="hidden" id="id" name="id" value="<?php echo $user['id'] ?>">
+                        <input type="hidden" id="password" name="password" value="<?php echo $user['password'] ?>">
 					</div>
 
 					<div class="row mt-md-5 justify-content-md-around">
@@ -55,7 +48,7 @@ $controller->setFileName = basename(__FILE__);
 	                    </div>
 	                    <div class="form-group col-md-6 col-sm-6">
 	                       <label class="sr-only" for="cancel">Cancelar</label>
-	                       <a href="units.php" class="btn btn-outline-secondary btn-block" id="cancel" name="cancel">Cancelar</a>
+	                       <a href="users.php" class="btn btn-outline-secondary btn-block" id="cancel" name="cancel">Cancelar</a>
 	                    </div>
 	                </div>
 	            </form>
@@ -69,9 +62,7 @@ $controller->setFileName = basename(__FILE__);
  <!-- EMPTY DIV - PUSH FOOTER -->
     <div class="container p-5 m-2">
     </div>
-
 <?php
 require_once 'template/footer.php';
-require_once 'template/delete_candidate_modal.php';
 ?>
 <?php if (isset($_SESSION['data']))triggerModal() ?>

@@ -24,6 +24,18 @@ Class UnitController extends Controller {
 		return $units->getUnits();
 	}
 
+	/* Function getUnit
+     * Get a unit by it's Id
+     * @param unit's id
+     */
+	public function getUnit($id){
+	 	$unit =  $this->unit->getUnitEdit($id);
+	 	if (!$unit) {
+			return array (array('name'=>'Unidade indisponível','id'=>''));
+	 	}
+ 		return $this->unit->getUnitEdit($id);
+	}
+
 	/* Function insert
      * Insert a new Unit and associate with a user
      * @param $fields array with form's fields
@@ -72,7 +84,7 @@ Class UnitController extends Controller {
 			header('location: ../view/units.php');
 			exit;
 		}
-		$dados = array('msg' => 'Erro ao apagada unidade', 'type' => parent::$error);
+		$dados = array('msg' => 'Erro a apagar unidade', 'type' => parent::$error);
 		$_SESSION['data'] = $dados;
 		header('location: ../view/units.php');
 		exit;
@@ -102,23 +114,13 @@ Class UnitController extends Controller {
 		return array (array('id'=>'','name'=>'Nenhum diretor disponível'));
 	}
 
-	/* Function getDirectors
-     * Get all not associated diretors from users table, if table empty get all users
-     */
-	public function getUnit($id){
-	 	$unit =  $this->unit->getUnitEdit($id);
-	 	if ($unit) {
-	 		return $this->unit->getUnitEdit($id);
-	 	}
-		return array (array('name'=>'Unidade indisponível','id'=>''));
-	}
 }
 
 // CHAMADA DE MÉTODOS -------------------------------------------------------
 session_start();
 $controller = new UnitController($dbconfig);
 $rows = $controller->loadAllUnits();
-// $users = $controller->getAllUsers();
+$users = $controller->getAllUsers();
 $directors = $controller->getDirectors();
 
 if (isset($_GET['id'])) {

@@ -10,33 +10,36 @@ $controller->filename = basename(__FILE__);
 	<div class="container">
         <div id="page-content-wrapper">
             <section class="container-fluid text-center">
-                <h1 class="mb-5">Cadastrar Unidade</h1>
-                <form action="../controller/UnitController.php" method="post" class="was-validated">
-	                <div class="row my-md-2"> 
-	                    <div class="col-md-6 col-sm-12">
+                <h1 class="mb-5">Cadastrar Usuário</h1>
+                <form action="../controller/UserController.php" method="post" class="was-validated">
+	                <div class="row my-md-2">
+	                    <div class="col-md-5 col-sm-12">
 	                    	<div class="input-group mb-md-3 mb-sm-1">
 							  	<div class="input-group-prepend">
-							  		<span class="input-group-text" id="basic-addon-name">Nome da Unidade</span>
+							  		<span class="input-group-text" id="basic-addon-name">Nome do Usuário</span>
 								</div>
-								<input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name">
+								<input type="text" class="form-control" id="name" name="name" aria-describedby="basic-addon-name" required>
 								<div class="invalid-feedback">
-					          		Por favor escolha um nome válido.
-						        </div>	                    
-							</div> 
+						          Por favor escolha um nome válido.
+						        </div>
+							</div>                      
 	                    </div>
-	                    <div class="col-md-6 col-sm-12">
+	                    <div class="col-md-5 col-sm-12">
 	                    	<div class="input-group mb-md-3 mb-sm-1">
 							  	<div class="input-group-prepend">
-							    	<span class="input-group-text" id="basic-addon-users_id">Responsável pela Unidade</span>
+							    	<span class="input-group-text" id="basic-addon-email">Email</span>
 							  	</div>
-							  	<select class="custom-select" id="users_id" name="users_id" aria-describedby="basic-addon-users_id"><!-- ADICIONAR UM CAMPO DISABLE CASO NÃO HOUVER USUÁRIOS -->
-						  			<?php foreach ($directors as $director): ?>
-									<option <?php echo "value=".$director['id'] ?>>
-										<?php echo $director['name'] ?>
-									</option>
-						  			<?php endforeach ?>
-						  		</select>
+							    <input type="email" class="form-control" id="email" name="email" aria-describedby="basic-addon-email" value="" required>
+							    <div class="invalid-feedback">
+						          Por favor escolha um email válido.
+						        </div>
 							</div>                      
+	                    </div>
+	                    <div class="col-md-2 col-sm-12 mt-2">
+	                    	<div class="custom-control custom-checkbox">
+							  <input type="checkbox" class="custom-control-input" id="admin" value="1">
+							  <label class="custom-control-label" for="admin">Administrador</label>
+							</div>                     
 	                    </div>
 					</div>
 
@@ -47,7 +50,7 @@ $controller->filename = basename(__FILE__);
 	                    </div>
 	                    <div class="form-group col-md-6 col-sm-6">
 	                       <label class="sr-only" for="cancel">Cancelar</label>
-	                       <a href="units.php" class="btn btn-outline-secondary btn-block" id="cancel" name="cancel">Cancelar</a>
+	                       <a href="users.php" class="btn btn-outline-secondary btn-block" id="cancel" name="cancel">Cancelar</a>
 	                    </div>
 	                </div>            
                 </form>

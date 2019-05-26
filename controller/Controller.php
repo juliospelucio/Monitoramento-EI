@@ -39,7 +39,7 @@ abstract Class Controller {
 			if (!isset($field)) {
 				$dados = array('msg' => 'Todos os campos são necessários', 'type' => $this->error);
 				$_SESSION['data'] = $dados;
-				header('location: ../view/error.php'/*.$this->filename*/);
+				header('location: ../view/'.$this->filename);
 				exit;
 			}
 		}

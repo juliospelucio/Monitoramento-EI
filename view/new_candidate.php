@@ -110,7 +110,7 @@ require_once 'template/header.php';
 							  <select class="custom-select" id="situation" name="situation" aria-describedby="basic-addon-situation">
 									<option value="aguardando" selected>Aguardando</option>
 									<option value="confirmado">Confirmado</option>
-									<option value="dessistente">Dessistente</option>
+									<option value="desistente">Desistente</option>
 						  		</select>
 							</div>
 	                    </div>

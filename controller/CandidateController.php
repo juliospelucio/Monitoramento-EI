@@ -48,7 +48,7 @@ Class CandidateController extends Controller{
 		echo "</pre>";
 		exit;*/
 		$this->candidate->setAttributes($fields);
-		/*echo "$this->candidate";
+		/*echo $this->candidate;
 		exit;*/
 		if($this->candidate->insertCandidate()){
 			$dados = array('msg' => 'Candidato cadastrado com sucesso', 'type' => parent::$success);
@@ -89,6 +89,9 @@ if(isset($_POST['insert'])) { // comes from new_candidate form
 	$controller->filename = $_POST['filename'];
 	$fields = array('name' => $_POST['name'],
 					'birth_date' => $_POST['birth_date'],
+					'neighborhood' => $_POST['neighborhood'],
+					'number' => $_POST['number'],
+					'street' => $_POST['street'],
 					'tel1' => numberTransform($_POST['tel1']),
 					'tel2' => numberTransform($_POST['tel2']),
 					'inscription_date' => date("Y-m-d"),

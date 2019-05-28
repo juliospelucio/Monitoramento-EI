@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`addresses` (
   `neighborhood` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 9
+AUTO_INCREMENT = 0
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`parents` (
   `father` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 4
+AUTO_INCREMENT = 0
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`users` (
   `admin` TINYINT(3) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
+AUTO_INCREMENT = 0
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`units` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 4
+AUTO_INCREMENT = 0
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -99,9 +99,9 @@ CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`candidates` (
   `tel2` BIGINT(12) NULL DEFAULT NULL,
   `inscription_date` DATE NOT NULL,
   `situation` VARCHAR(45) NOT NULL,
-  `units_id` INT(11) NOT NULL,
+  `units_id` INT(11) NULL DEFAULT NULL,
   `parents_id` INT(11) NOT NULL,
-  PRIMARY KEY (`id`, `units_id`, `parents_id`),
+  PRIMARY KEY (`id`, `parents_id`),
   INDEX `fk_candidates_units_idx` (`units_id` ASC),
   INDEX `fk_candidates_parents1_idx` (`parents_id` ASC),
   CONSTRAINT `fk_candidates_parents1`
@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`candidates` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 9
+AUTO_INCREMENT = 0
 DEFAULT CHARACTER SET = utf8;
 
 

@@ -33,7 +33,7 @@ abstract Class Model{
 	function __toString(){
 		$vars = "";
 		foreach ($this->attributes as $name => $value) {
-		    $vars .= "$name : $value"."<br>";
+		    $vars .= "$name: $value"."<br>";
 		}
         return $vars;
     }

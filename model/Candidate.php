@@ -93,9 +93,12 @@ Class Candidate extends Model{
 		INSERT	INTO addresses_has_candidates (addresses_id,candidates_id) VALUES (@address_id,@candidate_id);";
 		//MUDAR NO BANCO A COLUNA units_id
 
+
+
 			$params = array(":name"=>$this->name,
 							":birth_date"=>$this->birth_date,
-			 				":tel1"=>$this->tel1, ":tel2"=>$this->tel2,
+			 				":tel1"=>$this->tel1,
+			 				":tel2"=>$this->tel2,
 			 				":inscription_date"=>$this->inscription_date,
 			 				":situation"=>$this->situation,
 			 				":parents_id"=>$this->parents_id,

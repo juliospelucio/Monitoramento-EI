@@ -1,5 +1,5 @@
 <!-- Footer -->
-    <footer class="footer">
+    <footer class="fixed-bottom footer">
       <div class="container text-muted text-center align-content-end">
         <span>Secretaria Municipal de Educação - Machado/MG</span>
       </div>

@@ -9,7 +9,6 @@ abstract Class Model{
 
 	/* Function __construct
      * Set Atributes to the class
-     * @param $name unit's name
      * @param $dbconfig is a db configuration arrays 
      */
 	function __construct($dbconfig){

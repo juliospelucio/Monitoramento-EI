@@ -4,6 +4,7 @@ require_once '../assets/helpers.php';
 require_once '../model/settings.config.php';
 require_once '../model/Candidate.php';
 require_once '../model/Parents.php';
+require_once '../model/Address.php';
 require_once '../model/Unit.php';
 
 Class CandidateController extends Controller{
@@ -17,49 +18,53 @@ Class CandidateController extends Controller{
 	public function __construct($dbconfig){
 		parent::__construct($dbconfig);
 		$this->candidate = new Candidate($dbconfig);
+		$this->address = new Address($dbconfig);
 		$this->parents = new Parents($dbconfig);
 		$this->unit = new Unit($dbconfig);
 	}
 
-	/* Function insertParents
-     * Insert a new Parents into parents table
-     * @param $fields array with form's fields
-     */
-	private function insertParents($fields){
-		$this->parents->setAttributes($fields);
-		if($this->parents->insertParents()){
-			header('location: ../view/candidates.php');
-			exit;
-		}
-		$dados = array('msg' => 'Erro ao cadastrar pais', 'type' => parent::$error);
-		$_SESSION['data'] = $dados;
-		header('location: ../view/candidates.php');
-		exit;
-	}
 
 	/* Function insert
      * Insert a new Candidate into candidates table
      * @param $fields array with form's fields
      */
 	public function insert($fields){
-		parent::checkFields($fields);
 		/*echo "<pre>";
 		print_r($fields);
-		echo "</pre>";
-		exit;*/
+		echo "</pre>";*/
+		$mother = $fields['mother'];
+		$father = $fields['father'];
+		/*echo "$mother";
+		echo "$father";
+		echo "<br>";*/
+		$parents = array('mother' => $mother,'father' => $father);
+		$this->parents->setAttributes($parents);
+		// echo $this->parents;
+
+		$street = $fields['street'];
+		$number = $fields['number'];
+		$neighborhood = $fields['neighborhood'];
+
+		unset($fields['mother'],$fields['father'],$fields['street'],$fields['number'],$fields['neighborhood']);
+
+		/*echo "<pre>";
+		print_r($fields);
+		echo "</pre>";*/		
+
+		$address = array('street' => $street,'number' => $number,'neighborhood' => $neighborhood);
+		$this->address->setAttributes($address);
+		// echo $this->address;
+
+		$fields = $fields + array('address' => $this->address,'parents' =>$this->parents);
+
+		/*echo "<pre>";
+		var_dump($fields);
+		echo "</pre>";*/
+
 		$this->candidate->setAttributes($fields);
-		/*echo $this->candidate;
-		exit;*/
-		if($this->candidate->insertCandidate()){
-			$dados = array('msg' => 'Candidato cadastrado com sucesso', 'type' => parent::$success);
-			$_SESSION['data'] = $dados;
-			header('location: ../view/candidates.php');
-			exit;
-		}
-		$dados = array('msg' => 'Erro ao cadastrar novo candidato', 'type' => parent::$error);
-		$_SESSION['data'] = $dados;
-		header('location: ../view/candidates.php');
-		exit;
+		echo $this->candidate;
+
+		$this->candidate->insertCandidate();
 	}
 
 	/* Function loadAllCandidates
@@ -98,6 +103,10 @@ if(isset($_POST['insert'])) { // comes from new_candidate form
 					'situation' => $_POST['situation'],
 					'father' => $_POST['father'],
 					'mother' => $_POST['mother']);
+
+	if (isset($_POST['units_id'])) {
+		$fields = $fields + array('units_id' => $_POST['units_id']);
+	}
 	$controller->insert($fields);
 }
 

@@ -3,7 +3,7 @@ require_once('Model.php');
 
 Class Address extends Model{
 
-	protected $address;
+	protected $street;
 
 	protected $number;
 
@@ -56,8 +56,8 @@ Class Address extends Model{
      */
 	function insertAddress(){
 		try {
-			$sql = "INSERT INTO `addresses` (address, number, neighborhood) VALUES (:address, :number, :neighborhood)";
-			$params = array(':address' => $this->address,
+			$sql = "INSERT INTO `addresses` (street, number, neighborhood) VALUES (:street, :number, :neighborhood)";
+			$params = array(':street' => $this->street,
 							':number' => $this->number,
 							':neighborhood' => $this->neighborhood);
 			$dbc = new DBConnection($this->dbconfig);
@@ -90,7 +90,7 @@ Class Address extends Model{
      */
 	function updateAddress(array $params){
 		try {
-			$sql = "UPDATE `addresses` SET address = :address, number = :number, neighborhood = :neighborhood WHERE id = :id";
+			$sql = "UPDATE `addresses` SET street = :street, number = :number, neighborhood = :neighborhood WHERE id = :id";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->runQuery($sql,$params);
 		} catch (PDOException $e) {

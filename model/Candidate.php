@@ -1,5 +1,7 @@
 <?php 
 require_once('Model.php');
+require_once('Address.php');
+require_once('Parents.php');
 
 Class Candidate extends Model{
 
@@ -13,7 +15,8 @@ Class Candidate extends Model{
 						'number'=>$_POST['number'],
 						'father'=>$_POST['father'],
 						'mother'=>$_POST['mother']);
-*/
+	*/
+	
 	protected $name;
 
 	protected $birth_date;
@@ -30,15 +33,20 @@ Class Candidate extends Model{
 
 	protected $address;
 
-	protected $number;
+	protected $parents;
 
-	protected $neighborhood;
 
-	protected $father;
-	
-	protected $mother;
+	/* Function __construct
+     * Set Atributes to the class
+     * @param $name unit's name
+     * @param $dbconfig is a db configuration arrays 
+     */
+	function __construct($dbconfig){
+		$this->dbconfig = $dbconfig;
+		$this->address = new Address($dbconfig);
+		$this->parents = new Parents($dbconfig);
+	}
 
-	
 	/* Function getCandidates
      * Get all candidates
      * @return Associate array candidate
@@ -78,22 +86,24 @@ Class Candidate extends Model{
      */
 	function insertCandidate(){
 		try {
-			// $sql = "INSERT INTO `candidates` (name, birth_date, tel1, tel2, inscription_date, situation, units_id, parents_id) VALUES (:name, :birth_date, :tel1, :tel2, :inscription_date, :situation, :units_id, :parents_id)";
+			
+			$dbc = new DBConnection($this->dbconfig);
 
+			$dbc->beginTransaction();
 
-		$sql = "INSERT INTO parents (father,mother) VALUES (:father,:mother);
-		SET @parents_id = LAST_INSERT_ID();
+			$this->parents->insertParent();
 
-		INSERT IGNORE INTO candidates (name,birth_date,tel1,tel2,inscription_date,situation,units_id,parents_id) VALUES (:name,:birth_date,:tel1,:tel2,:inscription_date,:situation,NULL,@parents_id);
-		SET @candidate_id = LAST_INSERT_ID();
+			$pId = $dbc->lastInsertId();
 
-		INSERT INTO addresses (address,number,neighborhood) VALUES (:address,:number,:neighborhood);
-		SET @address_id = LAST_INSERT_ID();
+			//$this->address->insertAddress();			
 
-		INSERT	INTO addresses_has_candidates (addresses_id,candidates_id) VALUES (@address_id,@candidate_id);";
-		//MUDAR NO BANCO A COLUNA units_id
+			//$aId = $dbc->lastInsertId();
 
+			$dbc->commit();
 
+			echo "IDdddd: $pId <br>";
+
+			/*$sql = "INSERT INTO candidates (name,birth_date,tel1,tel2,inscription_date,situation,units_id,parents_id) VALUES (:name,:birth_date,:tel1,:tel2,:inscription_date,:situation,:units_id,:parents_id)";
 
 			$params = array(":name"=>$this->name,
 							":birth_date"=>$this->birth_date,
@@ -101,17 +111,19 @@ Class Candidate extends Model{
 			 				":tel2"=>$this->tel2,
 			 				":inscription_date"=>$this->inscription_date,
 			 				":situation"=>$this->situation,
-			 				":parents_id"=>$this->parents_id,
-			 				":address"=>$this->address,
-			 				":number"=>$this->number,
-			 				":neighborhood"=>$this->neighborhood,
-			 				":father"=>$this->father,
-			 				":mother"=>$this->mother
+			 				":units_id"=>$this->units_id,
+			 				":parents_id"=>$pId
 			 				);
-			$dbc = new DBConnection($this->dbconfig);
-			return $dbc->runQuery($sql,$params);
-		} catch (PDOException $e) {
-			echo __LINE__.$e->getMessage();
+			$dbc->beginTransaction();
+
+			$dbc->runQuery($sql,$params);
+
+			echo "Commit:".$dbc->commit();
+*/
+			//return $dbc->runQuery($sql,$params);
+		} catch (Exception $e) {
+			echo "Erro linha: ".__LINE__.$e->getMessage();
+			$dbc->rollBack();
 		}
 	}
 

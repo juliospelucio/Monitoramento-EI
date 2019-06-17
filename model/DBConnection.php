@@ -4,7 +4,7 @@
  * Create a database connection using PDO
  * @author jonahlyn@unm.edu
  */
-Class DBConnection {
+Class DBConnection extends PDO{
     
     // Database Connection Configuration Parameters
     // array('driver' => 'mysql','host' => '','dbname' => '','username' => '','password' => '','options' => '',)
@@ -18,6 +18,7 @@ Class DBConnection {
      * @param $config is an array of database connection parameters
      */
     public function __construct(array $config) {
+        parent::__construct("mysql:host=localhost;dbname=infantil_education_mch", "root", "");
         $this->_config = $config;
         $this->getPDOConnection();
     }

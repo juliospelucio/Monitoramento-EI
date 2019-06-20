@@ -53,9 +53,10 @@ Class Candidate extends Model{
      */
 	function getCandidates(){
 		try {
-			$sql = "SELECT c.id,c.name,c.birth_date,c.tel1,c.tel2,
-			c.inscription_date,c.situation,p.mother,p.father 
-			FROM `candidates` c INNER JOIN `parents` p ON c.parents_id = p.id ";
+			$sql = "SELECT c.id,c.name,c.birth_date,c.tel1,c.tel2,c.inscription_date,c.situation,p.mother,p.father 
+					FROM `candidates` c 
+					INNER JOIN `parents` p ON c.parents_id = p.id ";
+					
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql);
 		} catch (PDOException $e) {
@@ -91,19 +92,11 @@ Class Candidate extends Model{
 
 			$dbc->beginTransaction();
 
-			$this->parents->insertParent();
+			$pId = $this->parents->insertParent();
 
-			$pId = $dbc->lastInsertId();
+			$aId = $this->address->insertAddress();			
 
-			//$this->address->insertAddress();			
-
-			//$aId = $dbc->lastInsertId();
-
-			$dbc->commit();
-
-			echo "IDdddd: $pId <br>";
-
-			/*$sql = "INSERT INTO candidates (name,birth_date,tel1,tel2,inscription_date,situation,units_id,parents_id) VALUES (:name,:birth_date,:tel1,:tel2,:inscription_date,:situation,:units_id,:parents_id)";
+			$sql = "INSERT INTO candidates (name,birth_date,tel1,tel2,inscription_date,situation,units_id,parents_id) VALUES (:name,:birth_date,:tel1,:tel2,:inscription_date,:situation,:units_id,:parents_id)";
 
 			$params = array(":name"=>$this->name,
 							":birth_date"=>$this->birth_date,
@@ -114,14 +107,13 @@ Class Candidate extends Model{
 			 				":units_id"=>$this->units_id,
 			 				":parents_id"=>$pId
 			 				);
-			$dbc->beginTransaction();
 
 			$dbc->runQuery($sql,$params);
+			
+			return $dbc->commit();
 
-			echo "Commit:".$dbc->commit();
-*/
 			//return $dbc->runQuery($sql,$params);
-		} catch (Exception $e) {
+		} catch (PDOException $e) {
 			echo "Erro linha: ".__LINE__.$e->getMessage();
 			$dbc->rollBack();
 		}
@@ -150,11 +142,19 @@ Class Candidate extends Model{
      */
 	function updateCandidate(array $params){
 		try {
-			$sql = "UPDATE `candidates` SET name =:name, birth_date=:birth_date, tel1=:tel1, tel2=:tel2, inscription_date=:inscription_date, situation=:situation, units_id=:units_id, parents_id=:parents_id WHERE id = :id";
 			$dbc = new DBConnection($this->dbconfig);
-			return $dbc->runQuery($sql,$params);
+
+			// $dbc->beginTransaction();
+
+			print_r($params);
+			exit;
+			$sql = "UPDATE `candidates` SET name =:name, birth_date=:birth_date, tel1=:tel1, tel2=:tel2, inscription_date=:inscription_date, situation=:situation, units_id=:units_id, parents_id=:parents_id WHERE id = :id";
+			
+			$dbc->runQuery($sql,$params);
+			// return $dbc->commit(); 
 		} catch (PDOException $e) {
-			echo __LINE__.$e->getMessage();
+			echo "Erro linha: ".__LINE__.$e->getMessage();
+			$dbc->rollBack();
 		}
 	}
 }

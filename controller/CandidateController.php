@@ -23,49 +23,68 @@ Class CandidateController extends Controller{
 		$this->unit = new Unit($dbconfig);
 	}
 
-
 	/* Function insert
      * Insert a new Candidate into candidates table
      * @param $fields array with form's fields
      */
 	public function insert($fields){
-		/*echo "<pre>";
-		print_r($fields);
-		echo "</pre>";*/
+		$this->checkFields($fields);
+
 		$mother = $fields['mother'];
 		$father = $fields['father'];
-		/*echo "$mother";
-		echo "$father";
-		echo "<br>";*/
 		$parents = array('mother' => $mother,'father' => $father);
 		$this->parents->setAttributes($parents);
-		// echo $this->parents;
 
 		$street = $fields['street'];
 		$number = $fields['number'];
 		$neighborhood = $fields['neighborhood'];
-
-		unset($fields['mother'],$fields['father'],$fields['street'],$fields['number'],$fields['neighborhood']);
-
-		/*echo "<pre>";
-		print_r($fields);
-		echo "</pre>";*/		
+		unset($fields['mother'],$fields['father'],$fields['street'],$fields['number'],$fields['neighborhood']);	
 
 		$address = array('street' => $street,'number' => $number,'neighborhood' => $neighborhood);
 		$this->address->setAttributes($address);
-		// echo $this->address;
 
-		$fields = $fields + array('address' => $this->address,'parents' =>$this->parents);
-
-		/*echo "<pre>";
-		var_dump($fields);
-		echo "</pre>";*/
+		$fields = $fields + array('address' => $this->address,'parents' => $this->parents);
 
 		$this->candidate->setAttributes($fields);
-		echo $this->candidate;
-
-		$this->candidate->insertCandidate();
+		
+		if($this->candidate->insertCandidate()){
+			$dados = array('msg' => 'Candidato inserido com sucesso', 'type' => parent::$success);
+			$_SESSION['data'] = $dados;
+			header('location: ../view/candidates.php');
+			exit;
+		}
+		$dados = array('msg' => 'Erro ao inserir novo candidato', 'type' => parent::$error);
+		$_SESSION['data'] = $dados;
+		header('location: ../view/candidates.php');
+		exit;
 	}
+
+	/* Function edit
+     * Update candidate data
+     * @param $fields array with form's fields
+     */
+	public function edit($fields){
+		$this->checkFields($fields);
+		if($this->unit->updateCandidate($fields)){
+			$dados = array('msg' => 'Unidade editada com sucesso', 'type' => parent::$success);
+			$_SESSION['data'] = $dados;
+			header('location: ../view/units.php');
+			exit;
+		}
+		$dados = array('msg' => 'Erro ao editar a unidade', 'type' => parent::$error);
+		$_SESSION['data'] = $dados;
+		header('location: ../view/units.php');
+		exit;
+	}
+
+	/* Function loadCandidate
+     * Get a candidate from cadidate table
+     * @param $id id from candidate table
+     */
+	public function loadCandidate($id){
+		$candidates = new Candidate($this->dbconfig);
+		return $candidates->getCandidate($id);
+	}	
 
 	/* Function loadAllCandidates
      * Get all candidate from cadidate table
@@ -90,6 +109,11 @@ $controller = new CandidateController($dbconfig);
 $rows = $controller->loadAllCandidates();
 $units = $controller->loadAllUnits();
 
+if (isset($_GET['id'])) {
+	$candidate = $controller->loadCandidate($_GET['id']);
+	$candidate = array_pop($candidate);
+}
+
 if(isset($_POST['insert'])) { // comes from new_candidate form
 	$controller->filename = $_POST['filename'];
 	$fields = array('name' => $_POST['name'],
@@ -104,49 +128,15 @@ if(isset($_POST['insert'])) { // comes from new_candidate form
 					'father' => $_POST['father'],
 					'mother' => $_POST['mother']);
 
-	if (isset($_POST['units_id'])) {
+	if (isset($_POST['units_id']) && !empty($_POST['units_id'])) {
 		$fields = $fields + array('units_id' => $_POST['units_id']);
 	}
 	$controller->insert($fields);
 }
 
-
-
-
-
-/*if (isset($_POST['insert'])) {
-	if (!isset($_POST['name']) || !isset($_POST['birth']) || !isset($_POST['tel']) || !isset($_POST['tel2']) || !isset($_POST['inscription'])  || !isset($_POST['neighborhood']) || !isset($_POST['street'])  || !isset($_POST['number'])  || !isset($_POST['father'])  || !isset($_POST['mother'])) {
-
-		$data = array('msg' => 'Campos Inválidos preecha novamente.', 'type' => $error);
-		$_SESSION['data'] = $data;
-		header('location: '. myURL(). 'view/new_candidate.php');
-		exit;
-
-	}else{
-
-		$name = $_POST['name'];
-		$birth = $_POST['birth'];
-		$tel =  numberTransform($_POST['tel']);
-		$tel2 =  numberTransform($_POST['tel2']);
-		$inscription =  $_POST['inscription'];
-		$neighborhood = $_POST['neighborhood'];
-		$street =  $_POST['street'];
-		$number = $_POST['number'];
-		$father = $_POST['father'];
-		$mother =  $_POST['mother'];
-
-
-		//$name,$birth,$inscription,$mother,$father,$street,$number,$neighborhood,$tel,$tel2
-		insertCandidates($name,$birth,$inscription,$mother,$father,$street,$number,$neighborhood,$tel,$tel2);
-		$data = array('msg' => 'Candidato cadastrado com sucesso.', 'type' => $success);
-		    	$_SESSION['data'] = $data;
-		header('location: ../view/index.php');
-		exit;
-	}
-}*/
-
-
-
-
-/*INSERT INTO `users` VALUES (DEFAULT,'name','email@gmail.com','123',0);
-SELECT LAST_INSERT_ID();*/
+if (isset($_POST['edit'])) {
+	$fields = array(":id"=>$_POST['id'],
+					":name"=>$_POST['name'],
+					":users_id"=>$_POST['users_id']);
+	$controller->edit($fields);
+}

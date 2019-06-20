@@ -44,7 +44,7 @@ Class DBConnection extends PDO{
         try {
             $this->dbc = new PDO( $dsn, $this->_config[ 'username' ], $this->_config[ 'password' ], $this->_config['options']);
             $this->dbc->exec("set names utf8");
-        } catch( PDOException $e ) {
+        } catch(PDOException $e ) {
             echo __LINE__.$e->getMessage();
         }
     }
@@ -53,12 +53,13 @@ Class DBConnection extends PDO{
      * Runs a insert, update or delete query
      * @param string sql insert update or delete statement
      * @param array with all parameters names
-     * @return int count of records affected by running the sql statement.
+     * @return int id of last inserted query
      */
     public function runQuery($sql, array $params = null ) {
         try {
             $stmt = $this->dbc->prepare($sql);
             $stmt->execute($params) or print_r($this->dbc->errorInfo());
+            return $this->dbc->lastInsertId();
         } catch(PDOException $e) {
             echo __LINE__.$e->getMessage();
         }

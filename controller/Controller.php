@@ -36,7 +36,7 @@ abstract Class Controller {
      */
 	protected function checkFields($fields){
 		foreach ($fields as $field) {
-			if (!isset($field)) {
+			if (empty($field)) {
 				$dados = array('msg' => 'Todos os campos são necessários', 'type' => $this->error);
 				$_SESSION['data'] = $dados;
 				header('location: ../view/'.$this->filename);

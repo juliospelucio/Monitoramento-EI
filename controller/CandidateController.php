@@ -64,16 +64,16 @@ Class CandidateController extends Controller{
      * @param $fields array with form's fields
      */
 	public function edit($fields){
-		$this->checkFields($fields);
-		if($this->unit->updateCandidate($fields)){
-			$dados = array('msg' => 'Unidade editada com sucesso', 'type' => parent::$success);
+		// $this->checkFields($fields);
+		if($this->candidate->updateCandidate($fields)){
+			$dados = array('msg' => 'Candidato editado com sucesso', 'type' => parent::$success);
 			$_SESSION['data'] = $dados;
-			header('location: ../view/units.php');
+			header('location: ../view/candidates.php');
 			exit;
 		}
-		$dados = array('msg' => 'Erro ao editar a unidade', 'type' => parent::$error);
+		$dados = array('msg' => 'Erro ao editar o candidato', 'type' => parent::$error);
 		$_SESSION['data'] = $dados;
-		header('location: ../view/units.php');
+		header('location: ../view/candidates.php');
 		exit;
 	}
 
@@ -101,17 +101,68 @@ Class CandidateController extends Controller{
 		$units = new Unit($this->dbconfig);
 		return $units->getUnits();
 	}
+
+	/* Function selectSituation
+     * Get the situation of a candidate
+     * @param $situation string from the candidate
+     * $return get the current situation from a candidate table
+     */
+	public function selectSituation($situation){
+		switch ($situation) {
+			case 'Confirmado':
+				return 
+						"<option value='aguardando'>Aguardando</option>
+						<option value='confirmado' selected>Confirmado</option>
+						<option value='desistente'>Desistente</option>";
+				break;
+			case 'Desistente':
+				return 
+						"<option value='aguardando'>Aguardando</option>
+						<option value='confirmado'>Confirmado</option>
+						<option value='desistente' selected>Desistente</option>";
+				break;
+			default:
+				return 
+						"<option value='aguardando' selected>Aguardando</option>
+						<option value='confirmado'>Confirmado</option>
+						<option value='desistente'>Desistente</option>";
+				break;
+		}
+	}
+
+	/* Function selectUnit
+     * Get the unit of a candidate
+     * $id int units id from candidates table
+     * @return the current unit from a candidate table in html format
+     */
+	public function selectUnit($candidate){
+		$units = $this->loadAllUnits();
+		$options = array();
+		if (!isset($candidate['uid'])) {
+			$candidate['uid'] = 0;
+		}
+		foreach ($units as $unit) {			
+			$candidate['uid']==$unit['id'] ?
+			array_push($options,  "<option value='".$unit['id']."'selected>".$unit['aname']."</option>") :
+			array_push($options,  "<option value='".$unit['id']."'>".$unit['aname']."</option>");
+
+		}
+		return $options;
+	}
+
 }
 
 // -------------------------------------------------------
 session_start();
-$controller = new CandidateController($dbconfig);
-$rows = $controller->loadAllCandidates();
-$units = $controller->loadAllUnits();
+$controller = new CandidateController($dbconfig);//Create controller
+$rows = $controller->loadAllCandidates();//getAll candidates from database
+$units = $controller->loadAllUnits();// getAll units from database
 
 if (isset($_GET['id'])) {
 	$candidate = $controller->loadCandidate($_GET['id']);
 	$candidate = array_pop($candidate);
+	$situation = $controller->selectSituation($candidate['situation']);
+	$uoptions = $controller->selectUnit($candidate);//units options
 }
 
 if(isset($_POST['insert'])) { // comes from new_candidate form
@@ -135,8 +186,25 @@ if(isset($_POST['insert'])) { // comes from new_candidate form
 }
 
 if (isset($_POST['edit'])) {
-	$fields = array(":id"=>$_POST['id'],
-					":name"=>$_POST['name'],
-					":users_id"=>$_POST['users_id']);
+	$controller->filename = $_POST['filename'];
+	$fields = array('id' => $_POST['id'],
+					'name' => $_POST['name'],
+					'birth_date' => $_POST['birth_date'],
+					'addresses_id' => $_POST['aid'],
+					'neighborhood' => $_POST['neighborhood'],
+					'number' => $_POST['number'],
+					'street' => $_POST['street'],
+					'tel1' => numberTransform($_POST['tel1']),
+					'tel2' => numberTransform($_POST['tel2']),
+					'situation' => $_POST['situation'],
+					'parents_id' => $_POST['pid'],
+					'father' => $_POST['father'],
+					'mother' => $_POST['mother'],
+					'units_id' => null);
+	
+	if (isset($_POST['units_id']) && !empty($_POST['units_id'])) {
+		$fields['units_id'] = $_POST['units_id'];
+	}
+
 	$controller->edit($fields);
 }

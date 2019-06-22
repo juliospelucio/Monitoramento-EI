@@ -8,10 +8,6 @@ Class CandidatesAddresses extends Model{
 
 	protected $candidates_id;
 
-	protected $candidates_units_id;
-
-	protected $candidates_parents_id;
-
 
 	/* Function insertRelationship
      * Insert a new relationship

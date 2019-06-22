@@ -99,9 +99,9 @@ require_once 'template/header.php';
 							    <span class="input-group-text" id="basic-addon-situation">Situação</span>
 							  </div>
 							  <select class="custom-select" id="situation" name="situation" aria-describedby="basic-addon-situation">
-									<option value="aguardando" selected>Aguardando</option>
-									<option value="confirmado">Confirmado</option>
-									<option value="desistente">Desistente</option>
+									<option value="aguardando">Aguardando</option><!--  0  -->
+									<option value="confirmado">Confirmado</option><!--  1  -->
+									<option value="desistente">Desistente</option><!-- -1  -->
 						  		</select>
 							</div>
 	                    </div>
@@ -131,7 +131,7 @@ require_once 'template/header.php';
 	                    </div>
 	                    <div class="form-group col-md-6 col-sm-6">
 	                       <label class="sr-only" for="cancel">Cancelar</label>
-	                       <a href="index.php" class="btn btn-outline-secondary btn-block" id="cancel" name="cancel">Cancelar</a>
+	                       <a href="candidates.php" class="btn btn-outline-secondary btn-block" id="cancel" name="cancel">Cancelar</a>
 	                    </div>
 	                </div>            
                 </form>

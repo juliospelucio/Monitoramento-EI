@@ -2,6 +2,7 @@
 require_once('Model.php');
 require_once('Address.php');
 require_once('Parents.php');
+require_once('CandidatesAddresses.php');
 
 Class Candidate extends Model{
 
@@ -45,6 +46,7 @@ Class Candidate extends Model{
 		$this->dbconfig = $dbconfig;
 		$this->address = new Address($dbconfig);
 		$this->parents = new Parents($dbconfig);
+		$this->CandidateAddress = new CandidatesAddresses($dbconfig);
 	}
 
 	/* Function getCandidates
@@ -71,11 +73,34 @@ Class Candidate extends Model{
      */
 	function getCandidate($id){
 		try {
-			$sql = "SELECT c.id,c.name,c.birth_date,c.tel1,c.tel2,
-			c.inscription_date,c.situation,p.mother,p.father FROM `candidates` c INNER JOIN `parents` p ON c.parents_id = p.id WHERE c.id = :id";
-			$params = array(':id' => $id);
 			$dbc = new DBConnection($this->dbconfig);
+
+			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation,
+						   a.id aid, a.street, a.number, a.neighborhood, p.id pid, p.mother, p.father, u.id uid, u.name uname
+					FROM candidates c 
+					INNER JOIN addresses_has_candidates h ON h.candidates_id = c.id
+					INNER JOIN addresses a ON a.id = h.addresses_id
+					INNER JOIN parents p ON p.id = c.parents_id
+					INNER JOIN units u ON u.id = c.units_id
+					WHERE c.id = :id";
+
+			$params = array(':id' => $id);
+			$query = $dbc->getQuery($sql,$params);
+			if ($query) {
+				return $query;
+			}
+
+			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation,
+						   a.id aid, a.street, a.number, a.neighborhood, p.id pid, p.mother, p.father
+					FROM candidates c 
+					INNER JOIN addresses_has_candidates h ON h.candidates_id = c.id
+					INNER JOIN addresses a ON a.id = h.addresses_id
+					INNER JOIN parents p ON p.id = c.parents_id
+					WHERE c.id = :id";
+			$params = array(':id' => $id);
+
 			return $dbc->getQuery($sql,$params);
+
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
 		}
@@ -108,7 +133,10 @@ Class Candidate extends Model{
 			 				":parents_id"=>$pId
 			 				);
 
-			$dbc->runQuery($sql,$params);
+			$cId = $dbc->runQuery($sql,$params);
+			$fields = array('addresses_id' => $aId, 'candidates_id' => $cId);
+			$this->CandidateAddress->setAttributes($fields);
+			$this->CandidateAddress->insertRelationship();
 			
 			return $dbc->commit();
 
@@ -144,14 +172,30 @@ Class Candidate extends Model{
 		try {
 			$dbc = new DBConnection($this->dbconfig);
 
-			// $dbc->beginTransaction();
-
+			/*echo "<pre>";
 			print_r($params);
-			exit;
-			$sql = "UPDATE `candidates` SET name =:name, birth_date=:birth_date, tel1=:tel1, tel2=:tel2, inscription_date=:inscription_date, situation=:situation, units_id=:units_id, parents_id=:parents_id WHERE id = :id";
+			echo "</pre>";
+			exit;*/
+			$dbc->beginTransaction();
+
+			$address = array(':id' => $params['addresses_id'],':street' => $params['street'],':number' => $params['number'],':neighborhood' => $params['neighborhood']);//Address params
+			$parents = array(':id' => $params['parents_id'],':mother' =>$params['mother'],':father' =>$params['father']);
+
+			$this->address->updateAddress($address);
+
+			unset($params['parents_id'],$params['mother'],$params['father'],$params['addresses_id'],$params['street'],$params['number'],$params['neighborhood']);	
+			
+			$sql = "UPDATE `candidates` SET name =:name, birth_date=:birth_date, tel1=:tel1, tel2=:tel2, situation=:situation, units_id=:units_id WHERE id = :id";
+			/*echo "<pre>";
+			print_r($params);
+			echo "</pre>";
+			exit;*/
 			
 			$dbc->runQuery($sql,$params);
-			// return $dbc->commit(); 
+
+			$this->parents->updateParent($parents);
+
+			return $dbc->commit(); 
 		} catch (PDOException $e) {
 			echo "Erro linha: ".__LINE__.$e->getMessage();
 			$dbc->rollBack();

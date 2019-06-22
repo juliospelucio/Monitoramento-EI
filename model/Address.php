@@ -30,8 +30,6 @@ Class Address extends Model{
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
 		}
-
-
 	}
 
 	/* Function getAddress

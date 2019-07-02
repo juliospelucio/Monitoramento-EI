@@ -99,9 +99,9 @@ require_once 'template/header.php';
 							    <span class="input-group-text" id="basic-addon-situation">Situação</span>
 							  </div>
 							  <select class="custom-select" id="situation" name="situation" aria-describedby="basic-addon-situation">
-									<option value="aguardando">Aguardando</option><!--  0  -->
-									<option value="confirmado">Confirmado</option><!--  1  -->
-									<option value="desistente">Desistente</option><!-- -1  -->
+									<option value="0">Aguardando</option><!--  0  -->
+									<option value="1">Confirmado</option><!--  1  -->
+									<option value="-1">Desistente</option><!-- -1  -->
 						  		</select>
 							</div>
 	                    </div>

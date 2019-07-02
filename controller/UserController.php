@@ -41,7 +41,7 @@ Class UserController extends Controller {
      * @param $fields array with form's fields
      */
 	public function insert($fields){
-		parent::checkFields($fields);
+		// parent::checkFields($fields);
 		$this->user->setAttributes($fields);
 		if($this->user->insertUser()){
 			$dados = array('msg' => 'Usuário cadastrado com sucesso', 'type' => parent::$success);

@@ -152,14 +152,26 @@ Class Candidate extends Model{
      * @param $id candidate's id
      * @return int count of records affected by running the sql statement into candidate.
      */
-	function deleteCandidate($id){
+	function deleteCandidate($cid,$aid,$pid){
 		try {
-			$sql = "DELETE FROM `candidates` WHERE id = :id";
-			$params = array(':id' => $id);
 			$dbc = new DBConnection($this->dbconfig);
-			return $dbc->runQuery($sql,$params);
+
+			$dbc->beginTransaction();
+
+			$this->CandidateAddress->deleteRelationship($aid,$cid);
+
+			$sql = "DELETE FROM `candidates` WHERE id = :id";
+			$params = array(':id' => $cid);
+
+			$dbc->runQuery($sql,$params);
+			
+			$this->parents->deleteParent($pid);
+			$this->address->deleteAddress($aid);
+
+			return $dbc->commit(); 
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
+			$dbc->rollBack();
 		}
 	}
 

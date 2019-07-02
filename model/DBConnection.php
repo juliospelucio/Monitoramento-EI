@@ -61,7 +61,7 @@ Class DBConnection extends PDO{
             $stmt->execute($params) or print_r($this->dbc->errorInfo());
             return $this->dbc->lastInsertId();
         } catch(PDOException $e) {
-            echo __LINE__.$e->getMessage();
+            echo "Database: ".__LINE__.$e->getMessage();
         }
         return $stmt->rowCount();
     }

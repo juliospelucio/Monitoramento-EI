@@ -28,7 +28,7 @@ Class CandidateController extends Controller{
      * @param $fields array with form's fields
      */
 	public function insert($fields){
-		$this->checkFields($fields);
+		// $this->checkFields($fields);
 
 		$mother = $fields['mother'];
 		$father = $fields['father'];
@@ -64,7 +64,7 @@ Class CandidateController extends Controller{
      * @param $fields array with form's fields
      */
 	public function edit($fields){
-		// $this->checkFields($fields);
+		// $this->checkFields($fields); //FIX
 		if($this->candidate->updateCandidate($fields)){
 			$dados = array('msg' => 'Candidato editado com sucesso', 'type' => parent::$success);
 			$_SESSION['data'] = $dados;
@@ -72,6 +72,32 @@ Class CandidateController extends Controller{
 			exit;
 		}
 		$dados = array('msg' => 'Erro ao editar o candidato', 'type' => parent::$error);
+		$_SESSION['data'] = $dados;
+		header('location: ../view/candidates.php');
+		exit;
+	}
+
+	/* Function delete
+     * Delete a candidate data
+     * @param $fields array with form's fields
+     */
+	public function delete($id){
+		$candidate = $this->loadCandidate($id);
+		$candidate = array_pop($candidate);
+		/*echo "<pre>";
+		print_r($candidate);
+		echo "</pre>";
+		exit;*/
+		$cid = $candidate['cid'];
+		$aid = $candidate['aid'];
+		$pid = $candidate['pid'];
+		if($this->candidate->deleteCandidate($cid,$aid,$pid)){
+			$dados = array('msg' => 'Candidato excluído com sucesso', 'type' => parent::$success);
+			$_SESSION['data'] = $dados;
+			header('location: ../view/candidates.php');
+			exit;
+		}
+		$dados = array('msg' => 'Erro a excluir candidato', 'type' => parent::$error);
 		$_SESSION['data'] = $dados;
 		header('location: ../view/candidates.php');
 		exit;
@@ -109,26 +135,39 @@ Class CandidateController extends Controller{
      */
 	public function selectSituation($situation){
 		switch ($situation) {
-			case 'Confirmado':
+			case 1:
 				return 
-						"<option value='aguardando'>Aguardando</option>
-						<option value='confirmado' selected>Confirmado</option>
-						<option value='desistente'>Desistente</option>";
-				break;
-			case 'Desistente':
+						"<option value='0'>Aguardando</option>
+						<option value='1' selected>Confirmado</option>
+						<option value='-1'>Desistente</option>";
+			case -1:
 				return 
-						"<option value='aguardando'>Aguardando</option>
-						<option value='confirmado'>Confirmado</option>
-						<option value='desistente' selected>Desistente</option>";
-				break;
+						"<option value='0'>Aguardando</option>
+						<option value='1'>Confirmado</option>
+						<option value='-1' selected>Desistente</option>";
 			default:
 				return 
-						"<option value='aguardando' selected>Aguardando</option>
-						<option value='confirmado'>Confirmado</option>
-						<option value='desistente'>Desistente</option>";
-				break;
+						"<option value='0' selected>Aguardando</option>
+						<option value='1'>Confirmado</option>
+						<option value='-1'>Desistente</option>";
 		}
 	}
+
+	/* Function getSituation
+     * Convert a situation of a candidate from a tinyint to a string
+     * $value (tinyint) database value of current candidates situation
+     * @return converted situation in string
+     */
+	public function getSituation($value){
+		switch ($value) {
+			case 1:
+				return "Confirmado";
+			case -1:
+				return "Desistente";	
+			default:
+				return "Aguardando";
+		}
+	}	
 
 	/* Function selectUnit
      * Get the unit of a candidate
@@ -207,4 +246,8 @@ if (isset($_POST['edit'])) {
 	}
 
 	$controller->edit($fields);
+}
+
+if (isset($_GET['delete'])) {
+	$controller->delete($_GET['id']);
 }

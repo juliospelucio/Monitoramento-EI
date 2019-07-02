@@ -30,10 +30,10 @@ Class CandidatesAddresses extends Model{
      * @param $id Relationship's id
      * @return int count of records affected by running the sql statement into addresses_has_candidates.
      */
-	function deleteRelationship($addresses_id,$candidate_id){
+	function deleteRelationship($addresses_id,$candidates_id){
 		try {
 			$sql = "DELETE FROM `addresses_has_candidates` WHERE addresses_id = :addresses_id AND candidates_id = :candidates_id";
-			$params = array(':addresses_id' => $addresses_id,':candidate_id' => $candidate_id);
+			$params = array(':addresses_id' => $addresses_id,':candidates_id' => $candidates_id);
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->runQuery($sql,$params);
 		} catch (PDOException $e) {

@@ -11,10 +11,6 @@ Class LoginController extends Controller{
 		parent::__construct($dbconfig);
 		$this->user = new User($dbconfig);
 	}
-	
-	public function __toString(){
-		return $this->email."<br>".$this->password;
-	}
 
 	/* Function isSigned
      * Checks if form is submitted
@@ -23,7 +19,7 @@ Class LoginController extends Controller{
 	public function isSigned(){
 		if(isset($_POST['signed'])) { // comes from login form
 			$attributes = array('email'=>$_POST['email'],'password'=>$_POST['password']);
-			parent::checkFields($attributes);
+			// parent::checkFields($attributes);
 			$this->user->setAttributes($attributes);
 			return true;
 		}
@@ -43,7 +39,7 @@ Class LoginController extends Controller{
 	  		header('location: ../view/index.php');
 	  		exit;
 	  	}
-		$dados = array('msg' => 'Usuário ou senha incorreto!', 'type' => $error);
+		$dados = array('msg' => 'Usuário ou senha incorreto!', 'type' => parent::$error);
 		$_SESSION['data'] = $dados;
 		header('location: ../view/login.php');
   		exit;

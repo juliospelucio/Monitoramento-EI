@@ -53,13 +53,16 @@ Class DBConnection extends PDO{
      * Runs a insert, update or delete query
      * @param string sql insert update or delete statement
      * @param array with all parameters names
+     * @param if is a insert query, is set true
      * @return int id of last inserted query
      */
-    public function runQuery($sql, array $params = null ) {
+    public function runQuery($sql, array $params = null, $insert = null ) {
         try {
             $stmt = $this->dbc->prepare($sql);
             $stmt->execute($params) or print_r($this->dbc->errorInfo());
-            return $this->dbc->lastInsertId();
+            if ($insert) {
+                return $this->dbc->lastInsertId(); 
+            }
         } catch(PDOException $e) {
             echo "Database: ".__LINE__.$e->getMessage();
         }

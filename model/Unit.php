@@ -47,7 +47,7 @@ Class Unit extends Model{
 			$sql = "INSERT INTO `units` (name, users_id) VALUES (:name, :users_id)";
 			$params = array(':name' => $this->name,':users_id' => $this->users_id);
 			$dbc = new DBConnection($this->dbconfig);
-			return $dbc->runQuery($sql,$params);
+			return $dbc->runQuery($sql,$params,1);
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
 		}

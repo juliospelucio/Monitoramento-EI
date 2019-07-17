@@ -19,7 +19,7 @@ require_once 'template/header.php';
             <table id="table_id" class="display table table-bordered table-hover">
                 <thead>
                     <!-- 15306 default column size javascrip file  -->
-                    <tr id="theader">
+                    <tr>
                         <th scope="col" class="text-center">Editar</th>
                         <th scope="col" class="text-center">Nome</th>
                         <th scope="col" class="text-center">Email</th>
@@ -32,7 +32,10 @@ require_once 'template/header.php';
                         <td scope="row" class="text-center"><a href="edit_user.php?id=<?php echo $column['id'] ?>"><img src="../assets/img/edit.png" width="30" height="30" title="Editar Usuário"></a></td>
                         <td scope="row" class="text-center"><?php echo $column['name'] ?></td>
                         <td scope="row" class="text-center"><?php echo $column['email'] ?></td>
-                        <td scope="row" class="text-center"><a href="#" data-href=".php?id=<?php echo $column['id'] ?>?delete='1'" data-toggle="modal" data-target="#confirm-delete"><img src="../assets/img/delete.png" width="30" height="30" title="Apagar Usuário"></a>
+                        <td scope="row" class="text-center">
+                            <a href="#" data-href="../controller/UserController.php?id=<?php echo $column['id'] ?>&delete=1" data-toggle="modal" data-target="#confirm-delete" onclick="modalHref(this)">
+                                <img src="../assets/img/delete.png" width="30" height="30" title="Apagar Usuário">
+                            </a>
                         </td>
                     </tr>
                     <?php endforeach ?>

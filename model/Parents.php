@@ -47,7 +47,7 @@ Class Parents extends Model{
 			$params = array(':mother' => $this->mother,
 							':father' => $this->father);
 			$dbc = new DBConnection($this->dbconfig);
-			return $dbc->runQuery($sql,$params);
+			return $dbc->runQuery($sql,$params,1);
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
 		}

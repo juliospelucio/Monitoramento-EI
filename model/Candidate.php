@@ -133,7 +133,7 @@ Class Candidate extends Model{
 			 				":parents_id"=>$pId
 			 				);
 
-			$cId = $dbc->runQuery($sql,$params);
+			$cId = $dbc->runQuery($sql,$params,1);
 			$fields = array('addresses_id' => $aId, 'candidates_id' => $cId);
 			$this->CandidateAddress->setAttributes($fields);
 			$this->CandidateAddress->insertRelationship();

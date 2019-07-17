@@ -1,8 +1,8 @@
- <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+ <div class="modal fade" id="password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4>Atualizar Senha</h4>
+                <h4 title="Updatepsw">Atualizar Senha</h4>
             </div>
             <form action="../controller/edit_user.php" method="post">
                 <div class="modal-body text-center">

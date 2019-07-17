@@ -60,7 +60,7 @@ Class UserController extends Controller {
      * @param $fields array with form's fields
      */
 	public function edit($fields){
-		$this->checkFields($fields);
+		// $this->checkFields($fields);
 		if($this->user->updateUser($fields)){
 			$dados = array('msg' => 'Usuário editado com sucesso', 'type' => parent::$success);
 			$_SESSION['data'] = $dados;

@@ -1,9 +1,7 @@
 <?php 
 require_once $_SERVER['DOCUMENT_ROOT']."/Monitoramento-EI/assets/helpers.php";
-
 require_once '../controller/UserController.php';
 require_once 'template/header.php';
-$controller->filename = basename(__FILE__);
 ?>
 
 
@@ -26,7 +24,7 @@ $controller->filename = basename(__FILE__);
 						        </div>	
 							</div>                      
 	                    </div>
-	                    <div class="col-md-6 col-sm-12">
+	                    <div class="col-md-4 col-sm-12">
 	                    	<div class="input-group mb-md-3 mb-sm-1">
 	                    		<div class="input-group-prepend">
 							  		<span class="input-group-text" id="basic-addon-email">Email</span>
@@ -36,6 +34,9 @@ $controller->filename = basename(__FILE__);
 					          		Por favor escolha um email válido.
 						        </div>	
 							</div>                      
+	                    </div>
+	                    <div class="col-auto">
+	                    	<a href="#" data-href="../controller/UserController.php?<?php echo $user['id'] ?>" data-toggle="modal" data-target="#password" class="btn btn-secondary ">Senha</a>
 	                    </div>
                         <input type="hidden" id="id" name="id" value="<?php echo $user['id'] ?>">
                         <input type="hidden" id="password" name="password" value="<?php echo $user['password'] ?>">
@@ -57,12 +58,8 @@ $controller->filename = basename(__FILE__);
     </div>
 <!-- /#page-content-wrapper -->
 
-
-
- <!-- EMPTY DIV - PUSH FOOTER -->
-    <div class="container p-5 m-2">
-    </div>
 <?php
 require_once 'template/footer.php';
+require_once 'template/password_modal.php';
 ?>
 <?php if (isset($_SESSION['data']))triggerModal() ?>

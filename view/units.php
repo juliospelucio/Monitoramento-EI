@@ -23,7 +23,7 @@ require_once 'template/header.php';
             <table id="table_id" class="display table table-bordered table-hover">
                 <thead>
                     <!-- 15306 default column size javascrip file  -->
-                    <tr id="theader">
+                    <tr>
                         <th scope="col" class="text-center">Editar</th>
                         <th scope="col" class="text-center">Nome</th>
                         <th scope="col" class="text-center">Responsável</th>
@@ -37,7 +37,7 @@ require_once 'template/header.php';
                         <td scope="row" class="text-center"><?php echo $column['aname'] ?></td>
                         <td scope="row" class="text-center"><?php echo $column['bname'] ?></td>
                         <td scope="row" class="text-center">
-                            <a href="#" data-href="delete_candidate.php?id=<?php echo $column['id'] ?>?delete='1'" data-toggle="modal" data-target="#confirm-delete"><img src="../assets/img/delete.png" width="30" height="30" title="Apagar Unidade"></a>
+                            <a href="#" data-href="../controller/UnitController.php?id=<?php echo $column['id'] ?>&delete=1" data-toggle="modal" data-target="#confirm-delete" onclick="modalHref(this)"><img src="../assets/img/delete.png" width="30" height="30" title="Apagar Unidade"></a>
                         </td>
                     </tr>
                     <?php endforeach ?>

@@ -9,7 +9,6 @@ abstract Class Model{
 
 	/* Function __construct
      * Set Atributes to the class
-     * @param $name unit's name
      * @param $dbconfig is a db configuration arrays 
      */
 	function __construct($dbconfig){
@@ -33,7 +32,7 @@ abstract Class Model{
 	function __toString(){
 		$vars = "";
 		foreach ($this->attributes as $name => $value) {
-		    $vars .= "$name : $value"."<br>";
+		    $vars .= "$name: $value"."<br>";
 		}
         return $vars;
     }

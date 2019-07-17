@@ -6,6 +6,8 @@ abstract Class Controller {
 
 	protected $attributes;
 
+	public $filename;
+
 	protected static $error = "Erro";
 
 	protected static $success = "Sucesso";
@@ -34,10 +36,10 @@ abstract Class Controller {
      */
 	protected function checkFields($fields){
 		foreach ($fields as $field) {
-			if (!isset($field)) {
-				$dados = array('msg' => 'Todos os campos são necessários', 'type' => $error);
+			if (empty($field)) {
+				$dados = array('msg' => 'Todos os campos são necessários', 'type' => $this->error);
 				$_SESSION['data'] = $dados;
-				header('location: ../view/new_unit.php');
+				header('location: ../view/'.$this->filename);
 				exit;
 			}
 		}

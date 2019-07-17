@@ -1,149 +1,263 @@
--- MySQL Workbench Forward Engineering
+-- phpMyAdmin SQL Dump
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: 25-Jun-2019 às 14:08
+-- Versão do servidor: 10.1.40-MariaDB
+-- versão do PHP: 7.2.18
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema infantil_education_mch
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema infantil_education_mch
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `infantil_education_mch` DEFAULT CHARACTER SET latin1 ;
-USE `infantil_education_mch` ;
-
--- -----------------------------------------------------
--- Table `infantil_education_mch`.`addresses`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `infantil_education_mch`.`addresses` ;
-
-CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`addresses` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `address` VARCHAR(255) NOT NULL,
-  `number` INT(11) NOT NULL,
-  `neighborhood` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 9
-DEFAULT CHARACTER SET = latin1;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
 
 
--- -----------------------------------------------------
--- Table `infantil_education_mch`.`parents`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `infantil_education_mch`.`parents` ;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
-CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`parents` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `mother` VARCHAR(255) NOT NULL,
-  `father` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 4
-DEFAULT CHARACTER SET = latin1;
+--
+-- Database: `infantil_education_mch`
+--
 
+-- --------------------------------------------------------
 
--- -----------------------------------------------------
--- Table `infantil_education_mch`.`users`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `infantil_education_mch`.`users` ;
+--
+-- Estrutura da tabela `addresses`
+--
 
-CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`users` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL,
-  `email` VARCHAR(255) NOT NULL,
-  `password` VARCHAR(255) NOT NULL,
-  `admin` TINYINT(3) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 6
-DEFAULT CHARACTER SET = utf8;
+CREATE TABLE `addresses` (
+  `id` int(11) NOT NULL,
+  `street` varchar(255) NOT NULL,
+  `number` int(11) NOT NULL,
+  `neighborhood` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `addresses`
+--
 
--- -----------------------------------------------------
--- Table `infantil_education_mch`.`units`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `infantil_education_mch`.`units` ;
+INSERT INTO `addresses` (`id`, `street`, `number`, `neighborhood`) VALUES
+(1, 'Rua Coronel', 845, 'Jardim'),
+(2, 'Hélio Garroni', 25, 'Centro');
 
-CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`units` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL,
-  `users_id` INT(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_units_users1_idx` (`users_id` ASC),
-  CONSTRAINT `fk_units_users1`
-    FOREIGN KEY (`users_id`)
-    REFERENCES `infantil_education_mch`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 4
-DEFAULT CHARACTER SET = utf8;
+-- --------------------------------------------------------
 
+--
+-- Estrutura da tabela `addresses_has_candidates`
+--
 
--- -----------------------------------------------------
--- Table `infantil_education_mch`.`candidates`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `infantil_education_mch`.`candidates` ;
+CREATE TABLE `addresses_has_candidates` (
+  `addresses_id` int(11) NOT NULL,
+  `candidates_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`candidates` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL,
-  `birth_date` DATE NOT NULL,
-  `tel1` BIGINT(12) NOT NULL,
-  `tel2` BIGINT(12) NULL DEFAULT NULL,
-  `inscription_date` DATE NOT NULL,
-  `situation` VARCHAR(45) NOT NULL,
-  `units_id` INT(11) NOT NULL,
-  `parents_id` INT(11) NOT NULL,
-  PRIMARY KEY (`id`, `units_id`, `parents_id`),
-  INDEX `fk_candidates_units_idx` (`units_id` ASC),
-  INDEX `fk_candidates_parents1_idx` (`parents_id` ASC),
-  CONSTRAINT `fk_candidates_parents1`
-    FOREIGN KEY (`parents_id`)
-    REFERENCES `infantil_education_mch`.`parents` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_candidates_units`
-    FOREIGN KEY (`units_id`)
-    REFERENCES `infantil_education_mch`.`units` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 9
-DEFAULT CHARACTER SET = utf8;
+--
+-- Extraindo dados da tabela `addresses_has_candidates`
+--
 
+INSERT INTO `addresses_has_candidates` (`addresses_id`, `candidates_id`) VALUES
+(1, 1),
+(2, 2);
 
--- -----------------------------------------------------
--- Table `infantil_education_mch`.`addresses_has_candidates`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `infantil_education_mch`.`addresses_has_candidates` ;
+-- --------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS `infantil_education_mch`.`addresses_has_candidates` (
-  `addresses_id` INT(11) NOT NULL,
-  `candidates_id` INT(11) NOT NULL,
-  PRIMARY KEY (`addresses_id`, `candidates_id`),
-  INDEX `fk_addresses_has_candidates_candidates1_idx` (`candidates_id` ASC),
-  INDEX `fk_addresses_has_candidates_addresses1_idx` (`addresses_id` ASC),
-  CONSTRAINT `fk_addresses_has_candidates_addresses1`
-    FOREIGN KEY (`addresses_id`)
-    REFERENCES `infantil_education_mch`.`addresses` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_addresses_has_candidates_candidates1`
-    FOREIGN KEY (`candidates_id`)
-    REFERENCES `infantil_education_mch`.`candidates` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+--
+-- Estrutura da tabela `candidates`
+--
 
+CREATE TABLE `candidates` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `birth_date` date NOT NULL,
+  `tel1` bigint(12) NOT NULL,
+  `tel2` bigint(12) DEFAULT NULL,
+  `inscription_date` date NOT NULL,
+  `situation` tinyint(3) NOT NULL,
+  `units_id` int(11) DEFAULT NULL,
+  `parents_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+--
+-- Extraindo dados da tabela `candidates`
+--
+
+INSERT INTO `candidates` (`id`, `name`, `birth_date`, `tel1`, `tel2`, `inscription_date`, `situation`, `units_id`, `parents_id`) VALUES
+(1, 'João', '2002-05-04', 8864484548, 89456485856, '2019-06-25', -1, NULL, 1),
+(2, 'Maria', '2015-12-06', 8741561565, 54156485185, '2019-06-25', 0, NULL, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `parents`
+--
+
+CREATE TABLE `parents` (
+  `id` int(11) NOT NULL,
+  `mother` varchar(255) NOT NULL,
+  `father` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `parents`
+--
+
+INSERT INTO `parents` (`id`, `mother`, `father`) VALUES
+(1, 'Gisele', 'Arnaldo'),
+(2, 'Liza', 'Bruno');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `units`
+--
+
+CREATE TABLE `units` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `users_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `units`
+--
+
+INSERT INTO `units` (`id`, `name`, `users_id`) VALUES
+(1, 'SEMED', 1),
+(2, 'CEIM Vovó Donana', 2),
+(3, 'CEIM Vovó Iracema', 3),
+(4, 'CEIM Jardim das Oliveiras', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `admin` tinyint(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `admin`) VALUES
+(1, 'Admin', 'admin@gmail.com', '123', 1),
+(2, 'Núbia', 'nubia@gmail.com', '123', 0),
+(3, 'Deila', 'deila@gmail.com', '123', 0),
+(4, 'Sandra', 'sandra@gmail.com', '123', 0);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `addresses`
+--
+ALTER TABLE `addresses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `addresses_has_candidates`
+--
+ALTER TABLE `addresses_has_candidates`
+  ADD PRIMARY KEY (`addresses_id`,`candidates_id`),
+  ADD KEY `fk_addresses_has_candidates_candidates1_idx` (`candidates_id`),
+  ADD KEY `fk_addresses_has_candidates_addresses1_idx` (`addresses_id`);
+
+--
+-- Indexes for table `candidates`
+--
+ALTER TABLE `candidates`
+  ADD PRIMARY KEY (`id`,`parents_id`),
+  ADD KEY `fk_candidates_units_idx` (`units_id`),
+  ADD KEY `fk_candidates_parents1_idx` (`parents_id`);
+
+--
+-- Indexes for table `parents`
+--
+ALTER TABLE `parents`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `units`
+--
+ALTER TABLE `units`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_units_users1_idx` (`users_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `addresses`
+--
+ALTER TABLE `addresses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `candidates`
+--
+ALTER TABLE `candidates`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `parents`
+--
+ALTER TABLE `parents`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `units`
+--
+ALTER TABLE `units`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Limitadores para a tabela `addresses_has_candidates`
+--
+ALTER TABLE `addresses_has_candidates`
+  ADD CONSTRAINT `fk_addresses_has_candidates_addresses1` FOREIGN KEY (`addresses_id`) REFERENCES `addresses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_addresses_has_candidates_candidates1` FOREIGN KEY (`candidates_id`) REFERENCES `candidates` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `candidates`
+--
+ALTER TABLE `candidates`
+  ADD CONSTRAINT `fk_candidates_parents1` FOREIGN KEY (`parents_id`) REFERENCES `parents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_candidates_units` FOREIGN KEY (`units_id`) REFERENCES `units` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `units`
+--
+ALTER TABLE `units`
+  ADD CONSTRAINT `fk_units_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

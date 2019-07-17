@@ -4,7 +4,7 @@
  * Create a database connection using PDO
  * @author jonahlyn@unm.edu
  */
-Class DBConnection {
+Class DBConnection extends PDO{
     
     // Database Connection Configuration Parameters
     // array('driver' => 'mysql','host' => '','dbname' => '','username' => '','password' => '','options' => '',)
@@ -18,6 +18,7 @@ Class DBConnection {
      * @param $config is an array of database connection parameters
      */
     public function __construct(array $config) {
+        parent::__construct("mysql:host=localhost;dbname=infantil_education_mch", "root", "");
         $this->_config = $config;
         $this->getPDOConnection();
     }
@@ -43,7 +44,7 @@ Class DBConnection {
         try {
             $this->dbc = new PDO( $dsn, $this->_config[ 'username' ], $this->_config[ 'password' ], $this->_config['options']);
             $this->dbc->exec("set names utf8");
-        } catch( PDOException $e ) {
+        } catch(PDOException $e ) {
             echo __LINE__.$e->getMessage();
         }
     }
@@ -52,14 +53,18 @@ Class DBConnection {
      * Runs a insert, update or delete query
      * @param string sql insert update or delete statement
      * @param array with all parameters names
-     * @return int count of records affected by running the sql statement.
+     * @param if is a insert query, is set true
+     * @return int id of last inserted query
      */
-    public function runQuery($sql, array $params = null ) {
+    public function runQuery($sql, array $params = null, $insert = null ) {
         try {
             $stmt = $this->dbc->prepare($sql);
             $stmt->execute($params) or print_r($this->dbc->errorInfo());
+            if ($insert) {
+                return $this->dbc->lastInsertId(); 
+            }
         } catch(PDOException $e) {
-            echo __LINE__.$e->getMessage();
+            echo "Database: ".__LINE__.$e->getMessage();
         }
         return $stmt->rowCount();
     }

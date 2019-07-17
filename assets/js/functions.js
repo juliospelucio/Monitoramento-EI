@@ -70,7 +70,14 @@ function datatableApplyUsers() {
 
 
 /*MODAL TRIGGER*/
-$('#exampleModal').modal('show');
+function modalHref(element) {
+
+  // access element which fired event by > this
+  var href = element.getAttribute('data-href');
+
+  // Set attribute
+  document.getElementsByClassName('btn-ok')[0].setAttribute('href', href)
+};
 
 /*PHONE MASK*/
 function setupPhoneMaskOnField(selector){
@@ -93,6 +100,6 @@ function setCorrectPhoneMask(element){
 }
 
  function applyMask(){
-    setupPhoneMaskOnField('#tel');
+    setupPhoneMaskOnField('#tel1');
     setupPhoneMaskOnField('#tel2');
 };

@@ -1,5 +1,8 @@
 <?php 
 require_once('Model.php');
+require_once('Address.php');
+require_once('Parents.php');
+require_once('CandidatesAddresses.php');
 
 Class Candidate extends Model{
 
@@ -13,7 +16,8 @@ Class Candidate extends Model{
 						'number'=>$_POST['number'],
 						'father'=>$_POST['father'],
 						'mother'=>$_POST['mother']);
-*/
+	*/
+	
 	protected $name;
 
 	protected $birth_date;
@@ -28,18 +32,33 @@ Class Candidate extends Model{
 
 	protected $units_id;
 
-	protected $parents_id;
+	protected $address;
 
-	
+	protected $parents;
+
+
+	/* Function __construct
+     * Set Atributes to the class
+     * @param $name unit's name
+     * @param $dbconfig is a db configuration arrays 
+     */
+	function __construct($dbconfig){
+		$this->dbconfig = $dbconfig;
+		$this->address = new Address($dbconfig);
+		$this->parents = new Parents($dbconfig);
+		$this->CandidateAddress = new CandidatesAddresses($dbconfig);
+	}
+
 	/* Function getCandidates
      * Get all candidates
      * @return Associate array candidate
      */
 	function getCandidates(){
 		try {
-			$sql = "SELECT c.id,c.name,c.birth_date,c.tel1,c.tel2,
-			c.inscription_date,c.situation,p.mother,p.father 
-			FROM `candidates` c INNER JOIN `parents` p ON c.parents_id = p.id ";
+			$sql = "SELECT c.id,c.name,c.birth_date,c.tel1,c.tel2,c.inscription_date,c.situation,p.mother,p.father 
+					FROM `candidates` c 
+					INNER JOIN `parents` p ON c.parents_id = p.id ";
+					
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql);
 		} catch (PDOException $e) {
@@ -54,11 +73,34 @@ Class Candidate extends Model{
      */
 	function getCandidate($id){
 		try {
-			$sql = "SELECT c.id,c.name,c.birth_date,c.tel1,c.tel2,
-			c.inscription_date,c.situation,p.mother,p.father FROM `candidates` c INNER JOIN `parents` p ON c.parents_id = p.id WHERE c.id = :id";
-			$params = array(':id' => $id);
 			$dbc = new DBConnection($this->dbconfig);
+
+			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation,
+						   a.id aid, a.street, a.number, a.neighborhood, p.id pid, p.mother, p.father, u.id uid, u.name uname
+					FROM candidates c 
+					INNER JOIN addresses_has_candidates h ON h.candidates_id = c.id
+					INNER JOIN addresses a ON a.id = h.addresses_id
+					INNER JOIN parents p ON p.id = c.parents_id
+					INNER JOIN units u ON u.id = c.units_id
+					WHERE c.id = :id";
+
+			$params = array(':id' => $id);
+			$query = $dbc->getQuery($sql,$params);
+			if ($query) {
+				return $query;
+			}
+
+			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation,
+						   a.id aid, a.street, a.number, a.neighborhood, p.id pid, p.mother, p.father
+					FROM candidates c 
+					INNER JOIN addresses_has_candidates h ON h.candidates_id = c.id
+					INNER JOIN addresses a ON a.id = h.addresses_id
+					INNER JOIN parents p ON p.id = c.parents_id
+					WHERE c.id = :id";
+			$params = array(':id' => $id);
+
 			return $dbc->getQuery($sql,$params);
+
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
 		}
@@ -70,16 +112,38 @@ Class Candidate extends Model{
      */
 	function insertCandidate(){
 		try {
-			$sql = "INSERT INTO `candidates` (name, birth_date, tel1, tel2, inscription_date, situation, units_id, parents_id) VALUES (:name, :birth_date, :tel1, :tel2, :inscription_date, :situation, :units_id, :parents_id)";
-			$params = array(":name"=>$this->name, ":birth_date"=>$this->birth_date,
-			 				":tel1"=>$this->tel1, ":tel2"=>$this->tel2,
-			 				":inscription_date"=>$this->inscription_date,
-			 				":situation"=>$this->situation, 
-			 				":units_id"=>$this->units_id, ":parents_id"=>$this->parents_id);
+			
 			$dbc = new DBConnection($this->dbconfig);
-			return $dbc->runQuery($sql,$params);
+
+			$dbc->beginTransaction();
+
+			$pId = $this->parents->insertParent();
+
+			$aId = $this->address->insertAddress();			
+
+			$sql = "INSERT INTO candidates (name,birth_date,tel1,tel2,inscription_date,situation,units_id,parents_id) VALUES (:name,:birth_date,:tel1,:tel2,:inscription_date,:situation,:units_id,:parents_id)";
+
+			$params = array(":name"=>$this->name,
+							":birth_date"=>$this->birth_date,
+			 				":tel1"=>$this->tel1,
+			 				":tel2"=>$this->tel2,
+			 				":inscription_date"=>$this->inscription_date,
+			 				":situation"=>$this->situation,
+			 				":units_id"=>$this->units_id,
+			 				":parents_id"=>$pId
+			 				);
+
+			$cId = $dbc->runQuery($sql,$params,1);
+			$fields = array('addresses_id' => $aId, 'candidates_id' => $cId);
+			$this->CandidateAddress->setAttributes($fields);
+			$this->CandidateAddress->insertRelationship();
+			
+			return $dbc->commit();
+
+			//return $dbc->runQuery($sql,$params);
 		} catch (PDOException $e) {
-			echo __LINE__.$e->getMessage();
+			echo "Erro linha: ".__LINE__.$e->getMessage();
+			$dbc->rollBack();
 		}
 	}
 
@@ -88,14 +152,26 @@ Class Candidate extends Model{
      * @param $id candidate's id
      * @return int count of records affected by running the sql statement into candidate.
      */
-	function deleteCandidate($id){
+	function deleteCandidate($cid,$aid,$pid){
 		try {
-			$sql = "DELETE FROM `candidates` WHERE id = :id";
-			$params = array(':id' => $id);
 			$dbc = new DBConnection($this->dbconfig);
-			return $dbc->runQuery($sql,$params);
+
+			$dbc->beginTransaction();
+
+			$this->CandidateAddress->deleteRelationship($aid,$cid);
+
+			$sql = "DELETE FROM `candidates` WHERE id = :id";
+			$params = array(':id' => $cid);
+
+			$dbc->runQuery($sql,$params);
+			
+			$this->parents->deleteParent($pid);
+			$this->address->deleteAddress($aid);
+
+			return $dbc->commit(); 
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
+			$dbc->rollBack();
 		}
 	}
 
@@ -106,11 +182,35 @@ Class Candidate extends Model{
      */
 	function updateCandidate(array $params){
 		try {
-			$sql = "UPDATE `candidates` SET name =:name, birth_date=:birth_date, tel1=:tel1, tel2=:tel2, inscription_date=:inscription_date, situation=:situation, units_id=:units_id, parents_id=:parents_id WHERE id = :id";
 			$dbc = new DBConnection($this->dbconfig);
-			return $dbc->runQuery($sql,$params);
+
+			/*echo "<pre>";
+			print_r($params);
+			echo "</pre>";
+			exit;*/
+			$dbc->beginTransaction();
+
+			$address = array(':id' => $params['addresses_id'],':street' => $params['street'],':number' => $params['number'],':neighborhood' => $params['neighborhood']);//Address params
+			$parents = array(':id' => $params['parents_id'],':mother' =>$params['mother'],':father' =>$params['father']);
+
+			$this->address->updateAddress($address);
+
+			unset($params['parents_id'],$params['mother'],$params['father'],$params['addresses_id'],$params['street'],$params['number'],$params['neighborhood']);	
+			
+			$sql = "UPDATE `candidates` SET name =:name, birth_date=:birth_date, tel1=:tel1, tel2=:tel2, situation=:situation, units_id=:units_id WHERE id = :id";
+			/*echo "<pre>";
+			print_r($params);
+			echo "</pre>";
+			exit;*/
+			
+			$dbc->runQuery($sql,$params);
+
+			$this->parents->updateParent($parents);
+
+			return $dbc->commit(); 
 		} catch (PDOException $e) {
-			echo __LINE__.$e->getMessage();
+			echo "Erro linha: ".__LINE__.$e->getMessage();
+			$dbc->rollBack();
 		}
 	}
 }

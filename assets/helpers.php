@@ -130,8 +130,6 @@ function triggerModal(){
     } else if ($_SESSION['data']['type']=="Sucesso") {
         include_once abspath()."/view/template/modalSuccess.php";
     }
-    //print_r($_SESSION['data']);
-    // unset($_SESSION['data']['type']);
     unset($_SESSION['data']);
 }
 

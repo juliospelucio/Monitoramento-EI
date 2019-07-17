@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 25-Jun-2019 às 14:08
+-- Generation Time: 17-Jul-2019 às 05:55
 -- Versão do servidor: 10.1.40-MariaDB
 -- versão do PHP: 7.2.18
 
@@ -41,7 +41,7 @@ CREATE TABLE `addresses` (
 
 INSERT INTO `addresses` (`id`, `street`, `number`, `neighborhood`) VALUES
 (1, 'Rua Coronel', 845, 'Jardim'),
-(2, 'Hélio Garroni', 25, 'Centro');
+(3, 'R2', 22, 'b2');
 
 -- --------------------------------------------------------
 
@@ -60,7 +60,7 @@ CREATE TABLE `addresses_has_candidates` (
 
 INSERT INTO `addresses_has_candidates` (`addresses_id`, `candidates_id`) VALUES
 (1, 1),
-(2, 2);
+(3, 3);
 
 -- --------------------------------------------------------
 
@@ -85,8 +85,8 @@ CREATE TABLE `candidates` (
 --
 
 INSERT INTO `candidates` (`id`, `name`, `birth_date`, `tel1`, `tel2`, `inscription_date`, `situation`, `units_id`, `parents_id`) VALUES
-(1, 'João', '2002-05-04', 8864484548, 89456485856, '2019-06-25', -1, NULL, 1),
-(2, 'Maria', '2015-12-06', 8741561565, 54156485185, '2019-06-25', 0, NULL, 2);
+(1, 'Joãoo', '2002-05-04', 8864484548, 89456485856, '2019-06-25', -1, NULL, 1),
+(3, 'aluno2', '2005-08-04', 54184515615, 54156151, '2019-07-17', 0, NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -106,7 +106,7 @@ CREATE TABLE `parents` (
 
 INSERT INTO `parents` (`id`, `mother`, `father`) VALUES
 (1, 'Gisele', 'Arnaldo'),
-(2, 'Liza', 'Bruno');
+(3, 'mae2', 'pai2');
 
 -- --------------------------------------------------------
 
@@ -128,7 +128,7 @@ INSERT INTO `units` (`id`, `name`, `users_id`) VALUES
 (1, 'SEMED', 1),
 (2, 'CEIM Vovó Donana', 2),
 (3, 'CEIM Vovó Iracema', 3),
-(4, 'CEIM Jardim das Oliveiras', 4);
+(5, 'CEIM Jardim das Oliveiras', 4);
 
 -- --------------------------------------------------------
 
@@ -141,7 +141,7 @@ CREATE TABLE `users` (
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `admin` tinyint(3) NOT NULL
+  `admin` enum('0','1') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -149,10 +149,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `admin`) VALUES
-(1, 'Admin', 'admin@gmail.com', '123', 1),
-(2, 'Núbia', 'nubia@gmail.com', '123', 0),
-(3, 'Deila', 'deila@gmail.com', '123', 0),
-(4, 'Sandra', 'sandra@gmail.com', '123', 0);
+(1, 'Admin', 'admin@gmail.com', '123', '1'),
+(2, 'Núbia', 'nubia@gmail.com', '123', '0'),
+(3, 'Deila', 'deila@gmail.com', '123', '0'),
+(4, 'Sandra', 'sandra@gmail.com', '123', '0');
 
 --
 -- Indexes for dumped tables
@@ -207,31 +207,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `candidates`
 --
 ALTER TABLE `candidates`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `parents`
 --
 ALTER TABLE `parents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `units`
 --
 ALTER TABLE `units`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables

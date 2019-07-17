@@ -13,8 +13,8 @@ Class Unit extends Model{
      */
 	function getUnits(){
 		try {
-			$sql = "SELECT a.id, a.name aname, b.name bname, b.email 
-					FROM `units` a INNER JOIN `users` b ON a.users_id = b.id";
+			$sql = "SELECT un.id, un.name unname, us.name usname, us.email 
+					FROM `units` un INNER JOIN `users` us ON un.users_id = us.id";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql);
 		} catch (PDOException $e) {

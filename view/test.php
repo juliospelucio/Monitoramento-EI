@@ -13,11 +13,22 @@ require_once 'template/header.php';
     <div id="page-content-wrapper" style="width: 100%">
         <section class="container-fluid">
             <p><h3><u>Bem vindo <?php echo $_SESSION['name'] ?></u></h3></p><br>
-            <pre>
-                <!-- 
-            <?php print_r($rows) ?> -->
-            </pre>
-            <a href="#" data-href="../controller/delete_user.php?id=0" data-toggle="modal" data-target="#confirm-delete"><img src="../assets/img/delete.png" width="30" height="30"></a>
+            
+
+
+        <?php 
+
+        $query = "UPDATE address SET ";
+        $comma = " ";
+        $params  = array('street' => "Rua teste", 'number' => 2, 'neighborhood' => "Bairro teste"); 
+        foreach ($params as $key => $value) {
+            $query.= $comma.$key." = :".$key;
+            $comma = ", ";
+        }
+
+        echo "$query";
+        ?>
+
         </section>
     </div>
     <!-- EMPTY DIV - PUSH FOOTER -->

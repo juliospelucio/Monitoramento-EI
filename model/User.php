@@ -83,7 +83,18 @@ Class User extends Model{
      */
 	function updateUser(array $params){
 		try {
-			$sql = "UPDATE `users` SET name = :name, email = :email, password = :password, admin = :admin WHERE id = :id";
+			$sql = "UPDATE `users` SET";
+	        $comma = " ";
+	        foreach ($params as $key => $value) {
+	        	if ($key == "id") {
+	        		continue;
+	        	}
+	            $sql.= $comma.$key." = :".$key;
+	            $comma = ", ";
+	        }
+
+	        $sql.=" WHERE id = :id";
+	        
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->runQuery($sql,$params);
 		} catch (PDOException $e) {

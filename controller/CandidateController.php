@@ -33,14 +33,16 @@ Class CandidateController extends Controller{
 		$mother = $fields['mother'];
 		$father = $fields['father'];
 		$parents = array('mother' => $mother,'father' => $father);
-		$this->parents->setAttributes($parents);
 
 		$street = $fields['street'];
 		$number = $fields['number'];
 		$neighborhood = $fields['neighborhood'];
-		unset($fields['mother'],$fields['father'],$fields['street'],$fields['number'],$fields['neighborhood']);	
-
 		$address = array('street' => $street,'number' => $number,'neighborhood' => $neighborhood);
+		
+		unset($fields['mother'],$fields['father'],$fields['street'],$fields['number'],$fields['neighborhood']);	
+		
+		$this->parents->setAttributes($parents);
+
 		$this->address->setAttributes($address);
 
 		$fields = $fields + array('address' => $this->address,'parents' => $this->parents);

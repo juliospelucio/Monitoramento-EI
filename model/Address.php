@@ -15,14 +15,6 @@ Class Address extends Model{
      * @return Associate array address
      */
 	function getAddresses(){
-
-		$class_vars = get_class_vars(static::class);
-		$vars = "";
-		foreach ($class_vars as $name => $value) {
-		    $vars .= "$name : $value"."<br>";
-		}
-        print_r($vars);
-
 		try {
 			$sql = "SELECT * FROM `addresses` ";
 			$dbc = new DBConnection($this->dbconfig);
@@ -88,8 +80,19 @@ Class Address extends Model{
      */
 	function updateAddress(array $params){
 		try {
-			$sql = "UPDATE `addresses` SET street = :street, number = :number, neighborhood = :neighborhood WHERE id = :id";
-			$dbc = new DBConnection($this->dbconfig);
+			$sql = "UPDATE `addresses` SET";
+	        $comma = " ";
+	        foreach ($params as $key => $value) {
+	        	if ($key == "id") {
+	        		continue;
+	        	}
+	            $sql.= $comma.$key." = :".$key;
+	            $comma = ", ";
+	        }
+
+	        $sql.=" WHERE id = :id";
+	        
+	        $dbc = new DBConnection($this->dbconfig);
 			return $dbc->runQuery($sql,$params);
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();

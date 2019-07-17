@@ -41,7 +41,7 @@ Class UnitController extends Controller {
      * @param $fields array with form's fields
      */
 	public function insert($fields){
-		parent::checkFields($fields);
+		// parent::checkFields($fields);
 		$this->unit->setAttributes($fields);
 		if($this->unit->insertUnit()){
 			$dados = array('msg' => 'Unidade cadastrada com sucesso', 'type' => parent::$success);

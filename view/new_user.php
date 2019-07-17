@@ -37,7 +37,7 @@ $controller->filename = basename(__FILE__);
 	                    </div>
 	                    <div class="col-md-2 col-sm-12 mt-2">
 	                    	<div class="custom-control custom-checkbox">
-							  <input type="checkbox" class="custom-control-input" id="admin" value="1">
+							  <input type="checkbox" class="custom-control-input" id="admin" name="admin" value="1">
 							  <label class="custom-control-label" for="admin">Administrador</label>
 							</div>                     
 	                    </div>

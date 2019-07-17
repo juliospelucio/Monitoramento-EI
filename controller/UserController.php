@@ -89,6 +89,16 @@ Class UserController extends Controller {
 		header('location: ../view/users.php');
 		exit;
 	}
+
+	/* Function updatePsw
+     * Update user's password
+     * @param $fields array with form's fields
+     */
+	public function updatePsw($id,$oldPsw,$nowPsw,$newPsw){
+		if ($oldPsw==$nowPsw) {
+			$this->user->updateUser($id);
+		}
+	}
 }
 
 // CHAMADA DE MÉTODOS -------------------------------------------------------
@@ -121,4 +131,8 @@ if (isset($_POST['edit'])) {
 
 if (isset($_GET['delete'])) {
 	$controller->delete($_GET['id']);
+}
+
+if (isset($_POST['psw'])) {
+	$controller->updatePsw($id,$oldPsw,$nowPsw,$newPsw);
 }

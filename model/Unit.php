@@ -76,7 +76,17 @@ Class Unit extends Model{
      */
 	function updateUnit(array $params){
 		try {
-			$sql = "UPDATE `units` SET name = :name, users_id = :users_id WHERE id = :id";
+			$sql = "UPDATE `units` SET";
+	        $comma = " ";
+	        foreach ($params as $key => $value) {
+	        	if ($key == "id") {
+	        		continue;
+	        	}
+	            $sql.= $comma.$key." = :".$key;
+	            $comma = ", ";
+	        }
+
+	        $sql.=" WHERE id = :id";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->runQuery($sql,$params);
 		} catch (PDOException $e) {

@@ -119,7 +119,7 @@ if (isset($_GET['update'])) {
 
 if (isset($_POST['insert'])) {
 	if (!isset($_POST['admin'])) $_POST['admin'] = 0;
-	$fields = array('name' => $_POST['name'],'email' =>$_POST['email'],'password' =>123,'admin' =>$_POST['admin']);//EDITAR PASSWORD
+	$fields = array('name' => $_POST['name'],'email' =>$_POST['email'],'password' =>md5(123),'admin' =>$_POST['admin']);//EDITAR PASSWORD
 	$controller->insert($fields);
 }
 

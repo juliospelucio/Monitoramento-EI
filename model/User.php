@@ -116,7 +116,7 @@ Class User extends Model{
 			return $dbc->getQuery($sql,$params);
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
-		}		
+		}
 	}
 
 	/* Function getUsers

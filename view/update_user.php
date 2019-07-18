@@ -39,7 +39,8 @@ require_once 'template/header.php';
 	                    	<a href="#" data-href="../controller/UserController.php?<?php echo $user['id'] ?>" data-toggle="modal" data-target="#psw" class="btn btn-secondary">Senha</a>
 	                    </div>
                         <input type="hidden" id="id" name="id" value="<?php echo $user['id'] ?>">
-                        <input type="hidden" id="password" name="password" value="<?php echo $user['password'] ?>">
+                        <input type="hidden" id="admin" name="admin" value="<?php echo $user['admin'] ?>">
+                        <input type="hidden" id="password" name="password" value="<?php echo md5($user['password']) ?>">
 					</div>
 
 					<div class="row mt-md-5 justify-content-md-center">

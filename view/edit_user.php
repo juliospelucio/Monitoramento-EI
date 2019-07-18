@@ -13,7 +13,7 @@ $controller->filename = basename(__FILE__);
                 <h1 class="mb-5">Atualizar Dados</h1>
                 <form action="../controller/UserController.php" method="post" class="was-validated">
 	                <div class="row my-md-2"> 
-	                    <div class="col-md-6 col-sm-12">
+	                    <div class="col-md-5 col-sm-12">
 	                    	<div class="input-group mb-md-3 mb-sm-1">
 	                    		<div class="input-group-prepend">
 							  		<span class="input-group-text" id="basic-addon-name">Nome do Usuário</span>
@@ -24,7 +24,7 @@ $controller->filename = basename(__FILE__);
 						        </div>	
 							</div>                      
 	                    </div>
-	                    <div class="col-md-6 col-sm-12">
+	                    <div class="col-md-5 col-sm-12">
 	                    	<div class="input-group mb-md-3 mb-sm-1">
 	                    		<div class="input-group-prepend">
 							  		<span class="input-group-text" id="basic-addon-email">Email</span>
@@ -35,8 +35,14 @@ $controller->filename = basename(__FILE__);
 						        </div>	
 							</div>                      
 	                    </div>
+	                    <div class="col-md-2 col-sm-12 mt-2">
+	                    	<div class="custom-control custom-checkbox">
+							  <input type="checkbox" class="custom-control-input" id="admin" name="admin" value="1" <?php echo $user['admin']==1? "checked":"" ?>>
+							  <label class="custom-control-label" for="admin" >Administrador</label>
+							</div>                     
+	                    </div>
                         <input type="hidden" id="id" name="id" value="<?php echo $user['id'] ?>">
-                        <input type="hidden" id="password" name="password" value="<?php echo $user['password'] ?>">
+                        <input type="hidden" id="password" name="password" value="<?php echo md5($user['password']) ?>">
 					</div>
 
 					<div class="row mt-md-5 justify-content-md-around">

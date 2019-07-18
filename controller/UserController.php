@@ -92,11 +92,46 @@ Class UserController extends Controller {
 
 	/* Function updatePsw
      * Update user's password
-     * @param $fields array with form's fields
+     * @param user $id
+     * @param the current password hidden form
+     * @param the current password input
+     * @param the new password
+     * @param the new password confirmation
      */
-	public function updatePsw($id,$oldPsw,$nowPsw,$newPsw){
-		if ($oldPsw==$nowPsw) {
-			$this->user->updateUser($id);
+	public function updatePsw($id,$oldPsw,$nowPsw,$newPsw,$confPsw){
+
+			// echo $id."<br>";
+			// echo $oldPsw."<br>";
+			// echo $nowPsw."<br>";
+			// echo $newPsw."<br>";
+			// echo $confPsw."<br>";
+			// exit;
+		$this->checkPsw($id,$newPsw,$confPsw);
+		if ($oldPsw==$nowPsw){
+			$this->user->updateUser(array('id' => $id,'password' => md5($newPsw)));
+			$dados = array('msg' => 'Senha alterada com sucesso', 'type' => parent::$success);
+			$_SESSION['data'] = $dados;
+			header('location: ../view/update_user.php?id='.$id);
+			exit;
+		}
+		$dados = array('msg' => 'Senha não coincide com a atual', 'type' => parent::$error);
+		$_SESSION['data'] = $dados;
+		header('location: ../view/update_user.php?id='.$id);
+		exit;
+	}
+
+	/* Function checkPsw
+     * Checks if passwords matches each other
+     * @param user $id
+     * @param the new password
+     * @param the new password confirmation
+     */
+	private function checkPsw($id,$newPsw,$confPsw){
+		if ($newPsw!=$confPsw) {
+			$dados = array('msg' => 'A nova senha não coincide com a senha de confirmação', 'type' => parent::$error);
+			$_SESSION['data'] = $dados;
+			header('location: ../view/update_user.php?id='.$id);
+			exit;
 		}
 	}
 }
@@ -119,13 +154,13 @@ if (isset($_GET['update'])) {
 
 if (isset($_POST['insert'])) {
 	if (!isset($_POST['admin'])) $_POST['admin'] = 0;
-	$fields = array('name' => $_POST['name'],'email' =>$_POST['email'],'password' =>md5(123),'admin' =>$_POST['admin']);//EDITAR PASSWORD
+	$fields = array('name' => $_POST['name'],'email' =>$_POST['email'],'password' =>md5(123),'admin' =>$_POST['admin']);
 	$controller->insert($fields);
 }
 
 if (isset($_POST['edit'])) {
 	if (!isset($_POST['admin'])) $_POST['admin'] = 0;
-	$fields = array('id' => $_POST['id'],'name' => $_POST['name'],'email' =>$_POST['email'],'password' =>$_POST['password'],'admin' =>$_POST['admin']);//EDITAR PASSWORD
+	$fields = array('id' => $_POST['id'],'name' => $_POST['name'],'email' =>$_POST['email'],'password' =>$_POST['password'],'admin' =>$_POST['admin']);
 	$controller->edit($fields);
 }
 
@@ -134,5 +169,5 @@ if (isset($_GET['delete'])) {
 }
 
 if (isset($_POST['psw'])) {
-	$controller->updatePsw($id,$oldPsw,$nowPsw,$newPsw);
+	$controller->updatePsw($_POST['id'],$_POST['id_psw'],md5($_POST['psw_now']),$_POST['psw_new'],$_POST['psw_conf']);
 }

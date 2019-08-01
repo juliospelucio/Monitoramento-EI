@@ -94,7 +94,7 @@ require_once 'template/header.php';
 							</div>                      
 	                    </div>
 	                    <div class="col-md-3 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
+	                    	<div class="input-group">
 	                    		<div class="input-group-prepend">
 							    	<span class="input-group-text" id="basic-addon-situation">Situação</span>
 							  	</div>
@@ -131,7 +131,7 @@ require_once 'template/header.php';
 	                    </div>
 	                    <div class="form-group col-md-6 col-sm-6">
 	                       <label class="sr-only" for="cancel">Cancelar</label>
-	                       <a href="candidates.php" class="btn btn-outline-secondary btn-block" id="cancel" name="cancel">Cancelar</a>
+	                       <a href="candidate_data.php?id=<?php echo $candidate['cid'] ?>" class="btn btn-outline-secondary btn-block" id="cancel" name="cancel">Cancelar</a>
 	                    </div>
 	                </div>            
                 </form>

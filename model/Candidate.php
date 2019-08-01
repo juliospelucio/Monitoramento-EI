@@ -6,18 +6,6 @@ require_once('CandidatesAddresses.php');
 
 Class Candidate extends Model{
 
-	/*$attributes = array('name'=>$_POST['name'],
-						'birth_date'=>$_POST['birth_date'],
-						'tel1'=>$_POST['tel1'],
-						'tel2'=>$_POST['tel2'],
-						'inscription_date'=>$_POST['inscription_date'],
-						'neighborhood'=>$_POST['neighborhood'],
-						'street'=>$_POST['street'],
-						'number'=>$_POST['number'],
-						'father'=>$_POST['father'],
-						'mother'=>$_POST['mother']);
-	*/
-	
 	protected $name;
 
 	protected $birth_date;
@@ -140,8 +128,7 @@ Class Candidate extends Model{
 			
 			return $dbc->commit();
 
-			//return $dbc->runQuery($sql,$params);
-		} catch (PDOException $e) {
+			} catch (PDOException $e) {
 			echo "Erro linha: ".__LINE__.$e->getMessage();
 			$dbc->rollBack();
 		}
@@ -184,13 +171,9 @@ Class Candidate extends Model{
 		try {
 			$dbc = new DBConnection($this->dbconfig);
 
-			/*echo "<pre>";
-			print_r($params);
-			echo "</pre>";
-			exit;*/
 			$dbc->beginTransaction();
 
-			$address = array(':id' => $params['addresses_id'],':street' => $params['street'],':number' => $params['number'],':neighborhood' => $params['neighborhood']);//Address params
+			$address = array(':id' => $params['addresses_id'],':street' => $params['street'],':number' => $params['number'],':neighborhood' => $params['neighborhood']);
 			$parents = array(':id' => $params['parents_id'],':mother' =>$params['mother'],':father' =>$params['father']);
 
 			$this->address->updateAddress($address);

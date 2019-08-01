@@ -192,25 +192,43 @@ transform: translateY(0.625rem);
 /* DATATABLE BOOTSTRAP 4
 -------------------------------*/
 .page-link {
-    position: relative;
-    display: block;
-    padding: .5rem .75rem;
-    margin-left: -1px;
-    line-height: 1.25;
-    color: #000;
-    background-color: #cecece;
-    border: 1px solid #fff;
+  position: relative;
+  display: block;
+  padding: .5rem .75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #000;
+  background-color: #cecece;
+  border: 1px solid #fff;
 }
 
 .page-link:hover {
-    color: #fff;
-    background-color: #3e3e3e;
-    border: 1px solid #fff;
+  color: #fff;
+  background-color: #3e3e3e;
+  border: 1px solid #fff;
 }
 
 .page-item.active .page-link {
-    z-index: 1;
-    color: #000;
-    background-color: #cecece;
-    border-color: #fff;
+  z-index: 1;
+  color: #000;
+  background-color: #cecece;
+  border-color: #fff;
+}
+
+.custom-anchor{
+  cursor: pointer;
+}
+
+/* GRAY BOX */
+
+.gray-box {
+  background-color: rgba(132, 132, 132, .8);
+}
+
+.border-gray-top{
+  border-top: solid 2px #565656;
+}
+
+.border-gray-bottom{
+  border-bottom: solid 2px #565656;
 }

@@ -62,14 +62,14 @@ Class UserController extends Controller {
 	public function edit($fields){
 		// $this->checkFields($fields);
 		if($this->user->updateUser($fields)){
-			$dados = array('msg' => 'Usuário editado com sucesso', 'type' => parent::$success);
+			$dados = array('msg' => 'Dados atualizados com sucesso', 'type' => parent::$success);
 			$_SESSION['data'] = $dados;
-			header('location: ../view/users.php');
+			header('location: ../view/update_user.php?id='.$fields['id']);
 			exit;
 		}
-		$dados = array('msg' => 'Erro ao editar o usuário', 'type' => parent::$error);
+		$dados = array('msg' => 'Erro ao editar os dados do usuário', 'type' => parent::$error);
 		$_SESSION['data'] = $dados;
-		header('location: ../view/users.php');
+		header('location: ../view/update_user.php?id='.$fields['id']);
 		exit;
 	}
 
@@ -92,45 +92,38 @@ Class UserController extends Controller {
 
 	/* Function updatePsw
      * Update user's password
-     * @param user $id
+     * @param user $uid
      * @param the current password hidden form
      * @param the current password input
      * @param the new password
      * @param the new password confirmation
      */
-	public function updatePsw($id,$oldPsw,$nowPsw,$newPsw,$confPsw){
-
-			// echo $id."<br>";
-			// echo $oldPsw."<br>";
-			// echo $nowPsw."<br>";
-			// echo $newPsw."<br>";
-			// echo $confPsw."<br>";
-			// exit;
-		$this->checkPsw($id,$newPsw,$confPsw);
+	public function updatePsw($uid,$oldPsw,$nowPsw,$newPsw,$confPsw){
+		$this->checkPsw($uid,$newPsw,$confPsw);
 		if ($oldPsw==$nowPsw){
-			$this->user->updateUser(array('id' => $id,'password' => md5($newPsw)));
+			$this->user->updateUser(array('id' => $uid,'password' => md5($newPsw)));
 			$dados = array('msg' => 'Senha alterada com sucesso', 'type' => parent::$success);
 			$_SESSION['data'] = $dados;
-			header('location: ../view/update_user.php?id='.$id);
+			header('location: ../view/update_user.php?id='.$uid);
 			exit;
 		}
 		$dados = array('msg' => 'Senha não coincide com a atual', 'type' => parent::$error);
 		$_SESSION['data'] = $dados;
-		header('location: ../view/update_user.php?id='.$id);
+		header('location: ../view/update_user.php?id='.$uid);
 		exit;
 	}
 
 	/* Function checkPsw
      * Checks if passwords matches each other
-     * @param user $id
+     * @param user $uid
      * @param the new password
      * @param the new password confirmation
      */
-	private function checkPsw($id,$newPsw,$confPsw){
+	private function checkPsw($uid,$newPsw,$confPsw){
 		if ($newPsw!=$confPsw) {
 			$dados = array('msg' => 'A nova senha não coincide com a senha de confirmação', 'type' => parent::$error);
 			$_SESSION['data'] = $dados;
-			header('location: ../view/update_user.php?id='.$id);
+			header('location: ../view/update_user.php?id='.$uid);
 			exit;
 		}
 	}
@@ -169,5 +162,5 @@ if (isset($_GET['delete'])) {
 }
 
 if (isset($_POST['psw'])) {
-	$controller->updatePsw($_POST['id'],$_POST['id_psw'],md5($_POST['psw_now']),$_POST['psw_new'],$_POST['psw_conf']);
+	$controller->updatePsw($_POST['uid'],$_POST['id_psw'],md5($_POST['psw_now']),$_POST['psw_new'],$_POST['psw_conf']);
 }

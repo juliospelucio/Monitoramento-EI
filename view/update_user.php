@@ -48,6 +48,10 @@ require_once 'template/header.php';
 	                       <label class="sr-only" for="edit">Atualizar</label>
 	                       <button type="submit" class="btn btn-outline-success btn-block" id="edit" name="edit">Atualizar</button>
 	                    </div>
+	                    <div class="form-group col-md-6 col-sm-6">
+	                       <label class="sr-only" for="edit">Voltar</label>
+	                      <a class="btn btn-outline-secondary btn-block" href="../view/index.php" role="button">Voltar</a>
+	                    </div>
 	                </div>
 	            </form>
             </section>

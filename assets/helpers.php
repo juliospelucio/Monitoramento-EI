@@ -1,6 +1,4 @@
 <?php 
-
-
 /*Absolute Path*/
 function abspath(){
 	return dirname(__DIR__);
@@ -146,4 +144,21 @@ function dateDifference($date_1, $date_2, $differenceFormat = '%a'){
     }
     
     return $interval->format($differenceFormat);  
+}
+
+function formatTel($number){
+    if(strlen($number) == 10){
+        $new = substr_replace($number, '(', 0, 0);
+        $new = substr_replace($new, ')', 3, 0);
+        $new = substr_replace($new, ' ', 4, 0);
+        $new = substr_replace($new, '-', 9, 0);
+        $new = substr_replace($new, ' 9', 5, 0);
+
+    }else{
+        $new = substr_replace($number, '(', 0, 0);
+        $new = substr_replace($new, ')', 3, 0);
+        $new = substr_replace($new, '-', 9, 0);
+        $new = substr_replace($new, ' ', 4, 0);
+    }
+    return $new;
 }

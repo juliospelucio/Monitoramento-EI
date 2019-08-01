@@ -94,7 +94,6 @@ Class User extends Model{
 	        }
 
 	        $sql.=" WHERE id = :id";
-	        
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->runQuery($sql,$params);
 		} catch (PDOException $e) {
@@ -104,9 +103,7 @@ Class User extends Model{
 
 	/* Function checkCredentials
      * Checks if email and password exists in the database
-     * @param $emal User's email in database
-     * @param $password User's password in database
-     * return a single row with a User
+     * @return a single row with a User
      */
 	public function checkCredentials(){
 		try {

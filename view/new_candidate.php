@@ -114,7 +114,7 @@ require_once 'template/header.php';
 							  		<option></option>
 						  			<?php foreach ($units as $unit): ?>
 									<option <?php echo "value=".$unit['id'] ?>>
-										<?php echo $unit['aname'] ?>
+										<?php echo $unit['unname'] ?>
 									</option>
 						  			<?php endforeach ?>
 						  		</select>

@@ -60,7 +60,9 @@ Class UnitController extends Controller {
      * @param $fields array with form's fields
      */
 	public function edit($fields){
-		$this->checkFields($fields);
+		// $this->checkFields($fields);
+		/*print_r($fields);
+		exit;*/
 		if($this->unit->updateUnit($fields)){
 			$dados = array('msg' => 'Unidade editada com sucesso', 'type' => parent::$success);
 			$_SESSION['data'] = $dados;
@@ -132,7 +134,7 @@ if (isset($_POST['insert'])) {
 	$controller->insert($fields);
 }
 if (isset($_POST['edit'])) {
-	$fields = array(":id"=>$_POST['id'],":name"=>$_POST['name'],":users_id"=>$_POST['users_id']);
+	$fields = array("id"=>$_POST['id'],"name"=>$_POST['name'],"users_id"=>$_POST['users_id']);
 	$controller->edit($fields);
 }
 

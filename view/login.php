@@ -10,7 +10,7 @@ $controller->filename = basename(__FILE__);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <link rel="icon" href="../assets/img/brasão.png">
+    <link rel="icon" href="../assets/img/favicon.png">
 
     <title>Monitoramento de Vagas da Educação Infantil</title>
 
@@ -28,7 +28,6 @@ $controller->filename = basename(__FILE__);
       <form class="form-signin" action="../controller/LoginController.php" method="post">
         <img class="mt-2" src="../assets/img/brasão.png" alt="brasão" width="270" height="270" class="img-fluid" title="Monitoramento de Vagas da Educação Infantil" data-toggle="tooltip" data-placement="bottom">
         <h1 class="h3 mb-3">Login</h1>  
-        <?php if (isset($_SESSION['data']))triggerModal() ?>
         <label for="inputEmail" class="sr-only">Email</label>
         <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus name="email">
         <label for="inputPassword" class="sr-only">Senha</label>
@@ -44,5 +43,6 @@ $controller->filename = basename(__FILE__);
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/bootstrap-toggle.min.js"></script>
     <script src="../assets/js/functions.js"></script>
+        <?php if (isset($_SESSION['data']))triggerModal() ?>
   </body>
 </html>

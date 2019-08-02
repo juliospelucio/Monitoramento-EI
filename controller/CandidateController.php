@@ -23,6 +23,13 @@ Class CandidateController extends Controller{
 		$this->unit = new Unit($dbconfig);
 	}
 
+	/* Function validateSession
+     * Checks if a session is valid or redirects
+     */
+	public function validateSession(){
+		parent::validateSession();
+	}
+
 	/* Function insert
      * Insert a new Candidate into candidates table
      * @param $fields array with form's fields
@@ -195,6 +202,7 @@ Class CandidateController extends Controller{
 
 // -------------------------------------------------------
 session_start();
+validateSession();
 $controller = new CandidateController($dbconfig);//Create controller
 $rows = $controller->loadAllCandidates();//getAll candidates from database
 $units = $controller->loadAllUnits();// getAll units from database

@@ -71,7 +71,7 @@ function datatableApplyUsers() {
             "scrollCollapse": true,
             "paging":         true,
             "columnDefs": [
-                { "width": "auto", targets: 0 },//img-edit
+                { "width": "150px", targets: 0 },//img-edit
                 { "width": "500px", targets: 1 },//nome
                 { "width": "500px", targets: 2 },//email
                 { "width": "auto", targets: 3 }//img-apagar

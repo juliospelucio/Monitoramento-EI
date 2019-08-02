@@ -63,8 +63,4 @@ require_once 'template/header.php';
 require_once 'template/footer.php';
 require_once 'template/delete_candidate_modal.php';
 ?>
-<script type="text/javascript">
-    datatableApplyIndex();
-    $('.dropdown-toggle').dropdown()
-</script>
 <?php if (isset($_SESSION['data']))triggerModal() ?>

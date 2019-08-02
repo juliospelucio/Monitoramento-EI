@@ -16,6 +16,13 @@ Class UserController extends Controller {
 		parent::validateSession();
 	}
 
+	/* Function validateSession
+     * Checks if a session is valid or redirects
+     */
+	public function validateSession(){
+		parent::validateSession();
+	}
+
 	/* Function loadAllCandidates
      * Get all candidate from cadidate table
      */
@@ -131,6 +138,7 @@ Class UserController extends Controller {
 
 // CHAMADA DE MÉTODOS -------------------------------------------------------
 session_start();
+validateSession();
 $controller = new UserController($dbconfig);
 $rows = $controller->loadAllUsers();
 

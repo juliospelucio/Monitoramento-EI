@@ -52,7 +52,7 @@ require_once 'template/footer.php';
 require_once 'template/delete_user_modal.php';
 ?>
 <script type="text/javascript">
-    datatableApplyIndex();
+    datatableApplyUsers();
     $('.dropdown-toggle').dropdown()
 </script>
 <?php if (isset($_SESSION['data']))triggerModal() ?>

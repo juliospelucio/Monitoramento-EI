@@ -27,7 +27,6 @@ Class Candidate extends Model{
 
 	/* Function __construct
      * Set Atributes to the class
-     * @param $name unit's name
      * @param $dbconfig is a db configuration arrays 
      */
 	function __construct($dbconfig){
@@ -62,7 +61,6 @@ Class Candidate extends Model{
 	function getCandidate($id){
 		try {
 			$dbc = new DBConnection($this->dbconfig);
-
 			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation,
 						   a.id aid, a.street, a.number, a.neighborhood, p.id pid, p.mother, p.father, u.id uid, u.name uname
 					FROM candidates c 
@@ -89,6 +87,32 @@ Class Candidate extends Model{
 
 			return $dbc->getQuery($sql,$params);
 
+		} catch (PDOException $e) {
+			echo __LINE__.$e->getMessage();
+		}
+	}
+
+	/* Function getCategory
+     * Get a candidates between start date and end date
+     * @param $stDate 
+     * @param $endDate candidate in database
+     * @return array with candidates
+     */
+	function getCategory($stDate,$endDate){
+
+		try {
+			$dbc = new DBConnection($this->dbconfig);
+			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation,
+						   a.id aid, a.street, a.number, a.neighborhood, p.id pid, p.mother, p.father
+					FROM candidates c 
+					INNER JOIN addresses_has_candidates h ON h.candidates_id = c.id
+					INNER JOIN addresses a ON a.id = h.addresses_id
+					INNER JOIN parents p ON p.id = c.parents_id
+					WHERE c.birth_date BETWEEN :stDate AND :endDate";
+			
+			$params = array(':stDate' => $stDate, ':endDate' => $endDate);
+			// print_r($dbc->getQuery($sql,$params));
+			return $dbc->getQuery($sql,$params);
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
 		}
@@ -196,4 +220,5 @@ Class Candidate extends Model{
 			$dbc->rollBack();
 		}
 	}
+
 }

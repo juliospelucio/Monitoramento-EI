@@ -31,7 +31,7 @@ Class IndexController extends Controller{
 
 // -------------------------------------------------------
 session_start();
-validateSession();
 $controller = new IndexController($dbconfig);
+$controller->validateSession();
 $controller->validateSession();
 $rows = $controller->loadAllCandidates();

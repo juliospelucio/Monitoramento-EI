@@ -6,7 +6,7 @@ require_once 'template/header.php';
 ?>
 
 <!-- Page Content -->
-    <div id="page-content-wrapper" style="width: 100%">
+    <div id="page-content-wrapper" class="w-100">
         <section class="container-fluid">
             <div class="container">
                 <div class="row m-2 pt-2 border-gray-top">

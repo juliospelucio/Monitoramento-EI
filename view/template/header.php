@@ -36,7 +36,7 @@
               <a class="nav-link" href="index.php">Home</a>
             </li>
             <li class="position-relative">
-              <a class="nav-link" href="categories.php">Categorias</a>
+              <a class="nav-link" href="categories.php?search=1">Categorias</a>
             </li>
           </ul>
           <ul class="navbar-nav">

@@ -25,7 +25,7 @@ function datatableApplyCandidates() {
     		        "sSortDescending": ": Ordenar colunas de forma descendente"
     		    }
     		},
-            "scrollY":        "400px",
+            "scrollY":        "1000px",
             "scrollX":        "1000px",
             "scrollCollapse": true,
             "paging":         true,
@@ -66,7 +66,7 @@ function datatableApplyUsers() {
                     "sSortDescending": ": Ordenar colunas de forma descendente"
                 }
             },/*SCROLLING*/
-            "scrollY":        "400px",
+            "scrollY":        "1000px",
             "scrollX":        "1000px",
             "scrollCollapse": true,
             "paging":         true,
@@ -119,6 +119,11 @@ function setCorrectPhoneMask(element){
 function candidateData(element) {
   // access element which fired event by > this
   var href = element.getAttribute('data-href');
-  window.location = href;
+  window.location = encodeURIComponent(href); //removes whites spaces and new lines
 
+};
+
+/*YEAR INPUT CATEGORIES*/
+function inputYear(){
+    document.querySelector("input[type=number]").oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1))
 };

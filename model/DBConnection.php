@@ -77,6 +77,7 @@ Class DBConnection extends PDO{
     public function getQuery($sql,array $params = null) {
         $stmt = $this->dbc->prepare($sql);
         $stmt->execute($params);
+        // echo $stmt->debugDumpParams() . "<br />";
         return  $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

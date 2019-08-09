@@ -138,8 +138,8 @@ Class UserController extends Controller {
 
 // CHAMADA DE MÉTODOS -------------------------------------------------------
 session_start();
-validateSession();
 $controller = new UserController($dbconfig);
+$controller->validateSession();
 $rows = $controller->loadAllUsers();
 
 if (isset($_GET['id'])) {
@@ -155,7 +155,7 @@ if (isset($_GET['update'])) {
 
 if (isset($_POST['insert'])) {
 	if (!isset($_POST['admin'])) $_POST['admin'] = 0;
-	$fields = array('name' => $_POST['name'],'email' =>$_POST['email'],'password' =>md5(123),'admin' =>$_POST['admin']);
+	$fields = array('name' => $_POST['name'],'email' =>$_POST['email'],'password' =>md5("semedmch"),'admin' =>$_POST['admin']);
 	$controller->insert($fields);
 }
 

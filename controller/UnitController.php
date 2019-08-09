@@ -127,8 +127,8 @@ Class UnitController extends Controller {
 
 // CHAMADA DE MÉTODOS -------------------------------------------------------
 session_start();
-validateSession();
 $controller = new UnitController($dbconfig);
+$controller->validateSession();
 $rows = $controller->loadAllUnits();
 $users = $controller->getAllUsers();
 $directors = $controller->getDirectors();

@@ -41,6 +41,16 @@ require_once 'template/header.php';
                         <p><span class="font-weight-bold">Telefone:</span> <?php echo formatTel($candidate['tel2']) ?></p>         
                     </div>
                 </div>
+                <div class="row m-2 pt-2 border-gray-bottom">
+                    <div class="col-md-5 col-sm-12 align-self-md-center">
+                        <p class="text-uppercase">Situação e Unidade Destino</p>
+                    </div>
+                    <div class="col-md-6 col-sm-12 ml-5">
+                        <p><span id="toolTip" class="font-weight-bold" tabindex="0" data-toggle="tooltip" title="Data que o Candidato foi encaminhado" style="cursor: help;">Data de Confirmação:</span> INSERIR</p> 
+                        <p><span class="font-weight-bold">Situação:</span> <?php echo $controller->getSituation($candidate['situation']) ?></p> 
+                        <p><span class="font-weight-bold">Unidade:</span> <?php echo $candidate['uname'] ?></p> 
+                    </div>
+                </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col col-md-3 my-2">
@@ -63,4 +73,7 @@ require_once 'template/header.php';
 require_once 'template/footer.php';
 require_once 'template/delete_candidate_modal.php';
 ?>
+<script type="text/javascript">
+    $('#toolTip').tooltip();
+</script>
 <?php if (isset($_SESSION['data']))triggerModal() ?>

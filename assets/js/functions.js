@@ -98,19 +98,19 @@ function setupPhoneMaskOnField(selector){
   inputElement.on('input, keyup', function(){
     setCorrectPhoneMask(inputElement);
   });
-}
+};
 
 function setCorrectPhoneMask(element){
-  if (element.inputmask('unmaskedvalue').length > 10 ){
-    element.inputmask('remove');
-    element.inputmask('(99) [9]9999-9999')
-  } else {
-    element.inputmask('remove');
-    element.inputmask({mask: '(99) 9999-9999[9]', greedy: false})
-  }
-}
+    if (element.inputmask('unmaskedvalue').length > 10 ){
+        element.inputmask('remove');
+        element.inputmask('(99) [9]9999-9999')
+    } else {
+        element.inputmask('remove');
+        element.inputmask({mask: '(99) 9999-9999[9]', greedy: false})
+    }
+};
 
- function applyMask(){
+function applyMask(){
     setupPhoneMaskOnField('#tel1');
     setupPhoneMaskOnField('#tel2');
 };
@@ -119,7 +119,7 @@ function setCorrectPhoneMask(element){
 function candidateData(element) {
   // access element which fired event by > this
   var href = element.getAttribute('data-href');
-  window.location = encodeURIComponent(href); //removes whites spaces and new lines
+  window.location = href;
 
 };
 

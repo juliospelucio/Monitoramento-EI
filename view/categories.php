@@ -8,7 +8,7 @@ require_once 'template/header.php';
 <!-- Page Content -->
     <div id="page-content-wrapper" class="w-100">
         <section class="container-fluid text-center">
-            <h1 class="mb-5">Infantil</h1>
+            <h1 class="mb-5">Infantil <?php echo  isset($_GET['inf'])? $_GET['inf']:"" ?></h1>
             <form action="categories.php" method="get">
                 <div class="row my-md-3 my-sm-5 justify-content-around">
                     <div class="col-md-3 col-sm-12">
@@ -50,9 +50,9 @@ require_once 'template/header.php';
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($rows as $row => $column): ?>            
-                        <tr class="custom-anchor" data-href="candidate_data.php?id=<?php echo $column['id'] ?>" onclick="candidateData(this)" title="Editar Candidato">
-                            <td scope="row" class="text-center"><?php echo dateDifference(date("Y")."-02-31", $column['birth_date'],'%y') ?></td>
+                    <?php foreach ($rows as $row => $column): ?>
+                        <tr class="custom-anchor" data-href="candidate_data.php?id=<?php echo $column['cid'] ?>" onclick="candidateData(this)" title="Editar Candidato">
+                            <td scope="row" class="text-center"><?php echo dateDifference(date("Y")."-03-31", $column['birth_date'],'%y') ?></td>
                             <td scope="row" class="text-center"><?php echo $column['cname'] ?></td>
                             <td scope="row" class="text-center"><?php echo stringToDate($column['inscription_date']) ?></td>
                             <td scope="row" class="text-center"><?php echo $column['mother'] ?></td>

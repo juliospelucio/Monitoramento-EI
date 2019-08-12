@@ -6,7 +6,7 @@ require_once 'template/header.php';
 ?>
 
 <!-- Page Content -->
-    <div id="page-content-wrapper" style="width: 100%">
+    <div id="page-content-wrapper" class="w-100">
         <section class="container-fluid">
             <div class="row justify-content-around"> 
                 <div class="col-03 align-self-center">
@@ -49,6 +49,5 @@ require_once 'template/delete_candidate_modal.php';
 ?>
 <script type="text/javascript">
     datatableApplyCandidates();
-    $('.dropdown-toggle').dropdown()
 </script>
 <?php if (isset($_SESSION['data']))triggerModal() ?>

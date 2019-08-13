@@ -48,7 +48,7 @@ require_once 'template/header.php';
                     <div class="col-md-6 col-sm-12 ml-5">
                         <p><span id="toolTip" class="font-weight-bold" tabindex="0" data-toggle="tooltip" title="Data que o Candidato foi encaminhado" style="cursor: help;">Data de Confirmação:</span> INSERIR</p> 
                         <p><span class="font-weight-bold">Situação:</span> <?php echo $controller->getSituation($candidate['situation']) ?></p> 
-                        <p><span class="font-weight-bold">Unidade:</span> <?php echo $candidate['uname'] ?></p> 
+                        <p><span class="font-weight-bold">Unidade:</span> <?php echo isset($candidate['uname'])?$candidate['uname']:"" ?></p> 
                     </div>
                 </div>
             </div>

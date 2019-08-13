@@ -35,14 +35,6 @@ CREATE TABLE `addresses` (
   `neighborhood` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Extraindo dados da tabela `addresses`
---
-
-INSERT INTO `addresses` (`id`, `street`, `number`, `neighborhood`) VALUES
-(1, 'Rua Coronel', 845, 'Jardim'),
-(3, 'R2', 22, 'b2');
-
 -- --------------------------------------------------------
 
 --
@@ -53,14 +45,6 @@ CREATE TABLE `addresses_has_candidates` (
   `addresses_id` int(11) NOT NULL,
   `candidates_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `addresses_has_candidates`
---
-
-INSERT INTO `addresses_has_candidates` (`addresses_id`, `candidates_id`) VALUES
-(1, 1),
-(3, 3);
 
 -- --------------------------------------------------------
 
@@ -77,16 +61,9 @@ CREATE TABLE `candidates` (
   `inscription_date` date NOT NULL,
   `situation` tinyint(3) NOT NULL,
   `units_id` int(11) DEFAULT NULL,
+  `obs` VARCHAR(255) NULL,
   `parents_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `candidates`
---
-
-INSERT INTO `candidates` (`id`, `name`, `birth_date`, `tel1`, `tel2`, `inscription_date`, `situation`, `units_id`, `parents_id`) VALUES
-(1, 'Joãoo', '2002-05-04', 8864484548, 89456485856, '2019-06-25', -1, NULL, 1),
-(3, 'aluno2', '2005-08-04', 54184515615, 54156151, '2019-07-17', 0, NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -96,17 +73,9 @@ INSERT INTO `candidates` (`id`, `name`, `birth_date`, `tel1`, `tel2`, `inscripti
 
 CREATE TABLE `parents` (
   `id` int(11) NOT NULL,
-  `mother` varchar(255) NOT NULL,
-  `father` varchar(255) NOT NULL
+  `mother` varchar(255) NULL,
+  `father` varchar(255) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `parents`
---
-
-INSERT INTO `parents` (`id`, `mother`, `father`) VALUES
-(1, 'Gisele', 'Arnaldo'),
-(3, 'mae2', 'pai2');
 
 -- --------------------------------------------------------
 
@@ -143,16 +112,6 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `admin` enum('0','1') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `users`
---
-
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `admin`) VALUES
-(1, 'Admin', 'admin@gmail.com', '123', '1'),
-(2, 'Núbia', 'nubia@gmail.com', '123', '0'),
-(3, 'Deila', 'deila@gmail.com', '123', '0'),
-(4, 'Sandra', 'sandra@gmail.com', '123', '0');
 
 --
 -- Indexes for dumped tables

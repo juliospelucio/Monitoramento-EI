@@ -80,7 +80,7 @@ require_once 'template/header.php';
 	                    <div class="col-md-3 col-sm-12">
 	                    	<div class="input-group mb-md-3 mb-sm-1">
 							  <div class="input-group-prepend">
-							    <span class="input-group-text" id="basic-addon-tel1">telefone</span>
+							    <span class="input-group-text" id="basic-addon-tel1">Telefone</span>
 							  </div>
 							  <input type="tel" required class="form-control" id="tel1" name="tel1" aria-describedby="basic-addon-tel1">
 							</div>                      
@@ -88,7 +88,7 @@ require_once 'template/header.php';
 	                    <div class="col-md-3 col-sm-12">
 	                    	<div class="input-group mb-md-3 mb-sm-1">
 							  <div class="input-group-prepend">
-							    <span class="input-group-text" id="basic-addon-tel2">telefone</span>
+							    <span class="input-group-text" id="basic-addon-tel2">Telefone</span>
 							  </div>
 							  <input type="tel" required class="form-control" id="tel2" name="tel2" aria-describedby="basic-addon-tel2">
 							</div>                      
@@ -120,6 +120,17 @@ require_once 'template/header.php';
 						  		</select>
 							</div>
 	                    </div>
+					</div>
+					<div class="row my-md-2"> 
+						<div class="col-auto col-sm-12">
+							<div class="input-group mb-md-3 mb-sm-1">
+							  <div class="input-group-prepend">
+							    <span class="input-group-text" id="basic-addon-obs">Observações</span>
+							  </div>
+							  <textarea class="form-control" id="obs" name="obs"></textarea>
+							</div>  
+							
+						</div>
 					</div>
 
 					<input type="hidden" id="filename" name="filename" value="<?php echo basename(__FILE__) ?>">

@@ -55,7 +55,9 @@ Class CandidateController extends Controller{
 		$fields = $fields + array('address' => $this->address,'parents' => $this->parents);
 
 		$this->candidate->setAttributes($fields);
-		
+		echo "<br/>";
+		print_r($fields);
+		// exit();
 		if($this->candidate->insertCandidate()){
 			$dados = array('msg' => 'Candidato inserido com sucesso', 'type' => parent::$success);
 			$_SESSION['data'] = $dados;
@@ -293,12 +295,16 @@ if(isset($_POST['insert'])) {
 					'tel2' => numberTransform($_POST['tel2']),
 					'inscription_date' => date("Y-m-d"),
 					'situation' => $_POST['situation'],
+					'obs' => $_POST['obs'],
 					'father' => $_POST['father'],
 					'mother' => $_POST['mother']);
 
 	if (isset($_POST['units_id']) && !empty($_POST['units_id'])) {
 		$fields = $fields + array('units_id' => $_POST['units_id']);
 	}
+
+	// print_r($fields);
+
 	$controller->insert($fields);
 }
 
@@ -314,6 +320,7 @@ if (isset($_POST['edit'])) {
 					'tel1' => numberTransform($_POST['tel1']),
 					'tel2' => numberTransform($_POST['tel2']),
 					'situation' => $_POST['situation'],
+					'obs' => $_POST['obs'],
 					'parents_id' => $_POST['pid'],
 					'father' => $_POST['father'],
 					'mother' => $_POST['mother'],

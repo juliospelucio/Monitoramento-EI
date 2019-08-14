@@ -20,15 +20,6 @@ class PDF extends FPDF{
         $this->Ln(15);
     }
 
-   /* function Footer(){
-        // Go to 1.5 cm from bottom
-        $this->SetY(-15);
-        // Select Arial italic 8
-        $this->SetFont('Arial','I',8);
-        // Print centered page number
-        $this->Cell(0,10,'Page '.$this->PageNo(),0,0,'C');
-    }*/
-
     //Encode to UTF-8
     public function encode($str){
         return iconv('UTF-8', 'windows-1252', $str);
@@ -37,7 +28,6 @@ class PDF extends FPDF{
 
 // Instanciation of inherited class
 $pdf = new PDF();
-$pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->Line(10,60,205,60);
 $pdf->SetFont('Arial','',14);

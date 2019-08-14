@@ -13,6 +13,7 @@ require_once 'template/header.php';
                     <div class="col-md-5 col-sm-12 align-self-md-center">
                         <p class="text-uppercase">Dados do Candidato</p>
                     </div>
+                    <!-- <?php print_r($candidate) ?> -->
                     <div class="col-md-6 col-sm-12 ml-5">  
                         <p><span class="font-weight-bold">Data do Cadastro:</span> <?php echo stringToDate($candidate['inscription_date']) ?></p> 
                         <p><span class="font-weight-bold">Nome:</span> <?php echo $candidate['cname'] ?></p> 
@@ -46,9 +47,17 @@ require_once 'template/header.php';
                         <p class="text-uppercase">Situação e Unidade Destino</p>
                     </div>
                     <div class="col-md-6 col-sm-12 ml-5">
-                        <p><span id="toolTip" class="font-weight-bold" tabindex="0" data-toggle="tooltip" title="Data que o Candidato foi encaminhado" style="cursor: help;">Data de Confirmação:</span> INSERIR</p> 
+                        <p><span id="toolTip" class="font-weight-bold" tabindex="0" data-toggle="tooltip" title="Data que o Candidato foi encaminhado para unidade destino" style="cursor: help;">Data de Confirmação:</span> INSERIR</p> 
                         <p><span class="font-weight-bold">Situação:</span> <?php echo $controller->getSituation($candidate['situation']) ?></p> 
                         <p><span class="font-weight-bold">Unidade:</span> <?php echo isset($candidate['uname'])?$candidate['uname']:"" ?></p> 
+                    </div>
+                </div>
+                <div class="row m-2 pt-2 border-gray-bottom">
+                    <div class="col-md-5 col-sm-12 align-self-md-center">
+                        <p class="text-uppercase">Observações</p>
+                    </div>
+                    <div class="col-md-6 col-sm-12 ml-5">
+                        <p> <?php echo isset($candidate['obs'])?$candidate['obs']:"Nenhuma Observação" ?></p> 
                     </div>
                 </div>
             </div>

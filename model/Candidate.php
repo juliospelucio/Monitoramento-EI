@@ -20,6 +20,8 @@ Class Candidate extends Model{
 
 	protected $units_id;
 
+	protected $obs;
+
 	protected $address;
 
 	protected $parents;
@@ -61,7 +63,7 @@ Class Candidate extends Model{
 	function getCandidate($id){
 		try {
 			$dbc = new DBConnection($this->dbconfig);
-			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation,
+			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation, c.obs,
 						   a.id aid, a.street, a.number, a.neighborhood, p.id pid, p.mother, p.father, u.id uid, u.name uname
 					FROM candidates c 
 					INNER JOIN addresses_has_candidates h ON h.candidates_id = c.id
@@ -76,7 +78,7 @@ Class Candidate extends Model{
 				return $query;
 			}
 
-			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation,
+			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation, c.obs,
 						   a.id aid, a.street, a.number, a.neighborhood, p.id pid, p.mother, p.father
 					FROM candidates c 
 					INNER JOIN addresses_has_candidates h ON h.candidates_id = c.id
@@ -102,7 +104,7 @@ Class Candidate extends Model{
 
 		try {
 			$dbc = new DBConnection($this->dbconfig);
-			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation,
+			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation, c.obs,
 						   a.id aid, a.street, a.number, a.neighborhood, p.id pid, p.mother, p.father
 					FROM candidates c 
 					INNER JOIN addresses_has_candidates h ON h.candidates_id = c.id
@@ -111,7 +113,7 @@ Class Candidate extends Model{
 					WHERE c.birth_date BETWEEN :stDate AND :endDate";
 			
 			$params = array(':stDate' => $stDate, ':endDate' => $endDate);
-			// print_r($dbc->getQuery($sql,$params));
+
 			return $dbc->getQuery($sql,$params);
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
@@ -133,7 +135,7 @@ Class Candidate extends Model{
 
 			$aId = $this->address->insertAddress();			
 
-			$sql = "INSERT INTO candidates (name,birth_date,tel1,tel2,inscription_date,situation,units_id,parents_id) VALUES (:name,:birth_date,:tel1,:tel2,:inscription_date,:situation,:units_id,:parents_id)";
+			$sql = "INSERT INTO candidates (name,birth_date,tel1,tel2,inscription_date,situation,obs,units_id,parents_id) VALUES (:name,:birth_date,:tel1,:tel2,:inscription_date,:situation,:obs,:units_id,:parents_id)";
 
 			$params = array(":name"=>$this->name,
 							":birth_date"=>$this->birth_date,
@@ -141,11 +143,13 @@ Class Candidate extends Model{
 			 				":tel2"=>$this->tel2,
 			 				":inscription_date"=>$this->inscription_date,
 			 				":situation"=>$this->situation,
+			 				":obs"=>$this->obs,
 			 				":units_id"=>$this->units_id,
 			 				":parents_id"=>$pId
 			 				);
 
 			$cId = $dbc->runQuery($sql,$params,1);
+
 			$fields = array('addresses_id' => $aId, 'candidates_id' => $cId);
 			$this->CandidateAddress->setAttributes($fields);
 			$this->CandidateAddress->insertRelationship();
@@ -197,18 +201,25 @@ Class Candidate extends Model{
 
 			$dbc->beginTransaction();
 
-			$address = array(':id' => $params['addresses_id'],':street' => $params['street'],':number' => $params['number'],':neighborhood' => $params['neighborhood']);
-			$parents = array(':id' => $params['parents_id'],':mother' =>$params['mother'],':father' =>$params['father']);
+			$address = array('id' => $params['addresses_id'],'street' => $params['street'],'number' => $params['number'],'neighborhood' => $params['neighborhood']);
+			$parents = array('id' => $params['parents_id'],'mother' =>$params['mother'],'father' =>$params['father']);
 
 			$this->address->updateAddress($address);
 
 			unset($params['parents_id'],$params['mother'],$params['father'],$params['addresses_id'],$params['street'],$params['number'],$params['neighborhood']);	
 			
-			$sql = "UPDATE `candidates` SET name =:name, birth_date=:birth_date, tel1=:tel1, tel2=:tel2, situation=:situation, units_id=:units_id WHERE id = :id";
-			/*echo "<pre>";
-			print_r($params);
-			echo "</pre>";
-			exit;*/
+
+			$sql = "UPDATE `candidates` SET";
+	        $comma = " ";
+	        foreach ($params as $key => $value) {
+	        	if ($key == "id") {
+	        		continue;
+	        	}
+	            $sql.= $comma.$key." = :".$key;
+	            $comma = ", ";
+	        }
+
+	        $sql.=" WHERE id = :id";
 			
 			$dbc->runQuery($sql,$params);
 

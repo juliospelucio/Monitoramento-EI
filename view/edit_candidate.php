@@ -118,6 +118,17 @@ require_once 'template/header.php';
 							</div>
 	                    </div>
 					</div>
+					<div class="row my-md-2"> 
+						<div class="col-auto col-sm-12">
+							<div class="input-group mb-md-3 mb-sm-1">
+							  <div class="input-group-prepend">
+							    <span class="input-group-text" id="basic-addon-obs">Observações</span>
+							  </div>
+							  <textarea class="form-control" id="obs" name="obs"> <?php echo $candidate['obs'] ?></textarea>
+							</div>  
+							
+						</div>
+					</div>
 
 					<input type="hidden" id="filename" name="filename" value="<?php echo basename(__FILE__) ?>">
 					<input type="hidden" id="id" name="id" value="<?php echo $candidate['cid'] ?>">

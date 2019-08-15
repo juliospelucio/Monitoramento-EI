@@ -66,7 +66,8 @@ require_once 'template/header.php';
                     <a class="btn btn-outline-success btn-block" href="../view/edit_candidate.php?id=<?php echo $candidate['cid'] ?>" role="button">Editar</a>
                 </div>
                 <div class="col col-md-3 my-2">
-                    <a class="btn btn-outline-secondary btn-block" href="../view/candidates.php" role="button">Voltar</a>
+                    <!-- <a class="btn btn-outline-secondary btn-block" href="../view/candidates.php" role="button">Voltar</a> -->
+                    <a class="btn btn-outline-secondary btn-block" href="candidate_file.php?id=<?php echo $candidate['cid'] ?>" role="button">Gerar Ficha</a>
                 </div>
                 <div class="col col-md-3 my-2">
                     <a id="btndelete" class="btn btn-outline-danger btn-block" href="../controller/CandidateController.php?id=<?php echo $candidate['cid'] ?>&delete=1"  data-href="../controller/CandidateController.php?id=<?php echo $candidate['cid'] ?>&delete=1" data-toggle="modal" data-target="#confirm-delete" onclick="modalHref(this)" role="button">Apagar</a>

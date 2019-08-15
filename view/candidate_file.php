@@ -31,31 +31,31 @@ $pdf = new PDF();
 $pdf->AddPage();
 $pdf->Line(10,60,205,60);
 $pdf->SetFont('Arial','',14);
-$pdf->cell(60,15,$pdf->encode("Data de Cadastro: 12/08/2019"),0,0,'L');
+$pdf->cell(60,15,$pdf->encode("Data de Cadastro: ".stringToDate($candidate['inscription_date'])),0,0,'L');
 $pdf->cell(25);
-$pdf->cell(95,15,$pdf->encode("Telefone(s): (35) 98703-7999 / (35) 93295-8700"),0,0,'L');
+$pdf->cell(95,15,$pdf->encode("Telefone(s): ".formatTel($candidate['tel1'])." / ".formatTel($candidate['tel2'])),0,0,'L');
 // $pdf->Line(10,80,205,80);
 $pdf->Ln(18);
 
-$pdf->cell(0,15,$pdf->encode("Rua: Olímpio Pereira, n° 288 - Centro"),0,0,'L');
+$pdf->cell(0,15,$pdf->encode("Rua: ".$candidate['street'].", n°".$candidate['number']." - ".$candidate['neighborhood']),0,0,'L');
 // $pdf->Line(10,100,205,100);
 $pdf->Ln(18);
 
-$pdf->cell(115,15,$pdf->encode("Nome: Júlio dos Santos Pelúcio"),0,0,'L');
+$pdf->cell(115,15,$pdf->encode("Nome: ".$candidate['cname']),0,0,'L');
 $pdf->cell(05);
-$pdf->cell(65,15,$pdf->encode("Data de Nascimento: 27/02/1996"),0,0,'L');
+$pdf->cell(65,15,$pdf->encode("Data de Nascimento: ".stringToDate($candidate['birth_date'])),0,0,'L');
 // $pdf->Line(10,120,205,120);
 $pdf->Ln(18);
 
-$pdf->cell(0,15,$pdf->encode("Pai: Bartolomeu Pereira Pelúcio"),0,0,'L');
+$pdf->cell(0,15,$pdf->encode("Pai: ".$candidate['father']),0,0,'L');
 // $pdf->Line(10,140,205,140);
 $pdf->Ln(18);
 
-$pdf->cell(0,15,$pdf->encode("Mãe: Francisca Isabel dos Santos"),0,0,'L');
+$pdf->cell(0,15,$pdf->encode("Mãe: ".$candidate['mother']),0,0,'L');
 // $pdf->Line(10,160,205,160);
 $pdf->Ln(18);
 
-$pdf->cell(0,15,$pdf->encode("Observações:    O candidato já passou da idade de ir para creche, deve trabalhar já."),0,0,'L');
+$pdf->cell(0,15,$pdf->encode("Observações:    ".$candidate['obs']),0,0,'L');
 /*$pdf->Line(42,180,205,180);
 $pdf->Line(10,187,205,187);
 $pdf->Line(10,194,205,194);*/ //Lines
@@ -73,11 +73,11 @@ $pdf->cell(0,15,$pdf->encode("Via do Candidato"),0,0,'C');
 $pdf->Ln(15);
 
 $pdf->SetFont('Arial','',14);
-$pdf->cell(0,15,$pdf->encode("Nome: Júlio dos Santos Pelúcio"),0,0,'L');
+$pdf->cell(0,15,$pdf->encode("Nome: ".$candidate['cname']),0,0,'L');
 $pdf->Ln(15);
-$pdf->cell(0,15,$pdf->encode("Mãe: Francisca Isabel dos Santos"),0,0,'L');
+$pdf->cell(0,15,$pdf->encode("Mãe: ".$candidate['mother']),0,0,'L');
 $pdf->Ln(15);
-$pdf->cell(65,15,$pdf->encode("Data de Cadastro: 12/08/2019"),0,0,'L');
+$pdf->cell(65,15,$pdf->encode("Data de Cadastro: ".stringToDate($candidate['inscription_date'])),0,0,'L');
 $pdf->Ln(15);
 $pdf->cell(0,15,$pdf->encode("Responsável pelo Cadastro:"),0,0,'L');
 $pdf->Line(75,270,205,270);

@@ -278,8 +278,7 @@ $rows = $controller->loadAllCandidates();//getAll candidates from database
 $units = $controller->loadAllUnits();// getAll units from database
 
 if (isset($_GET['id'])) {
-	$candidate = $controller->loadCandidate($_GET['id']);
-	$candidate = array_pop($candidate);
+	$candidate = $controller->loadCandidate($_GET['id']); $candidate = array_pop($candidate);
 	$situation = $controller->selectSituation($candidate['situation']);
 	$uoptions = $controller->selectUnit($candidate);//units options
 }

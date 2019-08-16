@@ -115,24 +115,21 @@ Class CandidateController extends Controller{
      * @param $id id from candidate table
      */
 	public function loadCandidate($id){
-		$candidates = new Candidate($this->dbconfig);
-		return $candidates->getCandidate($id);
+		return $this->candidate->getCandidate($id);
 	}	
 
 	/* Function loadAllCandidates
      * Get all candidate from cadidate table
      */
 	public function loadAllCandidates(){
-		$candidates = new Candidate($this->dbconfig);
-		return $candidates->getCandidates();
+		return $this->candidate->getCandidates();
 	}
 
 	/* Function loadAllUnits
      * Get all units from units table
      */
 	public function loadAllUnits(){
-		$units = new Unit($this->dbconfig);
-		return $units->getUnits();
+		return $this->unit->getUnits();
 	}
 
 	/* Function selectSituation
@@ -302,7 +299,6 @@ if(isset($_POST['insert'])) {
 		$fields = $fields + array('units_id' => $_POST['units_id']);
 	}
 
-	// print_r($fields);
 
 	$controller->insert($fields);
 }

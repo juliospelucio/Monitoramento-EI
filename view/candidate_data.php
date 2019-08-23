@@ -13,7 +13,6 @@ require_once 'template/header.php';
                     <div class="col-md-5 col-sm-12 align-self-md-center">
                         <p class="text-uppercase">Dados do Candidato</p>
                     </div>
-                    <!-- <?php print_r($candidate) ?> -->
                     <div class="col-md-6 col-sm-12 ml-5">  
                         <p><span class="font-weight-bold">Data do Cadastro:</span> <?php echo stringToDate($candidate['inscription_date']) ?></p> 
                         <p><span class="font-weight-bold">Nome:</span> <?php echo $candidate['cname'] ?></p> 

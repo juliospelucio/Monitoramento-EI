@@ -30,11 +30,12 @@ function datatableApplyCandidates() {
             "scrollCollapse": true,
             "paging":         true,
             "columnDefs": [
-                { "width": "90px", targets: 0 },//idade
-                { "width": "470px", targets: 1 },//nome
-                { "width": "auto", targets: 2 },//data-cadastro
-                { "width": "470px", targets: 3 },//mãe
-                { "width": "150px", targets: 4 }//situação
+                { "width": "auto", targets: 0 },//N°
+                { "width": "auto", targets: 1 },//idade
+                { "width": "460px", targets: 2 },//nome
+                { "width": "auto", targets: 3 },//data-cadastro
+                { "width": "460px", targets: 4 },//mãe
+                { "width": "150px", targets: 5 }//situação
             ],
             "fixedColumns": true
         });
@@ -71,10 +72,10 @@ function datatableApplyUsers() {
             "scrollCollapse": true,
             "paging":         true,
             "columnDefs": [
-                { "width": "150px", targets: 0 },//img-edit
+                { "width": "140px", targets: 0 },//img-edit
                 { "width": "500px", targets: 1 },//nome
                 { "width": "500px", targets: 2 },//email
-                { "width": "auto", targets: 3 }//img-apagar
+                { "width": "140px", targets: 3 }//img-apagar
             ],
             "fixedColumns": true
         });

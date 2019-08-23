@@ -65,6 +65,7 @@ Class IndexController extends Controller{
 		$anchor = "<div class='row'> <div class='col-4'> <div class='list-group' id='list-tab' role='tablist'>";
 		$div = "<div class='col-8'> <div class='tab-content' id='nav-tabContent'>";
 		foreach ($units as $key => $unit) {
+
 			$class = $key==0?" class='list-group-item list-group-item-action active'":"class='list-group-item list-group-item-action'";
 			$anchor .= "<a ".$class."id='list-".$this->unitNameTransform($unit['unname'])."-list' data-toggle='list' href='#list-".$this->unitNameTransform($unit['unname'])."' role='tab' aria-controls='".$this->unitNameTransform($unit['unname'])."'>".$unit['unname']."</a>";
 			if ($key==(count($units)-1)) {
@@ -72,12 +73,17 @@ Class IndexController extends Controller{
 			}
 			$class = $key==0?" class='tab-pane fade show active'":"class='tab-pane fade'";
 			$div .= "<div ".$class."id='list-".$this->unitNameTransform($unit['unname'])."' role='tabpanel' aria-labelledby='list-".$this->unitNameTransform($unit['unname'])."-list'>".$unit['usname']."</div>";
-			//<div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">...</div>
 		}
 		return $anchor.$div;
 	}
 
-
+	/* Function loadUnitsData
+     * Get all units from units table
+     * @return array with units
+     */
+	public function loadUnitsData(){
+		return $this->unit->getUnits();
+	}
 
 }
 
@@ -85,5 +91,3 @@ Class IndexController extends Controller{
 session_start();
 $controller = new IndexController($dbconfig);
 $controller->validateSession();
-$candidates = $controller->loadAllCandidates();
-$units = $controller->loadAllUnits();

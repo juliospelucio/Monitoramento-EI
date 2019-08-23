@@ -11,11 +11,14 @@ class PDF extends FPDF{
         $this->Image('../assets/img/brasão.png',91,null,25);
         // Arial bold 15
         $this->SetFont('Arial','B',15);
-        $this->Ln(3);
         // Title
+        $this->Cell(0,10,$this->encode('Prefeitura Municipal de Machado'),0,0,'C');
+        $this->Ln(7);
+        $this->SetFont('Arial','',12);
         $this->Cell(0,10,$this->encode('Secretaria Municipal de Educação'),0,0,'C');
         $this->Ln(9);
-        $this->Cell(0,10,$this->encode('Ficha de Cadastro para Vaga'),0,0,'C');
+        $this->SetFont('Arial','B',15);
+        $this->Cell(0,10,$this->encode('Ficha de Cadastro para Vaga na Educação Infantil'),0,0,'C');
         // Line break
         $this->Ln(15);
     }
@@ -29,7 +32,7 @@ class PDF extends FPDF{
 // Instanciation of inherited class
 $pdf = new PDF();
 $pdf->AddPage();
-$pdf->Line(10,60,205,60);
+$pdf->Line(10,65,205,65);
 $pdf->SetFont('Arial','',14);
 $pdf->cell(60,15,$pdf->encode("Data de Cadastro: ".stringToDate($candidate['inscription_date'])),0,0,'L');
 $pdf->cell(25);
@@ -55,31 +58,30 @@ $pdf->cell(0,15,$pdf->encode("Mãe: ".$candidate['mother']),0,0,'L');
 // $pdf->Line(10,160,205,160);
 $pdf->Ln(18);
 
-$pdf->cell(0,15,$pdf->encode("Observações:    ".$candidate['obs']),0,0,'L');
-/*$pdf->Line(42,180,205,180);
-$pdf->Line(10,187,205,187);
-$pdf->Line(10,194,205,194);*/ //Lines
-$pdf->Rect(45,155,160,20);
-$pdf->Ln(25);
+$pdf->cell(32,15,$pdf->encode("Observações: "),0,0,'L');
+$pdf->SetFont('Arial','',12);
+$pdf->MultiCell(145,7,$pdf->encode($candidate['obs']),1,'L');
+$pdf->SetFont('Arial','',14);
 
-$pdf->cell(0,15,$pdf->encode("Assinatura do Responsável:"),0,0,'L');
-$pdf->Line(75,190,205,190);
-$pdf->Ln(18);
+$pdf->Ln(5);
 
-$pdf->Line(0,200,210,200);
+$pdf->cell(0,15,$pdf->encode("Assinatura do Responsável: _______________________________________________"),0,0,'L');
+$pdf->Ln(19);
 
+$pdf->Line(0,211,210,211);
+
+//FOOTER --------------------------------------------------------------
 $pdf->SetFont('Arial','B',15);
 $pdf->cell(0,15,$pdf->encode("Via do Candidato"),0,0,'C');
 $pdf->Ln(15);
 
 $pdf->SetFont('Arial','',14);
 $pdf->cell(0,15,$pdf->encode("Nome: ".$candidate['cname']),0,0,'L');
-$pdf->Ln(15);
+$pdf->Ln(12);
 $pdf->cell(0,15,$pdf->encode("Mãe: ".$candidate['mother']),0,0,'L');
-$pdf->Ln(15);
+$pdf->Ln(12);
 $pdf->cell(65,15,$pdf->encode("Data de Cadastro: ".stringToDate($candidate['inscription_date'])),0,0,'L');
-$pdf->Ln(15);
-$pdf->cell(0,15,$pdf->encode("Responsável pelo Cadastro:"),0,0,'L');
-$pdf->Line(75,270,205,270);
-$pdf->Output();
+$pdf->Ln(12);
+$pdf->cell(0,15,$pdf->encode("Responsável pelo Cadastro: _______________________________________________"),0,0,'L');
+$pdf->Output('','ficha_do_candidato');
 ?>

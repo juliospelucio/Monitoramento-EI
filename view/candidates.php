@@ -19,6 +19,7 @@ require_once 'template/header.php';
             <table id="table_id" class="display table table-bordered table-hover">
                 <thead>
                     <tr>
+                        <th scope="col" class="text-center align-middle">N°</th>
                         <th scope="col" class="text-center align-middle">Idade</th>
                         <th scope="col" class="text-center align-middle">Nome</th>
                         <th scope="col" class="text-center align-middle">Data do Casdastro</th>
@@ -27,8 +28,9 @@ require_once 'template/header.php';
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($rows as $row => $column): ?>            
+                    <?php $i=0;  foreach ($rows as $row => $column): $i++;?>            
                         <tr class="custom-anchor" data-href="candidate_data.php?id=<?php echo $column['id'] ?>" onclick="candidateData(this)" title="Editar Candidato">
+                            <td scope="row" class="text-center"><?php echo $i ?></td>
                             <td scope="row" class="text-center"><?php echo dateDifference(date("Y")."-03-31", $column['birth_date'],'%y') ?></td>
                             <td scope="row" class="text-center"><?php echo $column['name'] ?></td>
                             <td scope="row" class="text-center"><?php echo stringToDate($column['inscription_date']) ?></td>

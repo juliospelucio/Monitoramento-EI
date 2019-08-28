@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 17-Jul-2019 às 05:55
+-- Generation Time: 28-Ago-2019 às 20:31
 -- Versão do servidor: 10.1.40-MariaDB
 -- versão do PHP: 7.2.18
 
@@ -35,6 +35,14 @@ CREATE TABLE `addresses` (
   `neighborhood` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `addresses`
+--
+
+INSERT INTO `addresses` (`id`, `street`, `number`, `neighborhood`) VALUES
+(21, 'Caetano Pelúcio', 85, 'Cavaco'),
+(22, 'Jose Francisco', 15, 'Centro');
+
 -- --------------------------------------------------------
 
 --
@@ -45,6 +53,14 @@ CREATE TABLE `addresses_has_candidates` (
   `addresses_id` int(11) NOT NULL,
   `candidates_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `addresses_has_candidates`
+--
+
+INSERT INTO `addresses_has_candidates` (`addresses_id`, `candidates_id`) VALUES
+(21, 6),
+(22, 7);
 
 -- --------------------------------------------------------
 
@@ -60,10 +76,19 @@ CREATE TABLE `candidates` (
   `tel2` bigint(12) DEFAULT NULL,
   `inscription_date` date NOT NULL,
   `situation` tinyint(3) NOT NULL,
+  `obs` varchar(255) DEFAULT NULL,
+  `conf_date` date DEFAULT NULL,
   `units_id` int(11) DEFAULT NULL,
-  `obs` VARCHAR(255) NULL,
   `parents_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `candidates`
+--
+
+INSERT INTO `candidates` (`id`, `name`, `birth_date`, `tel1`, `tel2`, `inscription_date`, `situation`, `obs`, `conf_date`, `units_id`, `parents_id`) VALUES
+(6, 'Marcos', '1997-01-31', 3574512445, 3574574524, '2019-08-14', 1, 'O candidato não precisa mais estudar.', NULL, 2, 21),
+(7, 'Bryam Maicom', '2017-05-07', 4523564558, 84512852225, '2019-08-23', 0, ' Irmão no CEMEAI', NULL, NULL, 22);
 
 -- --------------------------------------------------------
 
@@ -73,9 +98,17 @@ CREATE TABLE `candidates` (
 
 CREATE TABLE `parents` (
   `id` int(11) NOT NULL,
-  `mother` varchar(255) NULL,
-  `father` varchar(255) NULL
+  `mother` varchar(255) DEFAULT NULL,
+  `father` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `parents`
+--
+
+INSERT INTO `parents` (`id`, `mother`, `father`) VALUES
+(21, 'Maria', 'Tomaz'),
+(22, 'Kamila', 'Eric');
 
 -- --------------------------------------------------------
 
@@ -96,8 +129,7 @@ CREATE TABLE `units` (
 INSERT INTO `units` (`id`, `name`, `users_id`) VALUES
 (1, 'SEMED', 1),
 (2, 'CEIM Vovó Donana', 2),
-(3, 'CEIM Vovó Iracema', 3),
-(5, 'CEIM Jardim das Oliveiras', 4);
+(3, 'CEIM Jardim das Oliveiras', 3);
 
 -- --------------------------------------------------------
 
@@ -112,6 +144,15 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `admin` enum('0','1') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `admin`) VALUES
+(1, 'Admin', 'admin@gmail.com', '202cb962ac59075b964b07152d234b70 ', '1'),
+(2, 'Núbia', 'nubia@gmail.com', '202cb962ac59075b964b07152d234b70 ', '0'),
+(3, 'Sandra', 'sandra@gmail.com', 'ec5dc02a6474cc095620e984af243d19', '0');
 
 --
 -- Indexes for dumped tables
@@ -156,7 +197,8 @@ ALTER TABLE `units`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -166,31 +208,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `candidates`
 --
 ALTER TABLE `candidates`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `parents`
 --
 ALTER TABLE `parents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `units`
 --
 ALTER TABLE `units`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -200,21 +242,21 @@ ALTER TABLE `users`
 -- Limitadores para a tabela `addresses_has_candidates`
 --
 ALTER TABLE `addresses_has_candidates`
-  ADD CONSTRAINT `fk_addresses_has_candidates_addresses1` FOREIGN KEY (`addresses_id`) REFERENCES `addresses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_addresses_has_candidates_candidates1` FOREIGN KEY (`candidates_id`) REFERENCES `candidates` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_addresses_has_candidates_addresses1` FOREIGN KEY (`addresses_id`) REFERENCES `addresses` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_addresses_has_candidates_candidates1` FOREIGN KEY (`candidates_id`) REFERENCES `candidates` (`id`) ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `candidates`
 --
 ALTER TABLE `candidates`
-  ADD CONSTRAINT `fk_candidates_parents1` FOREIGN KEY (`parents_id`) REFERENCES `parents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_candidates_units` FOREIGN KEY (`units_id`) REFERENCES `units` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_candidates_parents1` FOREIGN KEY (`parents_id`) REFERENCES `parents` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_candidates_units` FOREIGN KEY (`units_id`) REFERENCES `units` (`id`) ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `units`
 --
 ALTER TABLE `units`
-  ADD CONSTRAINT `fk_units_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_units_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

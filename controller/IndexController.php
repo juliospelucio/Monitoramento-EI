@@ -46,7 +46,7 @@ Class IndexController extends Controller{
 	}
 
 	/* Function unitNameTransform
-     * Get a formatted last word form a unit name
+     * Get a formatted last word, from unit's name
      * @return formatted string name
      */
 	public function unitNameTransform($name){
@@ -65,14 +65,13 @@ Class IndexController extends Controller{
 		$anchor = "<div class='row'> <div class='col-4'> <div class='list-group' id='list-tab' role='tablist'>";
 		$div = "<div class='col-8'> <div class='tab-content' id='nav-tabContent'>";
 		foreach ($units as $key => $unit) {
-
 			$class = $key==0?" class='list-group-item list-group-item-action active'":"class='list-group-item list-group-item-action'";
 			$anchor .= "<a ".$class."id='list-".$this->unitNameTransform($unit['unname'])."-list' data-toggle='list' href='#list-".$this->unitNameTransform($unit['unname'])."' role='tab' aria-controls='".$this->unitNameTransform($unit['unname'])."'>".$unit['unname']."</a>";
 			if ($key==(count($units)-1)) {
 				$anchor.="</div> </div>";
 			}
 			$class = $key==0?" class='tab-pane fade show active'":"class='tab-pane fade'";
-			$div .= "<div ".$class."id='list-".$this->unitNameTransform($unit['unname'])."' role='tabpanel' aria-labelledby='list-".$this->unitNameTransform($unit['unname'])."-list'>".$unit['usname']."</div>";
+			$div .= "<div ".$class."id='list-".$this->unitNameTransform($unit['unname'])."' role='tabpanel' aria-labelledby='list-".$this->unitNameTransform($unit['unname'])."-list'> Diretor(a): ".$unit['usname']."</div>";
 		}
 		return $anchor.$div;
 	}

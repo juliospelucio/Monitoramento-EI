@@ -90,7 +90,7 @@ require_once 'template/header.php';
 							  <div class="input-group-prepend">
 							    <span class="input-group-text" id="basic-addon-tel2">Telefone</span>
 							  </div>
-							  <input type="tel" required class="form-control" id="tel2" name="tel2" aria-describedby="basic-addon-tel2">
+							  <input type="tel" class="form-control" id="tel2" name="tel2" aria-describedby="basic-addon-tel2">
 							</div>                      
 	                    </div>
 	                    <div class="col-md-3 col-sm-12">

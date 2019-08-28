@@ -10,7 +10,7 @@ require_once 'template/header.php';
         <section class="container-fluid">
             <div class="row justify-content-around"> 
                 <div class="col-03 align-self-center">
-                    <p><h3><u>Usuários Cadastrados</u></h3></p>
+                    <p><h3><u>Candidatos Cadastrados</u></h3></p>
                 </div>
                 <div class="col-09">
                     <a href="new_candidate.php"><img src="../assets/img/add.png" width="100" height="100"></a>
@@ -29,7 +29,7 @@ require_once 'template/header.php';
                 </thead>
                 <tbody>
                     <?php $i=0;  foreach ($rows as $row => $column): $i++;?>            
-                        <tr class="custom-anchor" data-href="candidate_data.php?id=<?php echo $column['id'] ?>" onclick="candidateData(this)" title="Editar Candidato">
+                        <tr class="custom-anchor" data-href="<?php echo $column['id'] ?>" onclick="candidateData(this)" title="Editar Candidato">
                             <td scope="row" class="text-center"><?php echo $i ?></td>
                             <td scope="row" class="text-center"><?php echo dateDifference(date("Y")."-03-31", $column['birth_date'],'%y') ?></td>
                             <td scope="row" class="text-center"><?php echo $column['name'] ?></td>

@@ -32,9 +32,9 @@ function datatableApplyCandidates() {
             "columnDefs": [
                 { "width": "auto", targets: 0 },//N°
                 { "width": "auto", targets: 1 },//idade
-                { "width": "460px", targets: 2 },//nome
+                { "width": "450px", targets: 2 },//nome
                 { "width": "auto", targets: 3 },//data-cadastro
-                { "width": "460px", targets: 4 },//mãe
+                { "width": "450px", targets: 4 },//mãe
                 { "width": "150px", targets: 5 }//situação
             ],
             "fixedColumns": true
@@ -119,9 +119,8 @@ function applyMask(){
 /*TABLE ROW CUSTOM ANCHOR TO CANDIDATE DATA*/
 function candidateData(element) {
   // access element which fired event by > this
-  var href = element.getAttribute('data-href');
+  var href = "http://localhost/Monitoramento-EI/view/candidate_data.php?id="+element.getAttribute('data-href');
   window.location = href;
-
 };
 
 /*YEAR INPUT CATEGORIES*/

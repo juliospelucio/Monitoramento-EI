@@ -76,7 +76,17 @@ Class Parents extends Model{
      */
 	function updateParent(array $params){
 		try {
-			$sql = "UPDATE `parents` SET mother = :mother, father = :father WHERE id = :id";
+			$sql = "UPDATE `parents` SET";
+	        $comma = " ";
+	        foreach ($params as $key => $value) {
+	        	if ($key == "id") {
+	        		continue;
+	        	}
+	            $sql.= $comma.$key." = :".$key;
+	            $comma = ", ";
+	        }
+
+	        $sql.=" WHERE id = :id";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->runQuery($sql,$params);
 		} catch (PDOException $e) {

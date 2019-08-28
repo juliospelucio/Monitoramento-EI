@@ -18,7 +18,7 @@ Class LoginController extends Controller{
      */
 	public function isSigned(){
 		if(isset($_POST['signed'])) { // comes from login form
-			$attributes = array('email'=>$_POST['email'],'password'=>$_POST['password']);
+			$attributes = array('email'=>$_POST['email'],'password'=>md5($_POST['password']));
 			// parent::checkFields($attributes);
 			$this->user->setAttributes($attributes);
 			return true;
@@ -32,7 +32,7 @@ Class LoginController extends Controller{
 	public function login(){
 		$this->user = $this->user->checkCredentials();
 		$this->user = array_pop($this->user);
-		if($this->user != null) {
+		if($this->user) {
 			$_SESSION['id'] = $this->user['id'];
 			$_SESSION['name'] = $this->user['name'];
 			$_SESSION['admin'] = $this->user['admin'];

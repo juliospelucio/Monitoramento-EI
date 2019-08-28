@@ -1,15 +1,16 @@
- <div class="modal fade" id="password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="psw" tabindex="-1" role="dialog" aria-labelledby="Atualizar Senha" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 title="Updatepsw">Atualizar Senha</h4>
             </div>
-            <form action="../controller/edit_user.php" method="post">
+            <form action="../controller/UserController.php" method="post">
                 <div class="modal-body text-center">
-                    <input type="hidden" id="id_psw" name="id_psw" value="<?php echo $user->id ?>">
-                    <input class="form-control mt-md-2 mt-ms-2" type="password" placeholder="Senha Atual" id="psw-now" name="psw-now" required>
-                    <input class="form-control mt-md-2 mt-ms-2" type="password" placeholder="Nova Senha" id="psw-new" name="psw-new" required>
-                    <input class="form-control mt-md-2 mt-ms-2" type="password" placeholder="Confirmar Senha" id="psw-conf" name="psw-conf" required>
+                    <input type="hidden" id="uid" name="uid" value="<?php echo $user['id'] ?>">
+                    <input type="hidden" id="id_psw" name="id_psw" value="<?php echo $user['password'] ?>">
+                    <input class="form-control mt-md-2 mt-ms-2" type="password" placeholder="Senha Atual" id="psw_now" name="psw_now" required>
+                    <input class="form-control mt-md-2 mt-ms-2" type="password" placeholder="Nova Senha" id="psw_new" name="psw_new" required>
+                    <input class="form-control mt-md-2 mt-ms-2" type="password" placeholder="Confirmar Senha" id="psw_conf" name="psw_conf" required>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success" name="psw" autofocus>Atualizar</button>
@@ -18,4 +19,4 @@
             </form>
         </div>
     </div>
-</div>
+</div>  

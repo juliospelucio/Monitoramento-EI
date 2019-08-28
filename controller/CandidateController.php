@@ -23,6 +23,13 @@ Class CandidateController extends Controller{
 		$this->unit = new Unit($dbconfig);
 	}
 
+	/* Function validateSession
+     * Checks if a session is valid or redirects
+     */
+	public function validateSession(){
+		parent::validateSession();
+	}
+
 	/* Function insert
      * Insert a new Candidate into candidates table
      * @param $fields array with form's fields
@@ -33,20 +40,24 @@ Class CandidateController extends Controller{
 		$mother = $fields['mother'];
 		$father = $fields['father'];
 		$parents = array('mother' => $mother,'father' => $father);
-		$this->parents->setAttributes($parents);
 
 		$street = $fields['street'];
 		$number = $fields['number'];
 		$neighborhood = $fields['neighborhood'];
-		unset($fields['mother'],$fields['father'],$fields['street'],$fields['number'],$fields['neighborhood']);	
-
 		$address = array('street' => $street,'number' => $number,'neighborhood' => $neighborhood);
+		
+		unset($fields['mother'],$fields['father'],$fields['street'],$fields['number'],$fields['neighborhood']);	
+		
+		$this->parents->setAttributes($parents);
+
 		$this->address->setAttributes($address);
 
 		$fields = $fields + array('address' => $this->address,'parents' => $this->parents);
 
 		$this->candidate->setAttributes($fields);
-		
+		echo "<br/>";
+		print_r($fields);
+		// exit();
 		if($this->candidate->insertCandidate()){
 			$dados = array('msg' => 'Candidato inserido com sucesso', 'type' => parent::$success);
 			$_SESSION['data'] = $dados;
@@ -84,10 +95,6 @@ Class CandidateController extends Controller{
 	public function delete($id){
 		$candidate = $this->loadCandidate($id);
 		$candidate = array_pop($candidate);
-		/*echo "<pre>";
-		print_r($candidate);
-		echo "</pre>";
-		exit;*/
 		$cid = $candidate['cid'];
 		$aid = $candidate['aid'];
 		$pid = $candidate['pid'];
@@ -108,24 +115,21 @@ Class CandidateController extends Controller{
      * @param $id id from candidate table
      */
 	public function loadCandidate($id){
-		$candidates = new Candidate($this->dbconfig);
-		return $candidates->getCandidate($id);
+		return $this->candidate->getCandidate($id);
 	}	
 
 	/* Function loadAllCandidates
      * Get all candidate from cadidate table
      */
 	public function loadAllCandidates(){
-		$candidates = new Candidate($this->dbconfig);
-		return $candidates->getCandidates();
+		return $this->candidate->getCandidates();
 	}
 
 	/* Function loadAllUnits
      * Get all units from units table
      */
 	public function loadAllUnits(){
-		$units = new Unit($this->dbconfig);
-		return $units->getUnits();
+		return $this->unit->getUnits();
 	}
 
 	/* Function selectSituation
@@ -171,7 +175,7 @@ Class CandidateController extends Controller{
 
 	/* Function selectUnit
      * Get the unit of a candidate
-     * $id int units id from candidates table
+     * @oaram $id int units id from candidates table
      * @return the current unit from a candidate table in html format
      */
 	public function selectUnit($candidate){
@@ -182,29 +186,101 @@ Class CandidateController extends Controller{
 		}
 		foreach ($units as $unit) {			
 			$candidate['uid']==$unit['id'] ?
-			array_push($options,  "<option value='".$unit['id']."'selected>".$unit['aname']."</option>") :
-			array_push($options,  "<option value='".$unit['id']."'>".$unit['aname']."</option>");
+			array_push($options,  "<option value='".$unit['id']."'selected>".$unit['unname']."</option>") :
+			array_push($options,  "<option value='".$unit['id']."'>".$unit['unname']."</option>");
 
 		}
 		return $options;
 	}
+
+	/* Function getInterval
+     * Get the current categories based on cut date
+     * @param $year candidate's category
+     * @param $endDate cut date
+     * @return array of candidates
+     */
+	private function getInterval($year,$endDate){
+		$start_date = date("Y-m-d",strtotime("$endDate $year"));//based on march 31 cut date
+		return $this->candidate->getCategory($start_date, $endDate);
+	}
+
+	/* Function getYear
+     * Filter candidates based on current age
+     * @param $year candidate's category
+     * @param $rows candidates rows from database
+     * @return array of candidates
+     */
+	private function getYear($endDate,$rows,int $year){
+		$candidates = array();
+		// var_dump($year);
+		foreach ($rows as $row => $column) {
+			$age = 	 dateDifference($endDate, $column['birth_date'],'%y');
+			// var_dump($age);
+			if ($age == $year) {
+		 		array_push($candidates, $column);
+		 	}
+		 	if ($year == 1 && strpos($age, "Meses")) {
+		 		array_push($candidates, $column);
+		 	}
+		}
+		return $candidates;
+	}
+
+	/* Function getCategories
+     * Get all candidates based on with categories are specified
+     * @param $inf candidate's category
+     * @param $endDate cut date
+     * @return array of candidates
+     */
+	public function getCategories($inf = '',$endDate = ''){
+	
+	switch ($inf) {
+		case 'I':
+			$rows = $this->getInterval("-2 year",$endDate);
+			$rows = $this->getYear($endDate,$rows,1);
+			break;
+		case 'II':
+			$rows = $this->getInterval("-3 year",$endDate);
+			$rows = $this->getYear($endDate,$rows,2);
+			break;
+		case 'III':
+			$rows = $this->getInterval("-4 year",$endDate);
+			$rows = $this->getYear($endDate,$rows,3);
+			break;
+		case 'IV':
+			$rows = $this->getInterval("-5 year",$endDate);
+			$rows = $this->getYear($endDate,$rows,4);
+			break;
+		case 'V':
+			$rows = $this->getInterval("-6 year",$endDate);
+			$rows = $this->getYear($endDate,$rows,5);
+			break;
+		default:
+			$rows = $this->getInterval("-6 year",date("Y-m-d"));
+			break;
+	}
+
+	// print_r($rows);
+
+	return $rows;
+}
 
 }
 
 // -------------------------------------------------------
 session_start();
 $controller = new CandidateController($dbconfig);//Create controller
+$controller->validateSession();
 $rows = $controller->loadAllCandidates();//getAll candidates from database
 $units = $controller->loadAllUnits();// getAll units from database
 
 if (isset($_GET['id'])) {
-	$candidate = $controller->loadCandidate($_GET['id']);
-	$candidate = array_pop($candidate);
+	$candidate = $controller->loadCandidate($_GET['id']); $candidate = array_pop($candidate);
 	$situation = $controller->selectSituation($candidate['situation']);
 	$uoptions = $controller->selectUnit($candidate);//units options
 }
 
-if(isset($_POST['insert'])) { // comes from new_candidate form
+if(isset($_POST['insert'])) {
 	$controller->filename = $_POST['filename'];
 	$fields = array('name' => $_POST['name'],
 					'birth_date' => $_POST['birth_date'],
@@ -215,12 +291,15 @@ if(isset($_POST['insert'])) { // comes from new_candidate form
 					'tel2' => numberTransform($_POST['tel2']),
 					'inscription_date' => date("Y-m-d"),
 					'situation' => $_POST['situation'],
+					'obs' => $_POST['obs'],
 					'father' => $_POST['father'],
 					'mother' => $_POST['mother']);
 
 	if (isset($_POST['units_id']) && !empty($_POST['units_id'])) {
 		$fields = $fields + array('units_id' => $_POST['units_id']);
 	}
+
+
 	$controller->insert($fields);
 }
 
@@ -236,6 +315,7 @@ if (isset($_POST['edit'])) {
 					'tel1' => numberTransform($_POST['tel1']),
 					'tel2' => numberTransform($_POST['tel2']),
 					'situation' => $_POST['situation'],
+					'obs' => $_POST['obs'],
 					'parents_id' => $_POST['pid'],
 					'father' => $_POST['father'],
 					'mother' => $_POST['mother'],
@@ -250,4 +330,13 @@ if (isset($_POST['edit'])) {
 
 if (isset($_GET['delete'])) {
 	$controller->delete($_GET['id']);
+}
+
+if (isset($_GET['search']) && $_GET['search'] == 1) {
+	if (isset($_GET['inf']) && isset($_GET['date'])) {
+		$year = $_GET['inf'];
+		$endDate = $_GET['date'];
+		$rows = $controller->getCategories($year,$endDate);
+	}else 
+		$rows = $controller->getCategories();
 }

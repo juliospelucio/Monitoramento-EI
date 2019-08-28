@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <link rel="icon" href="../assets/img/brasão.png">
+    <link rel="icon" href="../assets/img/favicon.png">
 
     <title>Monitoramento de Vagas da Educação Infantil</title>
     
@@ -36,7 +36,7 @@
               <a class="nav-link" href="index.php">Home</a>
             </li>
             <li class="position-relative">
-              <a class="nav-link" href="categories.php">Categorias</a>
+              <a class="nav-link" href="categories.php?search=1">Categorias</a>
             </li>
           </ul>
           <ul class="navbar-nav">

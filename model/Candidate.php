@@ -6,18 +6,6 @@ require_once('CandidatesAddresses.php');
 
 Class Candidate extends Model{
 
-	/*$attributes = array('name'=>$_POST['name'],
-						'birth_date'=>$_POST['birth_date'],
-						'tel1'=>$_POST['tel1'],
-						'tel2'=>$_POST['tel2'],
-						'inscription_date'=>$_POST['inscription_date'],
-						'neighborhood'=>$_POST['neighborhood'],
-						'street'=>$_POST['street'],
-						'number'=>$_POST['number'],
-						'father'=>$_POST['father'],
-						'mother'=>$_POST['mother']);
-	*/
-	
 	protected $name;
 
 	protected $birth_date;
@@ -32,6 +20,8 @@ Class Candidate extends Model{
 
 	protected $units_id;
 
+	protected $obs;
+
 	protected $address;
 
 	protected $parents;
@@ -39,7 +29,6 @@ Class Candidate extends Model{
 
 	/* Function __construct
      * Set Atributes to the class
-     * @param $name unit's name
      * @param $dbconfig is a db configuration arrays 
      */
 	function __construct($dbconfig){
@@ -74,8 +63,7 @@ Class Candidate extends Model{
 	function getCandidate($id){
 		try {
 			$dbc = new DBConnection($this->dbconfig);
-
-			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation,
+			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation, c.obs,
 						   a.id aid, a.street, a.number, a.neighborhood, p.id pid, p.mother, p.father, u.id uid, u.name uname
 					FROM candidates c 
 					INNER JOIN addresses_has_candidates h ON h.candidates_id = c.id
@@ -90,7 +78,7 @@ Class Candidate extends Model{
 				return $query;
 			}
 
-			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation,
+			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation, c.obs,
 						   a.id aid, a.street, a.number, a.neighborhood, p.id pid, p.mother, p.father
 					FROM candidates c 
 					INNER JOIN addresses_has_candidates h ON h.candidates_id = c.id
@@ -101,6 +89,32 @@ Class Candidate extends Model{
 
 			return $dbc->getQuery($sql,$params);
 
+		} catch (PDOException $e) {
+			echo __LINE__.$e->getMessage();
+		}
+	}
+
+	/* Function getCategory
+     * Get a candidates between start date and end date
+     * @param $stDate 
+     * @param $endDate candidate in database
+     * @return array with candidates
+     */
+	function getCategory($stDate,$endDate){
+
+		try {
+			$dbc = new DBConnection($this->dbconfig);
+			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation, c.obs,
+						   a.id aid, a.street, a.number, a.neighborhood, p.id pid, p.mother, p.father
+					FROM candidates c 
+					INNER JOIN addresses_has_candidates h ON h.candidates_id = c.id
+					INNER JOIN addresses a ON a.id = h.addresses_id
+					INNER JOIN parents p ON p.id = c.parents_id
+					WHERE c.birth_date BETWEEN :stDate AND :endDate";
+			
+			$params = array(':stDate' => $stDate, ':endDate' => $endDate);
+
+			return $dbc->getQuery($sql,$params);
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
 		}
@@ -121,7 +135,7 @@ Class Candidate extends Model{
 
 			$aId = $this->address->insertAddress();			
 
-			$sql = "INSERT INTO candidates (name,birth_date,tel1,tel2,inscription_date,situation,units_id,parents_id) VALUES (:name,:birth_date,:tel1,:tel2,:inscription_date,:situation,:units_id,:parents_id)";
+			$sql = "INSERT INTO candidates (name,birth_date,tel1,tel2,inscription_date,situation,obs,units_id,parents_id) VALUES (:name,:birth_date,:tel1,:tel2,:inscription_date,:situation,:obs,:units_id,:parents_id)";
 
 			$params = array(":name"=>$this->name,
 							":birth_date"=>$this->birth_date,
@@ -129,19 +143,20 @@ Class Candidate extends Model{
 			 				":tel2"=>$this->tel2,
 			 				":inscription_date"=>$this->inscription_date,
 			 				":situation"=>$this->situation,
+			 				":obs"=>$this->obs,
 			 				":units_id"=>$this->units_id,
 			 				":parents_id"=>$pId
 			 				);
 
 			$cId = $dbc->runQuery($sql,$params,1);
+
 			$fields = array('addresses_id' => $aId, 'candidates_id' => $cId);
 			$this->CandidateAddress->setAttributes($fields);
 			$this->CandidateAddress->insertRelationship();
 			
 			return $dbc->commit();
 
-			//return $dbc->runQuery($sql,$params);
-		} catch (PDOException $e) {
+			} catch (PDOException $e) {
 			echo "Erro linha: ".__LINE__.$e->getMessage();
 			$dbc->rollBack();
 		}
@@ -184,24 +199,27 @@ Class Candidate extends Model{
 		try {
 			$dbc = new DBConnection($this->dbconfig);
 
-			/*echo "<pre>";
-			print_r($params);
-			echo "</pre>";
-			exit;*/
 			$dbc->beginTransaction();
 
-			$address = array(':id' => $params['addresses_id'],':street' => $params['street'],':number' => $params['number'],':neighborhood' => $params['neighborhood']);//Address params
-			$parents = array(':id' => $params['parents_id'],':mother' =>$params['mother'],':father' =>$params['father']);
+			$address = array('id' => $params['addresses_id'],'street' => $params['street'],'number' => $params['number'],'neighborhood' => $params['neighborhood']);
+			$parents = array('id' => $params['parents_id'],'mother' =>$params['mother'],'father' =>$params['father']);
 
 			$this->address->updateAddress($address);
 
 			unset($params['parents_id'],$params['mother'],$params['father'],$params['addresses_id'],$params['street'],$params['number'],$params['neighborhood']);	
 			
-			$sql = "UPDATE `candidates` SET name =:name, birth_date=:birth_date, tel1=:tel1, tel2=:tel2, situation=:situation, units_id=:units_id WHERE id = :id";
-			/*echo "<pre>";
-			print_r($params);
-			echo "</pre>";
-			exit;*/
+
+			$sql = "UPDATE `candidates` SET";
+	        $comma = " ";
+	        foreach ($params as $key => $value) {
+	        	if ($key == "id") {
+	        		continue;
+	        	}
+	            $sql.= $comma.$key." = :".$key;
+	            $comma = ", ";
+	        }
+
+	        $sql.=" WHERE id = :id";
 			
 			$dbc->runQuery($sql,$params);
 
@@ -213,4 +231,5 @@ Class Candidate extends Model{
 			$dbc->rollBack();
 		}
 	}
+
 }

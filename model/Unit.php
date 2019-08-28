@@ -13,8 +13,8 @@ Class Unit extends Model{
      */
 	function getUnits(){
 		try {
-			$sql = "SELECT a.id, a.name aname, b.name bname, b.email 
-					FROM `units` a INNER JOIN `users` b ON a.users_id = b.id";
+			$sql = "SELECT un.id, un.name unname, us.name usname, us.email 
+					FROM `units` un INNER JOIN `users` us ON un.users_id = us.id";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql);
 		} catch (PDOException $e) {
@@ -76,7 +76,17 @@ Class Unit extends Model{
      */
 	function updateUnit(array $params){
 		try {
-			$sql = "UPDATE `units` SET name = :name, users_id = :users_id WHERE id = :id";
+			$sql = "UPDATE `units` SET";
+	        $comma = " ";
+	        foreach ($params as $key => $value) {
+	        	if ($key == "id") {
+	        		continue;
+	        	}
+	            $sql.= $comma.$key." = :".$key;
+	            $comma = ", ";
+	        }
+
+	        $sql.=" WHERE id = :id";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->runQuery($sql,$params);
 		} catch (PDOException $e) {

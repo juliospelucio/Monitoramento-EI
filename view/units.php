@@ -13,7 +13,7 @@ require_once 'template/header.php';
     <div id="page-content-wrapper" style="width: 100%">
         <section class="container-fluid">
             <div class="row justify-content-around"> 
-                <div class="col-03">
+                <div class="col-03 align-self-center">
                     <p><h3><u>Unidades Cadastradas</u></h3></p>
                 </div>
                 <div class="col-09">
@@ -34,8 +34,8 @@ require_once 'template/header.php';
                     <?php foreach ($rows as $row => $column): ?>
                     <tr>
                         <td scope="row" class="text-center"><a href="edit_unit.php?id=<?php echo $column['id'] ?>"><img src="../assets/img/edit.png" width="30" height="30" title="Editar Unidade"></a></td>
-                        <td scope="row" class="text-center"><?php echo $column['aname'] ?></td>
-                        <td scope="row" class="text-center"><?php echo $column['bname'] ?></td>
+                        <td scope="row" class="text-center"><?php echo $column['unname'] ?></td>
+                        <td scope="row" class="text-center"><?php echo $column['usname'] ?></td>
                         <td scope="row" class="text-center">
                             <a href="#" data-href="../controller/UnitController.php?id=<?php echo $column['id'] ?>&delete=1" data-toggle="modal" data-target="#confirm-delete" onclick="modalHref(this)"><img src="../assets/img/delete.png" width="30" height="30" title="Apagar Unidade"></a>
                         </td>

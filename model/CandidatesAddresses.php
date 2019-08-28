@@ -48,13 +48,17 @@ Class CandidatesAddresses extends Model{
      */
 	function updateRelationship(array $params){
 		try {
-			$sql = "UPDATE `addresses_has_candidates` 
-			SET addresses_id = :addresses_id, 
-				candidates_id = :candidates_id,
-				candidates_units_id = :candidates_units_id, 
-				candidates_parents_id = :candidates_parents_id 
-			WHERE addresses_id = :addresses_id AND candidates_id = :candidates_id";
+			$sql = "UPDATE `addresses_has_candidates` SET";
+	        $comma = " ";
+	        foreach ($params as $key => $value) {
+	        	if ($key == "id") {
+	        		continue;
+	        	}
+	            $sql.= $comma.$key." = :".$key;
+	            $comma = ", ";
+	        }
 
+	        $sql.=" WHERE addresses_id = :addresses_id AND candidates_id = :candidates_id";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->runQuery($sql,$params);
 		} catch (PDOException $e) {

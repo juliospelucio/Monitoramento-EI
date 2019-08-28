@@ -16,6 +16,13 @@ Class UnitController extends Controller {
 		parent::validateSession();
 	}
 
+	/* Function validateSession
+     * Checks if a session is valid or redirects
+     */
+	public function validateSession(){
+		parent::validateSession();
+	}
+
 	/* Function loadAllCandidates
      * Get all candidate from cadidate table
      */
@@ -41,7 +48,7 @@ Class UnitController extends Controller {
      * @param $fields array with form's fields
      */
 	public function insert($fields){
-		parent::checkFields($fields);
+		// parent::checkFields($fields);
 		$this->unit->setAttributes($fields);
 		if($this->unit->insertUnit()){
 			$dados = array('msg' => 'Unidade cadastrada com sucesso', 'type' => parent::$success);
@@ -60,7 +67,9 @@ Class UnitController extends Controller {
      * @param $fields array with form's fields
      */
 	public function edit($fields){
-		$this->checkFields($fields);
+		// $this->checkFields($fields);
+		/*print_r($fields);
+		exit;*/
 		if($this->unit->updateUnit($fields)){
 			$dados = array('msg' => 'Unidade editada com sucesso', 'type' => parent::$success);
 			$_SESSION['data'] = $dados;
@@ -119,6 +128,7 @@ Class UnitController extends Controller {
 // CHAMADA DE MÉTODOS -------------------------------------------------------
 session_start();
 $controller = new UnitController($dbconfig);
+$controller->validateSession();
 $rows = $controller->loadAllUnits();
 $users = $controller->getAllUsers();
 $directors = $controller->getDirectors();
@@ -132,7 +142,7 @@ if (isset($_POST['insert'])) {
 	$controller->insert($fields);
 }
 if (isset($_POST['edit'])) {
-	$fields = array(":id"=>$_POST['id'],":name"=>$_POST['name'],":users_id"=>$_POST['users_id']);
+	$fields = array("id"=>$_POST['id'],"name"=>$_POST['name'],"users_id"=>$_POST['users_id']);
 	$controller->edit($fields);
 }
 

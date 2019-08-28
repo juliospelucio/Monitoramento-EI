@@ -83,7 +83,17 @@ Class User extends Model{
      */
 	function updateUser(array $params){
 		try {
-			$sql = "UPDATE `users` SET name = :name, email = :email, password = :password, admin = :admin WHERE id = :id";
+			$sql = "UPDATE `users` SET";
+	        $comma = " ";
+	        foreach ($params as $key => $value) {
+	        	if ($key == "id") {
+	        		continue;
+	        	}
+	            $sql.= $comma.$key." = :".$key;
+	            $comma = ", ";
+	        }
+
+	        $sql.=" WHERE id = :id";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->runQuery($sql,$params);
 		} catch (PDOException $e) {
@@ -93,9 +103,7 @@ Class User extends Model{
 
 	/* Function checkCredentials
      * Checks if email and password exists in the database
-     * @param $emal User's email in database
-     * @param $password User's password in database
-     * return a single row with a User
+     * @return a single row with a User
      */
 	public function checkCredentials(){
 		try {
@@ -105,7 +113,7 @@ Class User extends Model{
 			return $dbc->getQuery($sql,$params);
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
-		}		
+		}
 	}
 
 	/* Function getUsers

@@ -9,7 +9,7 @@ require_once 'template/header.php';
     <div id="page-content-wrapper" style="width: 100%">
         <section class="container-fluid">
             <div class="row justify-content-around"> 
-                <div class="col-03">
+                <div class="col-03 align-self-center">
                     <p><h3><u>Usuários Cadastrados</u></h3></p>
                 </div>
                 <div class="col-09">
@@ -52,7 +52,7 @@ require_once 'template/footer.php';
 require_once 'template/delete_user_modal.php';
 ?>
 <script type="text/javascript">
-    datatableApplyIndex();
+    datatableApplyUsers();
     $('.dropdown-toggle').dropdown()
 </script>
 <?php if (isset($_SESSION['data']))triggerModal() ?>

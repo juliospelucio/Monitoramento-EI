@@ -5,19 +5,29 @@ https://datatables.net/extensions/scroller/examples/initialisation/server-side_p
 
 require_once $_SERVER['DOCUMENT_ROOT']."/Monitoramento-EI/assets/helpers.php";
 
-require_once '../controller/IndexController.php';
+require_once '../model/Candidate.php';
+require_once '../model/settings.config.php';
+require_once '../model/DBConnection.php';
 require_once 'template/header.php';
 ?>
 
 <!-- Page Content -->
     <div id="page-content-wrapper" style="width: 100%">
         <section class="container-fluid">
-            <p><h3><u>Bem vindo <?php echo $_SESSION['name'] ?></u></h3></p><br>
-            <pre>
-                <!-- 
-            <?php print_r($rows) ?> -->
-            </pre>
-            <a href="#" data-href="../controller/delete_user.php?id=0" data-toggle="modal" data-target="#confirm-delete"><img src="../assets/img/delete.png" width="30" height="30"></a>
+            <p><h3><u>Bem vindo </u></h3></p><br>
+            <!-- <form method="get" action="#">
+            <input type="number" required placeholder="AAAA" min="2014" max="2030" class="form-control">
+                <input type="submit" name="submit">
+            </form> -->
+
+
+        <?php 
+
+        $candidate = new Candidate($dbconfig);
+
+        print_r($candidate->getCategory("2015-03-31","2019-03-31"));
+        ?>
+
         </section>
     </div>
     <!-- EMPTY DIV - PUSH FOOTER -->
@@ -30,6 +40,6 @@ require_once 'template/delete_candidate_modal.php';
 ?>
 <script type="text/javascript">
     datatableApplyIndex();
-    $('.dropdown-toggle').dropdown()
+    inputYear();
 </script>
 <?php if (isset($_SESSION['data']))triggerModal() ?>

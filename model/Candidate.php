@@ -22,6 +22,8 @@ Class Candidate extends Model{
 
 	protected $obs;
 
+	protected $conf_date;
+
 	protected $address;
 
 	protected $parents;
@@ -63,7 +65,7 @@ Class Candidate extends Model{
 	function getCandidate($id){
 		try {
 			$dbc = new DBConnection($this->dbconfig);
-			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation, c.obs,
+			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation, c.obs, c.conf_date,
 						   a.id aid, a.street, a.number, a.neighborhood, p.id pid, p.mother, p.father, u.id uid, u.name uname
 					FROM candidates c 
 					INNER JOIN addresses_has_candidates h ON h.candidates_id = c.id
@@ -78,7 +80,7 @@ Class Candidate extends Model{
 				return $query;
 			}
 
-			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation, c.obs,
+			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation, c.obs, c.conf_date,
 						   a.id aid, a.street, a.number, a.neighborhood, p.id pid, p.mother, p.father
 					FROM candidates c 
 					INNER JOIN addresses_has_candidates h ON h.candidates_id = c.id
@@ -104,7 +106,7 @@ Class Candidate extends Model{
 
 		try {
 			$dbc = new DBConnection($this->dbconfig);
-			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation, c.obs,
+			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation, c.obs, c.conf_date,
 						   a.id aid, a.street, a.number, a.neighborhood, p.id pid, p.mother, p.father
 					FROM candidates c 
 					INNER JOIN addresses_has_candidates h ON h.candidates_id = c.id
@@ -135,7 +137,7 @@ Class Candidate extends Model{
 
 			$aId = $this->address->insertAddress();			
 
-			$sql = "INSERT INTO candidates (name,birth_date,tel1,tel2,inscription_date,situation,obs,units_id,parents_id) VALUES (:name,:birth_date,:tel1,:tel2,:inscription_date,:situation,:obs,:units_id,:parents_id)";
+			$sql = "INSERT INTO candidates (name,birth_date,tel1,tel2,inscription_date,situation,obs,conf_date,units_id,parents_id) VALUES (:name,:birth_date,:tel1,:tel2,:inscription_date,:situation,:obs,:conf_date,:units_id,:parents_id)";
 
 			$params = array(":name"=>$this->name,
 							":birth_date"=>$this->birth_date,
@@ -144,6 +146,7 @@ Class Candidate extends Model{
 			 				":inscription_date"=>$this->inscription_date,
 			 				":situation"=>$this->situation,
 			 				":obs"=>$this->obs,
+			 				":conf_date"=>$this->conf_date,
 			 				":units_id"=>$this->units_id,
 			 				":parents_id"=>$pId
 			 				);

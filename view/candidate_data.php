@@ -38,7 +38,7 @@ require_once 'template/header.php';
                         <p><span class="font-weight-bold">Número:</span> <?php echo $candidate['number'] ?></p> 
                         <p><span class="font-weight-bold">Bairro:</span> <?php echo $candidate['neighborhood'] ?></p> 
                         <p><span class="font-weight-bold">Telefone:</span> <?php echo formatTel($candidate['tel1']) ?></p> 
-                        <p><span class="font-weight-bold">Telefone:</span> <?php echo formatTel($candidate['tel2']) ?></p>         
+                        <p><span class="font-weight-bold">Telefone:</span> <?php echo empty(($candidate['tel2']))?"":formatTel($candidate['tel2']) ?></p>         
                     </div>
                 </div>
                 <div class="row m-2 pt-2 border-gray-bottom">
@@ -46,7 +46,7 @@ require_once 'template/header.php';
                         <p class="text-uppercase">Situação e Unidade Destino</p>
                     </div>
                     <div class="col-md-6 col-sm-12 ml-5">
-                        <p><span id="toolTip" class="font-weight-bold" tabindex="0" data-toggle="tooltip" title="Data que o Candidato foi encaminhado para unidade destino" style="cursor: help;">Data de Confirmação:</span> INSERIR</p> 
+                        <p><span id="toolTip" class="font-weight-bold" tabindex="0" data-toggle="tooltip" title="Data que o Candidato foi encaminhado para unidade destino" style="cursor: help;">Data de Confirmação:</span> <?php echo isset($candidate['conf_date'])?stringToDate($candidate['conf_date']):"" ?></p> 
                         <p><span class="font-weight-bold">Situação:</span> <?php echo $controller->getSituation($candidate['situation']) ?></p> 
                         <p><span class="font-weight-bold">Unidade:</span> <?php echo isset($candidate['uname'])?$candidate['uname']:"" ?></p> 
                     </div>

@@ -292,11 +292,16 @@ if(isset($_POST['insert'])) {
 					'inscription_date' => date("Y-m-d"),
 					'situation' => $_POST['situation'],
 					'obs' => $_POST['obs'],
+					'conf_date' => null,
 					'father' => $_POST['father'],
 					'mother' => $_POST['mother']);
 
+	if ($_POST['situation']==1) {
+		$fields['conf_date'] = date("Y-m-d");
+	}
+
 	if (isset($_POST['units_id']) && !empty($_POST['units_id'])) {
-		$fields = $fields + array('units_id' => $_POST['units_id']);
+		$fields ['units_id'] = $_POST['units_id'];
 	}
 
 
@@ -316,13 +321,18 @@ if (isset($_POST['edit'])) {
 					'tel2' => numberTransform($_POST['tel2']),
 					'situation' => $_POST['situation'],
 					'obs' => $_POST['obs'],
+					'conf_date' => null,
 					'parents_id' => $_POST['pid'],
 					'father' => $_POST['father'],
 					'mother' => $_POST['mother'],
 					'units_id' => null);
-	
+
+	if ($_POST['situation']==1) {
+		$fields['conf_date'] = date("Y-m-d");
+	}
+
 	if (isset($_POST['units_id']) && !empty($_POST['units_id'])) {
-		$fields['units_id'] = $_POST['units_id'];
+		$fields ['units_id'] = $_POST['units_id'];
 	}
 
 	$controller->edit($fields);

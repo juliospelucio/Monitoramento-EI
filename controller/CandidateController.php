@@ -55,9 +55,7 @@ Class CandidateController extends Controller{
 		$fields = $fields + array('address' => $this->address,'parents' => $this->parents);
 
 		$this->candidate->setAttributes($fields);
-		echo "<br/>";
-		print_r($fields);
-		// exit();
+		
 		if($this->candidate->insertCandidate()){
 			$dados = array('msg' => 'Candidato inserido com sucesso', 'type' => parent::$success);
 			$_SESSION['data'] = $dados;

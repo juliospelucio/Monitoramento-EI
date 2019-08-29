@@ -25,6 +25,7 @@ class PDF extends FPDF{
         $this->Ln(15);
     }
 
+    // Page body
     function Body(){
         $this->AddPage();
         $this->Line(10,65,205,65);

@@ -25,7 +25,8 @@ require_once 'template/header.php';
 
         $candidate = new Candidate($dbconfig);
 
-        print_r($candidate->getCategory("2015-03-31","2019-03-31"));
+        
+        
         ?>
 
         </section>

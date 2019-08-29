@@ -48,7 +48,7 @@ Class Candidate extends Model{
 		try {
 			$sql = "SELECT c.id,c.name,c.birth_date,c.tel1,c.tel2,c.inscription_date,c.situation,p.mother,p.father 
 					FROM `candidates` c 
-					INNER JOIN `parents` p ON c.parents_id = p.id ";
+					INNER JOIN `parents` p ON c.parents_id = p.id ORDER BY c.inscription_date" ;
 					
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql);
@@ -112,7 +112,7 @@ Class Candidate extends Model{
 					INNER JOIN addresses_has_candidates h ON h.candidates_id = c.id
 					INNER JOIN addresses a ON a.id = h.addresses_id
 					INNER JOIN parents p ON p.id = c.parents_id
-					WHERE c.birth_date BETWEEN :stDate AND :endDate";
+					WHERE c.birth_date BETWEEN :stDate AND :endDate ORDER BY c.inscription_date";
 			
 			$params = array(':stDate' => $stDate, ':endDate' => $endDate);
 

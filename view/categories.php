@@ -8,7 +8,8 @@ require_once 'template/header.php';
 <!-- Page Content -->
     <div id="page-content-wrapper" class="w-100">
         <section class="container-fluid text-center">
-            <h1 class="mb-5">Infantil <?php echo  isset($_GET['inf'])? $_GET['inf']:"" ?></h1>
+             <h1 class="mb-5"> <?php if (isset($_GET['inf']) && isset($_GET['date']))
+               echo "<span id='toolTip' tabindex='0' data-toggle='tooltip' title='Baseado em: ".stringToDate($_GET['date'])."' style='cursor: help;'>Infantil - ".$_GET['inf']."</span>"; else echo "Infantil - "?></h1>
             <form action="categories.php" method="get">
                 <div class="row my-md-3 my-sm-5 justify-content-around">
                     <div class="col-md-3 col-sm-12">
@@ -74,5 +75,6 @@ require_once 'template/delete_candidate_modal.php';
 ?>
 <script type="text/javascript">
     datatableApplyCandidates();
+    $('#toolTip').tooltip();
 </script>
 <?php if (isset($_SESSION['data']))triggerModal() ?>

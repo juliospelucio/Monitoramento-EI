@@ -122,6 +122,27 @@ Class Candidate extends Model{
 		}
 	}
 
+	/* Function countCandidates
+     * Get the number of candidates sent to units on current year
+     * @param $stDate starting date
+     * @param $endDate end date
+     * @param $units_id current unit id
+     * @return int with total candidates
+     */
+	function countCandidates($stDate,$endDate,$units_id){
+
+		try {
+			$dbc = new DBConnection($this->dbconfig);
+			$sql = "SELECT COUNT(*) as count FROM candidates c WHERE (c.conf_date BETWEEN :stDate AND :endDate) AND (c.units_id = :units_id) ORDER BY c.inscription_date";
+
+			$params = array(':stDate' => $stDate, ':endDate' => $endDate, ':units_id' => $units_id);
+
+			return $dbc->getQuery($sql,$params);
+		} catch (PDOException $e) {
+			echo __LINE__.$e->getMessage();
+		}
+	}
+
 	/* Function insertCandidate
      * Insert a new candidate
      * @return int count of records affected by running the sql statement into candidates.

@@ -1,10 +1,10 @@
 <?php
 require_once 'Controller.php';
-require_once('..\model\settings.config.php');
-require_once '..\model\Candidate.php';
-require_once '..\model\Unit.php';
-require_once '..\model\Address.php';
-require_once '..\model\Parents.php';
+require_once('../model/settings.config.php');
+require_once '../model/Candidate.php';
+require_once '../model/Unit.php';
+require_once '../model/Address.php';
+require_once '../model/Parents.php';
 
 Class IndexController extends Controller{
 

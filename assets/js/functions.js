@@ -39,7 +39,7 @@ function datatableApplyCandidates() {
             ],
             "fixedColumns": true
         });
-};
+}
 
 function datatableApplyUsers() {
         $('#table_id').DataTable({
@@ -79,7 +79,7 @@ function datatableApplyUsers() {
             ],
             "fixedColumns": true
         });
-};
+}
 
 
 /*MODAL TRIGGER*/
@@ -89,7 +89,7 @@ function modalHref(element) {
   var href = element.getAttribute('data-href');
   // Set attribute
   document.getElementsByClassName('btn-ok')[0].setAttribute('href', href)
-};
+}
 
 /*PHONE MASK*/
 function setupPhoneMaskOnField(selector){
@@ -99,7 +99,7 @@ function setupPhoneMaskOnField(selector){
   inputElement.on('input, keyup', function(){
     setCorrectPhoneMask(inputElement);
   });
-};
+}
 
 function setCorrectPhoneMask(element){
     if (element.inputmask('unmaskedvalue').length > 10 ){
@@ -109,21 +109,21 @@ function setCorrectPhoneMask(element){
         element.inputmask('remove');
         element.inputmask({mask: '(99) 9999-9999[9]', greedy: false})
     }
-};
+}
 
 function applyMask(){
     setupPhoneMaskOnField('#tel1');
     setupPhoneMaskOnField('#tel2');
-};
+}
 
 /*TABLE ROW CUSTOM ANCHOR TO CANDIDATE DATA*/
 function candidateData(element) {
   // access element which fired event by > this
   var href = "http://localhost/Monitoramento-EI/view/candidate_data.php?id="+element.getAttribute('data-href');
   window.location = href;
-};
+}
 
 /*YEAR INPUT CATEGORIES*/
 function inputYear(){
     document.querySelector("input[type=number]").oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1))
-};
+}

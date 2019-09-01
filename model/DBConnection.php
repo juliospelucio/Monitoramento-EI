@@ -18,8 +18,8 @@ Class DBConnection extends PDO{
      * @param $config is an array of database connection parameters
      */
     public function __construct(array $config) {
-        parent::__construct("mysql:host=localhost;dbname=infantil_education_mch", "root", "");
         $this->_config = $config;
+        parent::__construct("mysql:host=localhost;dbname=".$config['dbname'], $config['username'], $config['password']);
         $this->getPDOConnection();
     }
     

@@ -1,6 +1,5 @@
 <?php 
-require_once $_SERVER['DOCUMENT_ROOT']."/Monitoramento-EI/assets/helpers.php";
-
+require_once '../assets/helpers.php';
 require_once '../controller/UnitController.php';
 require_once 'template/header.php';
 $controller->filename = basename(__FILE__);

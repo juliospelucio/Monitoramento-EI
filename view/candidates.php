@@ -1,5 +1,5 @@
 <?php 
-require_once $_SERVER['DOCUMENT_ROOT']."/Monitoramento-EI/assets/helpers.php";
+require_once '../assets/helpers.php';
 
 require_once '../controller/CandidateController.php';
 require_once 'template/header.php';
@@ -22,8 +22,8 @@ require_once 'template/header.php';
                         <th scope="col" class="text-center align-middle">N°</th>
                         <th scope="col" class="text-center align-middle">Idade</th>
                         <th scope="col" class="text-center align-middle">Nome</th>
-                        <th scope="col" class="text-center align-middle">Data do Casdastro</th>
                         <th scope="col" class="text-center align-middle">Mãe</th>
+                        <th scope="col" class="text-center align-middle">Data do Casdastro</th>
                         <th scope="col" class="text-center align-middle">Situação</th>
                     </tr>
                 </thead>
@@ -33,8 +33,8 @@ require_once 'template/header.php';
                             <td scope="row" class="text-center"><?php echo $i ?></td>
                             <td scope="row" class="text-center"><?php echo dateDifference(date("Y")."-03-31", $column['birth_date'],'%y') ?></td>
                             <td scope="row" class="text-center"><?php echo $column['name'] ?></td>
-                            <td scope="row" class="text-center"><?php echo stringToDate($column['inscription_date']) ?></td>
                             <td scope="row" class="text-center"><?php echo $column['mother'] ?></td>
+                            <td scope="row" class="text-center"><?php echo stringToDate($column['inscription_date']) ?></td>
                             <td scope="row" class="text-center"><?php echo $controller->getSituation($column['situation']) ?></td>
                         </tr>
                     <?php endforeach ?>

@@ -1,8 +1,8 @@
 <?php
 require_once 'Controller.php';
-require_once('..\model\settings.config.php');
-require_once '..\model\Unit.php';
-require_once '..\model\User.php';
+require_once('../model/settings.config.php');
+require_once '../model/Unit.php';
+require_once '../model/User.php';
 
 Class UnitController extends Controller {
 

@@ -3,7 +3,7 @@
 /*DATA-LOAD FOR HUGE AMOUNTS OF DATA, DATATABLES
 https://datatables.net/extensions/scroller/examples/initialisation/server-side_processing.html*/
 
-require_once './assets/helpers.php';
+require_once '../assets/helpers.php';
 require_once '../model/Candidate.php';
 require_once '../model/settings.config.php';
 require_once '../model/DBConnection.php';
@@ -22,7 +22,8 @@ require_once 'template/header.php';
 
         <?php 
 
-
+        $Candidate = new Candidate($dbconfig);
+        $candidates = $Candidate->getCandidates();
 
 
         

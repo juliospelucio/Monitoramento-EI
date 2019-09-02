@@ -19,7 +19,7 @@ Class DBConnection extends PDO{
      */
     public function __construct(array $config) {
         $this->_config = $config;
-        parent::__construct("mysql:host=localhost;dbname=".$config['dbname'], $config['username'], $config['password']);
+        parent::__construct("mysql:host=localhost;dbname=".$config['dbname'], $config['username'], $config['password'], array('charset'=>'utf8'));
         $this->getPDOConnection();
     }
     
@@ -75,6 +75,7 @@ Class DBConnection extends PDO{
      * @returns associative array
      */
     public function getQuery($sql,array $params = null) {
+
         $stmt = $this->dbc->prepare($sql);
         $stmt->execute($params);
         // echo $stmt->debugDumpParams() . "<br />";

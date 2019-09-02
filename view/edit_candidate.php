@@ -1,5 +1,5 @@
 <?php 
-require_once '/assets/helpers.php';
+require_once '../assets/helpers.php';
 require_once '../controller/CandidateController.php';
 require_once 'template/header.php';
 ?>

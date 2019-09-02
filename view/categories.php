@@ -43,7 +43,7 @@ require_once 'template/header.php';
                 <thead>
                     <tr>
                         <th scope="col" class="text-center align-middle">N°</th>
-                        <th scope="col" class="text-center align-middle">Idade</th>
+                        <th scope="col" class="text-center align-middle"><span id='toolTip' tabindex='0' data-toggle='tooltip' title='Idade baseada na data atual' style='cursor: help;'>Idade</span></th>
                         <th scope="col" class="text-center align-middle">Nome</th>
                         <th scope="col" class="text-center align-middle">Mãe</th>
                         <th scope="col" class="text-center align-middle">Data do Casdastro</th>
@@ -54,7 +54,9 @@ require_once 'template/header.php';
                     <?php $i=0;  foreach ($rows as $row => $column): $i++;?>            
                         <tr class="custom-anchor" data-href="<?php echo $column['cid'] ?>" onclick="candidateData(this)" title="Editar Candidato">
                             <td scope="row" class="text-center"><?php echo $i ?></td>
-                            <td scope="row" class="text-center"><?php echo dateDifference(date("Y")."-03-31", $column['birth_date'],'%y') ?></td>
+                            <?php isset($_GET['date'])?$date=$_GET['date']:$date=date("Y-m-d")?>
+                                
+                            <td scope="row" class="text-center"><?php echo dateDifference($date, $column['birth_date'],'%y') ?></td>
                             <td scope="row" class="text-center"><?php echo $column['cname'] ?></td>
                             <td scope="row" class="text-center"><?php echo $column['mother'] ?></td>
                             <td scope="row" class="text-center"><?php echo stringToDate($column['inscription_date']) ?></td>

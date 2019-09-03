@@ -10,7 +10,7 @@ require_once 'template/header.php';
         <section class="container-fluid">
             <div class="row justify-content-around"> 
                 <div class="col-03 align-self-center">
-                    <p><h3><u>Candidatos Cadastrados</u></h3></p>
+                    <p><h3><u><span id='toolTip' tabindex='0' data-toggle='tooltip' title='A idade é baseada na data atual (<?php echo date("d-m-Y") ?>)' style='cursor: help;'>Candidatos Cadastrados</span></u></h3></p>
                 </div>
                 <div class="col-09">
                     <a href="new_candidate.php"><img src="../assets/img/add.png" width="100" height="100"></a>
@@ -20,10 +20,10 @@ require_once 'template/header.php';
                 <thead>
                     <tr>
                         <th scope="col" class="text-center align-middle">N°</th>
-                        <th scope="col" class="text-center align-middle"><span id='toolTip' tabindex='0' data-toggle='tooltip' title='Idade baseada na data atual' style='cursor: help;'>Idade</span></th>
+                        <th scope="col" class="text-center align-middle">Idade</th>
                         <th scope="col" class="text-center align-middle">Nome</th>
                         <th scope="col" class="text-center align-middle">Mãe</th>
-                        <th scope="col" class="text-center align-middle">Data do Casdastro</th>
+                        <th scope="col" class="text-center align-middle">Data de Nascimento</th>
                         <th scope="col" class="text-center align-middle">Situação</th>
                     </tr>
                 </thead>
@@ -34,7 +34,7 @@ require_once 'template/header.php';
                             <td scope="row" class="text-center"><?php echo dateDifference(date("Y-m-d"), $column['birth_date'],'%y') ?></td>
                             <td scope="row" class="text-center"><?php echo $column['name'] ?></td>
                             <td scope="row" class="text-center"><?php echo $column['mother'] ?></td>
-                            <td scope="row" class="text-center"><?php echo stringToDate($column['inscription_date']) ?></td>
+                            <td scope="row" class="text-center"><?php echo stringToDate($column['birth_date']) ?></td>
                             <td scope="row" class="text-center"><?php echo $controller->getSituation($column['situation']) ?></td>
                         </tr>
                     <?php endforeach ?>

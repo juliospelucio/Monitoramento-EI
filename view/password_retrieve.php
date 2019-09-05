@@ -19,7 +19,7 @@
     </head>
   
     <body class="text-center">
-        <form class="form-signin" action="../controller/PHPMailerController.php" method="post">
+        <form class="form-signin" action="../controller/MailController.php" method="post">
             <img class="mt-2" src="../assets/img/brasão.png" alt="brasão" width="270" height="270" class="img-fluid" title="Monitoramento de Vagas da Educação Infantil" data-toggle="tooltip" data-placement="bottom">
             <h1 class="h3 mb-4">Recuperar Senha</h1>  
             <label for="inputEmail" class="sr-only">Email</label>

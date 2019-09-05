@@ -34,7 +34,7 @@ require_once '../controller/LoginController.php';
         <input type="password" id="inputPassword" class="form-control" placeholder="Senha" name="password">
         <button type="submit" class="btn btn-lg btn-color btn-block" name="signed">Acessar</button>
         <div class="alert alert-info my-2" role="alert">
-            <a href="password_retrieve.php" class="alert-link">Esqueci minha senha</a>
+            <a href="password_retrieve.php" class="alert-link"><u>Esqueci minha senha</u></a>
         </div>
         <p class="text-muted">Secretaria Municipal de Educação<br>Machado/MG &copy; 2019</p>
       </form>

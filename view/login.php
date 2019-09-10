@@ -26,7 +26,7 @@ require_once '../controller/LoginController.php';
   
   <body class="text-center">
       <form class="form-signin" action="../controller/LoginController.php" method="post">
-        <img class="mt-2" src="../assets/img/brasão.png" alt="brasão" width="270" height="270" class="img-fluid" title="Monitoramento de Vagas da Educação Infantil" data-toggle="tooltip" data-placement="bottom">
+        <img class="mt-2" src="../assets/img/brasão.png" alt="brasão" width="270" height="270" class="img-fluid" title="Monitoramento de Vagas da Educação Infantil" data-toggle="tooltip" data-placement="bottom" alt="Brasão do município de Machado">
         <h1 class="h3 mb-3">Login</h1>  
         <label for="inputEmail" class="sr-only">Email</label>
         <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus name="email">

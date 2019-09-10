@@ -16,7 +16,7 @@ Class User extends Model{
      * Get all users
      * @return Associate array users
      */
-	function getUsers(){
+	public function getUsers(){
 		try {
 			$sql = "SELECT * FROM `users`";
 			$dbc = new DBConnection($this->dbconfig);
@@ -31,8 +31,8 @@ Class User extends Model{
      * @param $id user in database
      * @return a single row with a User
      */
-	function getUser($id){
-		try {
+	public function getUser($id){
+	try {
 			$sql = "SELECT * FROM `users` WHERE id = :id";
 			$params = array(':id' => $id);
 			$dbc = new DBConnection($this->dbconfig);
@@ -46,7 +46,7 @@ Class User extends Model{
      * Insert a new user
      * @return int count of records affected by running the sql statement into users.
      */
-	function insertUser(){
+	public function insertUser(){
 		try {
 			$sql = "INSERT INTO `users` (name, email, password, admin) VALUES (:name, :email, :password, :admin)";
 			$params = array(':name' => $this->name,
@@ -65,7 +65,7 @@ Class User extends Model{
      * @param $id user's id
      * @return int count of records affected by running the sql statement into users.
      */
-	function deleteUser($id){
+	public function deleteUser($id){
 		try {
 			$sql = "DELETE FROM `users` WHERE id = :id";
 			$params = array(':id' => $id);
@@ -81,7 +81,7 @@ Class User extends Model{
      * @param $params array with User's atributes
      * @return int count of records affected by running the sql statement into users.
      */
-	function updateUser(array $params){
+	public function updateUser(array $params){
 		try {
 			$sql = "UPDATE `users` SET";
 	        $comma = " ";
@@ -116,14 +116,28 @@ Class User extends Model{
 		}
 	}
 
+	/* Function confMail
+     * Get a valid email from user table if exists
+     * @return a user's data
+     */
+	function confMail($email){
+		try {
+			$sql = "SELECT * FROM `users` u WHERE u.email = :email ";
+			$params = array(':email' => $email);
+			$dbc = new DBConnection($this->dbconfig);
+			return $dbc->getQuery($sql,$params);
+		} catch (PDOException $e) {
+			echo __LINE__.$e->getMessage();
+		}
+	}
+
 	/* Function getUsers
      * Get all non directors from users table
      * @return Associate array users
      */
 	function getNonDirectors(){
 		try {
-			$sql = 
-			"SELECT DISTINCT a.name,a.id FROM `users` a LEFT OUTER JOIN `units` b ON a.id = b.users_id WHERE b.users_id IS NULL";
+			$sql = "SELECT DISTINCT a.name,a.id FROM `users` us LEFT OUTER JOIN `units` un ON us.id = un.users_id WHERE un.users_id IS NULL";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql);
 		} catch (PDOException $e) {

@@ -55,6 +55,7 @@
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['name'] ?></a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUser">
                 <a class="dropdown-item" href="update_user.php?update=1">Meus dados</a>
+                <a class="dropdown-item" href="export.php">Exportar</a>
                 <?php if ($_SESSION['admin']): ?>
                 <a class="dropdown-item" href="users.php">Usuários</a>
                 <?php endif ?>

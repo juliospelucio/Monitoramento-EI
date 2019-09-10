@@ -12,7 +12,7 @@ require_once 'template/header.php';
                 <form action="../controller/CandidateController.php" method="post">
 	                <div class="row my-md-2"> 
 	                    <div class="col-md-8 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
+	                    	<div class="input-group mb-2">
 							  <div class="input-group-prepend">
 							    <span class="input-group-text" id="basic-addon-name">Nome do Candidato</span>
 							  </div>
@@ -20,7 +20,7 @@ require_once 'template/header.php';
 							</div>                      
 	                    </div>
 	                    <div class="col-md-4 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
+	                    	<div class="input-group mb-2">
 							  <div class="input-group-prepend">
 							    <span class="input-group-text" id="basic-addon-birth_date">Data de Nascimento</span>
 							  </div>
@@ -31,7 +31,7 @@ require_once 'template/header.php';
 
 					<div class="row my-md-2"> 
 	                    <div class="col-md-5 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
+	                    	<div class="input-group mb-2">
 							  <div class="input-group-prepend">
 							    <span class="input-group-text" id="basic-addon-neighborhood">Bairro</span>
 							  </div>
@@ -39,7 +39,7 @@ require_once 'template/header.php';
 							</div>
 	                    </div>
 	                    <div class="col-md-5 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
+	                    	<div class="input-group mb-2">
 							  <div class="input-group-prepend">
 							    <span class="input-group-text" id="basic-addon-street">Logradouro</span>
 							  </div>
@@ -47,7 +47,7 @@ require_once 'template/header.php';
 							</div>                      
 	                    </div>
 	                    <div class="col-md-2 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
+	                    	<div class="input-group mb-2">
 							  <div class="input-group-prepend">
 							    <span class="input-group-text" id="basic-addon-number">Número</span>
 							  </div>
@@ -58,7 +58,7 @@ require_once 'template/header.php';
 
 					<div class="row my-md-2"> 
 	                    <div class="col-md-6 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
+	                    	<div class="input-group mb-2">
 							  <div class="input-group-prepend">
 							    <span class="input-group-text" id="basic-addon-father">Nome do Pai</span>
 							  </div>
@@ -66,7 +66,7 @@ require_once 'template/header.php';
 							</div>                      
 	                    </div>
 	                    <div class="col-md-6 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
+	                    	<div class="input-group mb-2">
 							  <div class="input-group-prepend">
 							    <span class="input-group-text" id="basic-addon-mother">Nome da Mãe</span>
 							  </div>
@@ -77,7 +77,7 @@ require_once 'template/header.php';
 
 					<div class="row my-md-2"> 
 	                    <div class="col-md-3 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
+	                    	<div class="input-group mb-2">
 							  <div class="input-group-prepend">
 							    <span class="input-group-text" id="basic-addon-tel1">Telefone</span>
 							  </div>
@@ -85,7 +85,7 @@ require_once 'template/header.php';
 							</div>                      
 	                    </div>
 	                    <div class="col-md-3 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
+	                    	<div class="input-group mb-2">
 							  <div class="input-group-prepend">
 							    <span class="input-group-text" id="basic-addon-tel2">Telefone</span>
 							  </div>
@@ -93,7 +93,7 @@ require_once 'template/header.php';
 							</div>                      
 	                    </div>
 	                    <div class="col-md-3 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
+	                    	<div class="input-group mb-2">
 							  <div class="input-group-prepend">
 							    <span class="input-group-text" id="basic-addon-situation">Situação</span>
 							  </div>
@@ -105,7 +105,7 @@ require_once 'template/header.php';
 							</div>
 	                    </div>
 	                    <div class="col-md-3 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
+	                    	<div class="input-group mb-2">
 							  <div class="input-group-prepend">
 							    <span class="input-group-text" id="basic-addon-situation">Unidade</span>
 							  </div>
@@ -122,7 +122,7 @@ require_once 'template/header.php';
 					</div>
 					<div class="row my-md-2"> 
 						<div class="col-auto col-sm-12">
-							<div class="input-group mb-md-3 mb-sm-1">
+							<div class="input-group mb-2">
 							  <div class="input-group-prepend">
 							    <span class="input-group-text" id="basic-addon-obs">Observações</span>
 							  </div>

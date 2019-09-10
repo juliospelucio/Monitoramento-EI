@@ -1,7 +1,7 @@
 <?php 
 require_once '../assets/helpers.php';
 require_once '../controller/CandidateController.php';
-require('../controller/fpdf_controller.php');
+require('../assets/lib/FPDF.php');
 
 class PDF extends FPDF{
 
@@ -97,8 +97,4 @@ class PDF extends FPDF{
     }
 }
 
-
-// Instanciation of inherited class
-$pdf = new PDF($candidate);
-$pdf->Body();
 ?>

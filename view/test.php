@@ -22,11 +22,14 @@ require_once 'template/header.php';
 
         <?php 
 
-        $candidate = new Candidate($dbconfig);
+        $Candidate = new Candidate($dbconfig);
+        $candidates = $Candidate->getCandidates();
+
 
         
-        
         ?>
+
+        <button><a href="../controller/ExportController.php?conf=OK" target="blank">Enviar</a></button>
 
         </section>
     </div>

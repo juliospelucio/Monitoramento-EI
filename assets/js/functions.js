@@ -32,9 +32,9 @@ function datatableApplyCandidates() {
             "columnDefs": [
                 { "width": "auto", targets: 0 },//N°
                 { "width": "auto", targets: 1 },//idade
-                { "width": "450px", targets: 2 },//nome
-                { "width": "auto", targets: 3 },//data-cadastro
-                { "width": "450px", targets: 4 },//mãe
+                { "width": "445px", targets: 2 },//nome
+                { "width": "445px", targets: 3 },//mãe
+                { "width": "auto", targets: 4 },//data-cadastro
                 { "width": "150px", targets: 5 }//situação
             ],
             "fixedColumns": true

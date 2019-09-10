@@ -28,7 +28,7 @@ $controller->filename = basename(__FILE__);
 							  	<div class="input-group-prepend">
 							    	<span class="input-group-text" id="basic-addon-users_id">Responsável pela Unidade</span>
 							  	</div>
-							  	<select class="custom-select" id="users_id" name="users_id" aria-describedby="basic-addon-users_id"><!-- ADICIONAR UM CAMPO DISABLE CASO NÃO HOUVER USUÁRIOS -->
+							  	<select class="custom-select" id="users_id" name="users_id" aria-describedby="basic-addon-users_id">
 						  			<?php foreach ($directors as $director): ?>
 									<option <?php echo "value=".$director['id'] ?>>
 										<?php echo $director['name'] ?>
@@ -59,4 +59,3 @@ $controller->filename = basename(__FILE__);
     <div class="container p-5 m-2">
     </div>
 <?php require_once 'template/footer.php'; ?>
-<script type="text/javascript">applyMask()</script>

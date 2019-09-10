@@ -1,8 +1,4 @@
 <?php 
-
-/*DATA-LOAD FOR HUGE AMOUNTS OF DATA, DATATABLES
-https://datatables.net/extensions/scroller/examples/initialisation/server-side_processing.html*/
-
 require_once '../assets/helpers.php';
 require_once '../controller/UnitController.php';
 require_once 'template/header.php';

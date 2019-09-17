@@ -100,10 +100,10 @@ Class UserController extends Controller {
 	/* Function updatePsw
      * Update user's password
      * @param user $uid
-     * @param the current password hidden form
-     * @param the current password input
-     * @param the new password
-     * @param the new password confirmation
+     * @param $oldPsw is the current password from hidden form
+     * @param $nowPsw is the current password from input
+     * @param $newPsw is the new password
+     * @param $confPsw is the new password confirmation
      */
 	public function updatePsw($uid,$oldPsw,$nowPsw,$newPsw,$confPsw){
 		$this->checkPsw($uid,$newPsw,$confPsw);

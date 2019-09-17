@@ -183,9 +183,9 @@ Class CandidateController extends Controller{
 			$candidate['uid'] = 0;
 		}
 		foreach ($units as $unit) {			
-			$candidate['uid']==$unit['id'] ?
-			array_push($options,  "<option value='".$unit['id']."'selected>".$unit['unname']."</option>") :
-			array_push($options,  "<option value='".$unit['id']."'>".$unit['unname']."</option>");
+			$candidate['uid']==$unit['unid'] ?
+			array_push($options,  "<option value='".$unit['unid']."'selected>".$unit['unname']."</option>") :
+			array_push($options,  "<option value='".$unit['unid']."'>".$unit['unname']."</option>");
 
 		}
 		return $options;

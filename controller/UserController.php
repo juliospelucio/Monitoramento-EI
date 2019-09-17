@@ -155,13 +155,20 @@ if (isset($_GET['update'])) {
 
 if (isset($_POST['insert'])) {
 	if (!isset($_POST['admin'])) $_POST['admin'] = 0;
-	$fields = array('name' => $_POST['name'],'email' =>$_POST['email'],'password' =>md5("semedmch"),'admin' =>$_POST['admin']);
+	$fields = array('name' => $_POST['name'],
+					'email' =>$_POST['email'],
+					'password' =>md5("semedmch"),
+					'admin' =>$_POST['admin']);
 	$controller->insert($fields);
 }
 
 if (isset($_POST['edit'])) {
 	if (!isset($_POST['admin'])) $_POST['admin'] = 0;
-	$fields = array('id' => $_POST['id'],'name' => $_POST['name'],'email' =>$_POST['email'],'password' =>$_POST['password'],'admin' =>$_POST['admin']);
+	$fields = array('id' => $_POST['id'],
+					'name' => $_POST['name'],
+					'email' =>$_POST['email'],
+					'password' =>$_POST['password'],
+					'admin' =>$_POST['admin']);
 	$controller->edit($fields);
 }
 
@@ -170,5 +177,9 @@ if (isset($_GET['delete'])) {
 }
 
 if (isset($_POST['psw'])) {
-	$controller->updatePsw($_POST['uid'],$_POST['id_psw'],md5($_POST['psw_now']),$_POST['psw_new'],$_POST['psw_conf']);
+	$controller->updatePsw($_POST['uid'],
+						   $_POST['id_psw'],
+						   md5($_POST['psw_now']),
+						   $_POST['psw_new'],
+						   $_POST['psw_conf']);
 }

@@ -68,7 +68,7 @@ Class IndexController extends Controller{
 		$div = "<div class='col-8'> <div class='tab-content' id='nav-tabContent'>";
 
 		foreach ($units as $key => $unit) {
-			$count = $this->candidate->countCandidates($stDate,$endDate,$unit['id']);
+			$count = $this->candidate->countCandidates($stDate,$endDate,$unit['unid']);
 			$class = $key==0?" class='list-group-item list-group-item-action active'":"class='list-group-item list-group-item-action'";
 			$anchor .= "<a ".$class."id='list-".$this->unitNameTransform($unit['unname'])."-list' data-toggle='list' href='#list-".$this->unitNameTransform($unit['unname'])."' role='tab' aria-controls='".$this->unitNameTransform($unit['unname'])."'>".$unit['unname']."</a>";
 			if ($key==(count($units)-1)) {

@@ -18,7 +18,7 @@ $controller->setFileName = basename(__FILE__);
 							  		<span class="input-group-text" id="basic-addon-name">Nome da Unidade</span>
 							  	</div>
 							  	<?php foreach ($units as $user): ?>
-							  	<input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name" value="<?php echo $user['aname'] ?>">
+							  	<input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name" value="<?php echo $user['unname'] ?>">
 							  	<div class="invalid-feedback">
 					          		Por favor escolha um nome válido.
 						        </div>	
@@ -36,7 +36,7 @@ $controller->setFileName = basename(__FILE__);
 									<option 
 									<?php 
 										echo "value='".$user['id']."'"; 
-										if($units[0]['bid']==$user['id'])
+										if($units[0]['usid']==$user['id'])
 											echo "selected" 
 									?>>
 									<?php echo $user['name'] ?>

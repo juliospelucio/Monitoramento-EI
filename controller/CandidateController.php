@@ -232,37 +232,36 @@ Class CandidateController extends Controller{
      */
 	public function getCategories($inf = '',$endDate = ''){
 	
-	switch ($inf) {
-		case 'I':
-			$rows = $this->getInterval("-2 year",$endDate);
-			$rows = $this->getYear($endDate,$rows,1);
-			break;
-		case 'II':
-			$rows = $this->getInterval("-3 year",$endDate);
-			$rows = $this->getYear($endDate,$rows,2);
-			break;
-		case 'III':
-			$rows = $this->getInterval("-4 year",$endDate);
-			$rows = $this->getYear($endDate,$rows,3);
-			break;
-		case 'IV':
-			$rows = $this->getInterval("-5 year",$endDate);
-			$rows = $this->getYear($endDate,$rows,4);
-			break;
-		case 'V':
-			$rows = $this->getInterval("-6 year",$endDate);
-			$rows = $this->getYear($endDate,$rows,5);
-			break;
-		default:
-			$rows = $this->getInterval("-6 year",date("Y-m-d"));
-			break;
-	}
+		switch ($inf) {
+			case 'I':
+				$rows = $this->getInterval("-2 year",$endDate);
+				$rows = $this->getYear($endDate,$rows,1);
+				break;
+			case 'II':
+				$rows = $this->getInterval("-3 year",$endDate);
+				$rows = $this->getYear($endDate,$rows,2);
+				break;
+			case 'III':
+				$rows = $this->getInterval("-4 year",$endDate);
+				$rows = $this->getYear($endDate,$rows,3);
+				break;
+			case 'IV':
+				$rows = $this->getInterval("-5 year",$endDate);
+				$rows = $this->getYear($endDate,$rows,4);
+				break;
+			case 'V':
+				$rows = $this->getInterval("-6 year",$endDate);
+				$rows = $this->getYear($endDate,$rows,5);
+				break;
+			default:
+				$rows = $this->getInterval("-6 year",date("Y-m-d"));
+				break;
+		}
 
 	// print_r($rows);
 
 	return $rows;
-}
-
+	}
 }
 
 // -------------------------------------------------------

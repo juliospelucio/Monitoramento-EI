@@ -130,6 +130,7 @@ session_start();
 $controller = new UnitController($dbconfig);
 $controller->validateSession();
 $rows = $controller->loadAllUnits();
+
 $users = $controller->getAllUsers();
 $directors = $controller->getDirectors();
 

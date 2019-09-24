@@ -52,6 +52,17 @@ Class HomeController extends Controller{
 		return $this->unit->getUnits();
 	}
 
+	/* Function waitingList
+     * Get all candidates that are waiting based on a unit
+     * @param $uid users id
+     * @return array with all candidates on AGUARDANDO status
+     */
+	public function waitingList($uid){
+		$unit = $this->unit->getUnitByUserId($uid);
+		$unit = array_pop($unit);
+		return $this->candidate->pendingCandidates($unit['id']);
+	}
+
 	/* Function unitNameTransform
      * Get a formatted last word, from unit's name
      * @return formatted string name
@@ -76,3 +87,4 @@ Class HomeController extends Controller{
 session_start();
 $controller = new HomeController($dbconfig);
 $controller->validateSession();
+$rows = $controller->waitingList($_SESSION['id']);

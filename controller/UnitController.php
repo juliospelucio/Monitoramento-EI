@@ -23,6 +23,13 @@ Class UnitController extends Controller {
 		parent::validateSession();
 	}
 
+	/* Function notAdmin
+     * Checks if is a system administrator
+     */
+	public function notAdmin(){
+		parent::notAdmin();
+	}
+
 	/* Function loadAllCandidates
      * Get all candidate from cadidate table
      */

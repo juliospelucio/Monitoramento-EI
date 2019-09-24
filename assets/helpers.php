@@ -142,6 +142,14 @@ function dateDifference($date_1, $date_2, $differenceFormat = '%a'){
     if ($interval->format($differenceFormat) == 0) {// checks if is lower than a year
         $differenceFormat = '%m Meses';
     }
+
+    if ($interval->format($differenceFormat) == 1) {// checks if does have a year
+        $differenceFormat = '%y Ano';
+    }
+
+    if ($interval->format($differenceFormat) > 1) {// checks if does have a year
+        $differenceFormat = '%y Anos';
+    }
     
     return $interval->format($differenceFormat);  
 }

@@ -38,6 +38,22 @@ Class Unit extends Model{
 		}
 	}
 
+	/* Function getUnitByUserId
+     * Get a unit by users id
+     * @param $id unit in database
+     * @return a single row with a Unit
+     */
+	function getUnitByUserId($uid){
+		try {
+			$sql = "SELECT * FROM `units` WHERE users_id = :uid";
+			$params = array(':uid' => $uid);
+			$dbc = new DBConnection($this->dbconfig);
+			return $dbc->getQuery($sql,$params);
+		} catch (PDOException $e) {
+			echo __LINE__.$e->getMessage();
+		}
+	}
+
 	/* Function insertUnit
      * Insert a new unit
      * @return int count of records affected by running the sql statement into units.

@@ -33,7 +33,7 @@ Class Candidate extends Model{
      * Set Atributes to the class
      * @param $dbconfig is a db configuration arrays 
      */
-	function __construct($dbconfig){
+	public function __construct($dbconfig){
 		$this->dbconfig = $dbconfig;
 		$this->address = new Address($dbconfig);
 		$this->parents = new Parents($dbconfig);
@@ -44,7 +44,7 @@ Class Candidate extends Model{
      * Get all candidates
      * @return Associate array candidate
      */
-	function getCandidates(){
+	public function getCandidates(){
 		try {
 			$sql = "SELECT c.id,c.name,c.birth_date,c.tel1,c.tel2,c.inscription_date,c.situation,p.mother,p.father 
 					FROM `candidates` c 
@@ -62,7 +62,7 @@ Class Candidate extends Model{
      * @param $id candidate in database
      * @return a single row with a Candidate
      */
-	function getCandidate($id){
+	public function getCandidate($id){
 		try {
 			$dbc = new DBConnection($this->dbconfig);
 			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation, c.obs, c.conf_date,
@@ -102,7 +102,7 @@ Class Candidate extends Model{
      * @param $endDate candidate in database
      * @return array with candidates
      */
-	function getCategory($stDate,$endDate){
+	public function getCategory($stDate,$endDate){
 
 		try {
 			$dbc = new DBConnection($this->dbconfig);
@@ -128,7 +128,7 @@ Class Candidate extends Model{
      * @param $endDate candidate in database
      * @return array with candidates
      */
-	function getInscriptions($stDate,$endDate){
+	public function getInscriptions($stDate,$endDate){
 
 		try {
 			$dbc = new DBConnection($this->dbconfig);
@@ -155,7 +155,7 @@ Class Candidate extends Model{
      * @param $units_id current unit id
      * @return int with total candidates
      */
-	function countCandidates($stDate,$endDate,$units_id){
+	public function countCandidates($stDate,$endDate,$units_id){
 
 		try {
 			$dbc = new DBConnection($this->dbconfig);
@@ -173,7 +173,7 @@ Class Candidate extends Model{
      * Insert a new candidate
      * @return int count of records affected by running the sql statement into candidates.
      */
-	function insertCandidate(){
+	public function insertCandidate(){
 		try {
 			
 			$dbc = new DBConnection($this->dbconfig);
@@ -217,7 +217,7 @@ Class Candidate extends Model{
      * @param $id candidate's id
      * @return int count of records affected by running the sql statement into candidate.
      */
-	function deleteCandidate($cid,$aid,$pid){
+	public function deleteCandidate($cid,$aid,$pid){
 		try {
 			$dbc = new DBConnection($this->dbconfig);
 
@@ -245,7 +245,7 @@ Class Candidate extends Model{
      * @param $params array with Candidate's atributes
      * @return int count of records affected by running the sql statement into candidates.
      */
-	function updateCandidate(array $params){
+	public function updateCandidate(array $params){
 		try {
 			$dbc = new DBConnection($this->dbconfig);
 
@@ -282,4 +282,20 @@ Class Candidate extends Model{
 		}
 	}
 
+	/* Function pendingCandidates
+     * Get all candidates from a specific unit that situation is zero
+     * @param $uid units id
+     * @return number of affected rows on candidates.
+     */
+	public function pendingCandidates($uid){
+		try {
+			$sql = "SELECT c.id cid, c.name cname, c.birth_date FROM candidates c 
+					INNER JOIN units u ON u.id = c.units_id WHERE u.id = :uid AND c.situation = 0" ;
+			$dbc = new DBConnection($this->dbconfig);	
+			$params = array(':uid' => $uid);
+			return $dbc->getQuery($sql,$params);
+		} catch (PDOException $e) {
+			echo __LINE__.$e->getMessage();
+		}
+	}
 }

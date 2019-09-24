@@ -1,7 +1,9 @@
 <?php 
 require_once '../assets/helpers.php';
 require_once '../controller/IndexController.php';
+$controller->notAdmin();
 require_once 'template/header.php';
+
 ?>
 
 <!-- Page Content -->

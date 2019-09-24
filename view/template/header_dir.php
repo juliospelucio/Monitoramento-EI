@@ -36,16 +36,7 @@
               <a class="nav-link" href="index.php">Home</a>
             </li>
             <li class="position-relative">
-              <a class="nav-link" href="categories.php?search=1">Categorias</a>
-            </li>
-          </ul>
-          <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkInserir" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Inserir</a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkInserir">
-                <a class="dropdown-item" href="candidates.php">Candidato</a>
-                <a class="dropdown-item" href="units.php">Unidade</a>
-              </div>
+              <a class="nav-link" href="classrooms.php">Salas</a>
             </li>
           </ul>
           <ul class="navbar-nav">
@@ -54,7 +45,6 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUser">
                 <a class="dropdown-item" href="update_user.php?update=1">Meus dados</a>
                 <a class="dropdown-item" href="export.php">Exportar</a>
-                <a class="dropdown-item" href="users.php">Usuários</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="../controller/LoginController.php?logoff=1">Sair</a>
               </div>

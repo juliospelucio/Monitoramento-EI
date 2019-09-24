@@ -1,5 +1,5 @@
 <?php
-
+require_once '../assets/helpers.php';
 abstract Class Controller {
 
 	protected $dbconfig;
@@ -27,6 +27,26 @@ abstract Class Controller {
 			session_destroy();
 			header('location: '. myURL().'view/login.php');
 			exit;
+		}
+	}
+
+	/* Function isAdmin
+	 * Checks if is a system administrator and block access to diretor pages
+     */
+	protected function isAdmin(){
+		if (($_SESSION['admin']==1)) {
+			header('location: '. myURL(). 'view/index.php');
+	        exit;
+		}
+	}
+
+	/* Function notAdmin
+	 * Checks if is not a system administrator block access to administrator pages
+     */
+	protected function notAdmin(){
+		if (!($_SESSION['admin']==1)) {
+			header('location: '. myURL(). 'view/home.php');
+	        exit;
 		}
 	}
 

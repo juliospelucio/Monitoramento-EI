@@ -30,6 +30,13 @@ Class CandidateController extends Controller{
 		parent::validateSession();
 	}
 
+	/* Function notAdmin
+     * Checks if is a system administrator
+     */
+	public function notAdmin(){
+		parent::notAdmin();
+	}
+
 	/* Function insert
      * Insert a new Candidate into candidates table
      * @param $fields array with form's fields
@@ -288,7 +295,7 @@ if(isset($_POST['insert'])) {
 					'tel2' => numberTransform($_POST['tel2']),
 					'inscription_date' => date("Y-m-d"),
 					'situation' => $_POST['situation'],
-					'obs' => $_POST['obs'],
+					'obs' => std_input($_POST['obs']),
 					'conf_date' => null,
 					'father' => $_POST['father'],
 					'mother' => $_POST['mother']);
@@ -317,7 +324,7 @@ if (isset($_POST['edit'])) {
 					'tel1' => numberTransform($_POST['tel1']),
 					'tel2' => numberTransform($_POST['tel2']),
 					'situation' => $_POST['situation'],
-					'obs' => $_POST['obs'],
+					'obs' => std_input($_POST['obs']),
 					'conf_date' => null,
 					'parents_id' => $_POST['pid'],
 					'father' => $_POST['father'],

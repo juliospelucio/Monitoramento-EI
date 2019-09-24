@@ -30,7 +30,7 @@ function isAdmin(){
 
 
 /*Clear all spaces and standardize a string*/
-function test_input($data) {
+function std_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
   $data = htmlspecialchars($data);

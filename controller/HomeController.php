@@ -6,7 +6,7 @@ require_once '../model/Unit.php';
 require_once '../model/Address.php';
 require_once '../model/Parents.php';
 
-Class IndexController extends Controller{
+Class HomeController extends Controller{
 
 	private $candidate;
 
@@ -29,11 +29,11 @@ Class IndexController extends Controller{
 		parent::validateSession();
 	}
 
-	/* Function notAdmin
+	/* Function isAdmin
      * Checks if is a system administrator
      */
-	public function notAdmin(){
-		parent::notAdmin();
+	public function isAdmin(){
+		parent::isAdmin();
 	}
 
 	/* Function loadAllCandidates
@@ -62,31 +62,6 @@ Class IndexController extends Controller{
 		return strtolower($name);
 	}
 
-	/* Function listGroup
-     * Get a list group of units
-     * @return a HTML formatted list-group
-     */
-	public function listGroup(){
-		$units = $this->loadAllUnits();
-		$stDate = date("Y")."-01-01";
-		$endDate = date("Y")."-12-31";
-
-		$anchor = "<div class='row'> <div class='col-4'> <div class='list-group' id='list-tab' role='tablist'>";
-		$div = "<div class='col-8'> <div class='tab-content' id='nav-tabContent'>";
-
-		foreach ($units as $key => $unit) {
-			$count = $this->candidate->countCandidates($stDate,$endDate,$unit['unid']);
-			$class = $key==0?" class='list-group-item list-group-item-action active'":"class='list-group-item list-group-item-action'";
-			$anchor .= "<a ".$class."id='list-".$this->unitNameTransform($unit['unname'])."-list' data-toggle='list' href='#list-".$this->unitNameTransform($unit['unname'])."' role='tab' aria-controls='".$this->unitNameTransform($unit['unname'])."'>".$unit['unname']."</a>";
-			if ($key==(count($units)-1)) {
-				$anchor.="</div> </div>";
-			}
-			$class = $key==0?" class='tab-pane fade show active'":"class='tab-pane fade'";
-			$div .= "<div ".$class."id='list-".$this->unitNameTransform($unit['unname'])."' role='tabpanel' aria-labelledby='list-".$this->unitNameTransform($unit['unname'])."-list'> <p>Diretor(a): ".$unit['usname']."</p><p>Quantidade de Candidatos encaminhados : ".array_pop($count[0])."</p></div>";
-		}
-		return $anchor.$div;
-	}
-
 	/* Function loadUnitsData
      * Get all units from units table
      * @return array with units
@@ -99,5 +74,5 @@ Class IndexController extends Controller{
 
 // -------------------------------------------------------
 session_start();
-$controller = new IndexController($dbconfig);
+$controller = new HomeController($dbconfig);
 $controller->validateSession();

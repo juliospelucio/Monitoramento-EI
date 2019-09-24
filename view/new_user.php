@@ -1,6 +1,7 @@
 <?php 
 require_once '../assets/helpers.php';
 require_once '../controller/UnitController.php';
+$controller->notAdmin();
 require_once 'template/header.php';
 // $controller->filename = basename(__FILE__);
 ?>

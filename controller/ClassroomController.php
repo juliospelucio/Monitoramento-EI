@@ -6,19 +6,17 @@ require_once '../model/Unit.php';
 require_once '../model/Address.php';
 require_once '../model/Parents.php';
 
-Class HomeController extends Controller{
+Class ClassroomController extends Controller{
 
 	private $candidate;
 
 	private $parents;
 
-	private $unit;
+	private $classroom;
 
 	public function __construct($dbconfig){
 		parent::__construct($dbconfig);
 		$this->candidate = new Candidate($dbconfig);
-		$this->address = new Address($dbconfig);
-		$this->parents = new Parents($dbconfig);
 		$this->unit = new Unit($dbconfig);
 	}
 
@@ -36,22 +34,26 @@ Class HomeController extends Controller{
 		parent::isAdmin();
 	}
 
-
-	/* Function waitingList
-     * Get all candidates that are waiting based on a unit
-     * @param $uid users id
-     * @return array with all candidates on AGUARDANDO status
+	/* Function insert
+     * Insert a new classroom
+     * @param $fields array with form's fields
      */
-	public function waitingList($uid){
-		$unit = $this->unit->getUnitByUserId($uid);
-		$unit = array_pop($unit);
-		return $this->candidate->pendingCandidates($unit['id']);
+	public function insert($fields){
+		$this->unit->setAttributes($fields);
+		if($this->unit->insertUnit()){
+			$dados = array('msg' => 'Turma cadastrada com sucesso', 'type' => parent::$success);
+			$_SESSION['data'] = $dados;
+			header('location: ../view/units.php');
+			exit;
+		}
+		$dados = array('msg' => 'Erro ao cadastrar nova unidade', 'type' => parent::$error);
+		$_SESSION['data'] = $dados;
+		header('location: ../view/units.php');
+		exit;
 	}
-
 }
 
 // -------------------------------------------------------
 session_start();
-$controller = new HomeController($dbconfig);
+$controller = new ClassroomController($dbconfig);
 $controller->validateSession();
-$rows = $controller->waitingList($_SESSION['id']);

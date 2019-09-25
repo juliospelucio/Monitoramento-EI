@@ -33,7 +33,7 @@
         <div class="collapse navbar-collapse" id="mynavbar">
           <ul class="navbar-nav ml-auto bareffect">
             <li class="position-relative">
-              <a class="nav-link" href="index.php">Home</a>
+              <a class="nav-link" href="index.php">Início</a>
             </li>
             <li class="position-relative">
               <a class="nav-link" href="categories.php?search=1">Categorias</a>

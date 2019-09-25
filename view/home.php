@@ -59,12 +59,12 @@ require_once 'template/header_dir.php';
                     </div>
                     <div class="col-md-auto col-sm mb-2">
                         <button type="submit" class="btn btn-outline-success mr-2">Matricular</button>
-                        <button type="submit" class="btn btn-outline-danger">Dessistir</button>
+                        <button type="submit" class="btn btn-outline-danger mr-2">Dessistir</button>
+                        <a href="candidate_data.php?id=<?php echo $column['cid'] ?>" class="btn btn-outline-secondary" role="button">Detalhes</a>
                     </div>
                 </div>
             </form>
-            <?php endforeach ?>
-            <?php print_r($rows) ?>        
+            <?php endforeach ?>       
         </section>
     </div>
 

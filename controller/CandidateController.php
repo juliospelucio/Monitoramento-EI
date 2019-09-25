@@ -264,10 +264,7 @@ Class CandidateController extends Controller{
 				$rows = $this->getInterval("-6 year",date("Y-m-d"));
 				break;
 		}
-
-	// print_r($rows);
-
-	return $rows;
+		return $rows;
 	}
 }
 
@@ -294,13 +291,17 @@ if(isset($_POST['insert'])) {
 					'tel1' => numberTransform($_POST['tel1']),
 					'tel2' => numberTransform($_POST['tel2']),
 					'inscription_date' => date("Y-m-d"),
-					'situation' => $_POST['situation'],
+					'situation' => 0,
 					'obs' => std_input($_POST['obs']),
 					'conf_date' => null,
 					'father' => $_POST['father'],
 					'mother' => $_POST['mother']);
 
-	if ($_POST['situation']==1) {
+	if (empty($fields['tel2'])) {
+		$fields['tel2'] = null;
+	}
+
+	if ($fields['situation']==1) {
 		$fields['conf_date'] = date("Y-m-d");
 	}
 
@@ -330,6 +331,10 @@ if (isset($_POST['edit'])) {
 					'father' => $_POST['father'],
 					'mother' => $_POST['mother'],
 					'units_id' => null);
+	
+	if (empty($fields['tel2'])) {
+		$fields['tel2'] = null;
+	}
 
 	if ($_POST['situation']==1) {
 		$fields['conf_date'] = date("Y-m-d");

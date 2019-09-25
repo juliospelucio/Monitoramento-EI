@@ -13,7 +13,6 @@ Class UnitController extends Controller {
 		parent::__construct($dbconfig);
 		$this->unit = new Unit($dbconfig);
 		$this->user = new User($dbconfig);
-		parent::validateSession();
 	}
 
 	/* Function validateSession

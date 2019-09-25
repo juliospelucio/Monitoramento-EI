@@ -199,7 +199,7 @@ Class Candidate extends Model{
 			 				);
 
 			$cId = $dbc->runQuery($sql,$params,1);
-
+			
 			$fields = array('addresses_id' => $aId, 'candidates_id' => $cId);
 			$this->CandidateAddress->setAttributes($fields);
 			$this->CandidateAddress->insertRelationship();
@@ -290,7 +290,7 @@ Class Candidate extends Model{
 	public function pendingCandidates($uid){
 		try {
 			$sql = "SELECT c.id cid, c.name cname, c.birth_date FROM candidates c 
-					INNER JOIN units u ON u.id = c.units_id WHERE u.id = :uid AND c.situation = 0" ;
+					INNER JOIN units u ON u.id = c.units_id WHERE u.id = :uid AND c.situation = 0 ORDER BY c.name" ;
 			$dbc = new DBConnection($this->dbconfig);	
 			$params = array(':uid' => $uid);
 			return $dbc->getQuery($sql,$params);

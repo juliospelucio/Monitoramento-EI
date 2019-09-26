@@ -41,6 +41,7 @@ require_once 'template/header.php';
                         <input type="hidden" id="id" name="id" value="<?php echo $user['id'] ?>">
                         <input type="hidden" id="admin" name="admin" value="<?php echo $user['admin'] ?>">
                         <input type="hidden" id="password" name="password" value="<?php echo $user['password'] ?>">
+                        <input type="hidden" id="update" name="update" value="1">
 					</div>
 
 					<div class="row mt-md-5 justify-content-md-center">

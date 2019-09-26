@@ -69,17 +69,32 @@ Class UserController extends Controller {
 		exit;
 	}
 
+	/* Function edtOrUpdt
+     * Check if its a update or a edit on user data
+     * @param $update flag to see if its a update or a edit
+     * @param $uid user id to insert into the URL
+     */
+     private function edtOrUpdt($update,$uid){
+     	if ($update) {
+     		$dados = array('msg' => 'Dados atualizados com sucesso', 'type' => parent::$success);
+			$_SESSION['data'] = $dados;
+			header('location: ../view/update_user.php?id='.$uid);
+			exit;
+     	}
+     	$dados = array('msg' => 'Dados editado com sucesso', 'type' => parent::$success);
+			$_SESSION['data'] = $dados;
+			header('location: ../view/users.php');
+			exit;
+     }	
+
 	/* Function edit
      * Update user data
      * @param $fields array with form's fields
+     * @param $update flag to see if its a update or a edit
      */
-	public function edit($fields){
-		// $this->checkFields($fields);
+	public function edit($fields,$update){
 		if($this->user->updateUser($fields)){
-			$dados = array('msg' => 'Dados atualizados com sucesso', 'type' => parent::$success);
-			$_SESSION['data'] = $dados;
-			header('location: ../view/update_user.php?id='.$fields['id']);
-			exit;
+			$this->edtOrUpdt($update,$fields['id']);
 		}
 		$dados = array('msg' => 'Erro ao editar os dados do usuário', 'type' => parent::$error);
 		$_SESSION['data'] = $dados;
@@ -176,7 +191,9 @@ if (isset($_POST['edit'])) {
 					'email' =>$_POST['email'],
 					'password' =>$_POST['password'],
 					'admin' =>$_POST['admin']);
-	$controller->edit($fields);
+
+	$update = isset($_POST['update'])?$_POST['update']:null;
+	$controller->edit($fields,$update);
 }
 
 if (isset($_GET['delete'])) {
@@ -184,9 +201,9 @@ if (isset($_GET['delete'])) {
 }
 
 if (isset($_POST['psw'])) {
-	$controller->updatePsw($_POST['uid'],
-						   $_POST['id_psw'],
-						   md5($_POST['psw_now']),
-						   $_POST['psw_new'],
-						   $_POST['psw_conf']);
+	// $controller->updatePsw($_POST['uid'],
+	// 					   $_POST['id_psw'],
+	// 					   md5($_POST['psw_now']),
+	// 					   $_POST['psw_new'],
+	// 					   $_POST['psw_conf']);
 }

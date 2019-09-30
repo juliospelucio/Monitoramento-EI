@@ -10,7 +10,7 @@ require_once 'template/header_dir.php';
         <div id="page-content-wrapper">
             <section class="container-fluid text-center">
                 <h1 class="mb-5">Cadastrar Turma</h1>
-                <form action="../controller/UnitController.php" method="post" class="was-validated">
+                <form action="../controller/ClassroomController.php" method="post" class="was-validated">
 	                <div class="row my-md-2"> 
 	                    <div class="col-md-6 col-sm-12">
 	                    	<div class="input-group mb-md-3 mb-sm-1">
@@ -32,7 +32,7 @@ require_once 'template/header_dir.php';
 	                    </div>
 	                    <div class="form-group col-md-6 col-sm-6">
 	                       <label class="sr-only" for="cancel">Cancelar</label>
-	                       <a href="units.php" class="btn btn-outline-secondary btn-block" id="cancel" name="cancel">Cancelar</a>
+	                       <a href="classrooms.php" class="btn btn-outline-secondary btn-block" id="cancel" name="cancel">Cancelar</a>
 	                    </div>
 	                </div>            
                 </form>

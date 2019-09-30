@@ -26,14 +26,14 @@ require_once 'template/header_dir.php';
                     </tr>
                 </thead>
                 <tbody>
-                    <?php //foreach ($rows as $row => $column):?>            
+                    <?php foreach ($rows as $row => $column):?>            
                         <tr>
                             <td scope="row" class="text-center">Editar</td>
                             <td scope="row" class="text-center">Turma</td>
                             <td scope="row" class="text-center">Número de Alunos</td>
                             <td scope="row" class="text-center">Apagar</td>
                         </tr>
-                    <?php //endforeach ?>
+                    <?php endforeach ?>
                 </tbody>
             </table>
         </section>

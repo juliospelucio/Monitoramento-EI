@@ -69,6 +69,24 @@ Class UserController extends Controller {
 		exit;
 	}
 
+	/* Function edtOrUpdt
+     * Check if its a update or a edit on user data
+     * @param $update flag to see if its a update or a edit
+     * @param $uid user id to insert into the URL
+     */
+     private function edtOrUpdt($update,$uid){
+     	if ($update) {
+     		$dados = array('msg' => 'Dados atualizados com sucesso', 'type' => parent::$success);
+			$_SESSION['data'] = $dados;
+			header('location: ../view/update_user.php?id='.$uid);
+			exit;
+     	}
+     	$dados = array('msg' => 'Dados editado com sucesso', 'type' => parent::$success);
+		$_SESSION['data'] = $dados;
+		header('location: ../view/users.php');
+		exit;
+ 	}	
+
 	/* Function edit
      * Update user data
      * @param $fields array with form's fields

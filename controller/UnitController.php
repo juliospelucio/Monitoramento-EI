@@ -33,8 +33,7 @@ Class UnitController extends Controller {
      * Get all candidate from cadidate table
      */
 	public function loadAllUnits(){
-		$units = new Unit($this->dbconfig);
-		return $units->getUnits();
+		return $this->unit->getUnits();
 	}
 
 	/* Function getUnit
@@ -145,7 +144,7 @@ if (isset($_GET['id'])) {
 }
 
 if (isset($_POST['insert'])) {
-	$fields = array('name' => $_POST['name'],'users_id' =>$_POST['users_id']);
+	$fields = array('desc' => $_POST['desc']);
 	$controller->insert($fields);
 }
 if (isset($_POST['edit'])) {

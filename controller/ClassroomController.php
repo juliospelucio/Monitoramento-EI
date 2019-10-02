@@ -35,7 +35,26 @@ Class ClassroomController extends Controller{
      */
 	public function loadAllClassrooms(){
 		return $this->classroom->getClassrooms();
-	}	
+	}
+
+	/* Function loadClassroom
+     * Get a classroom by Id from classroom table
+     */
+	public function loadClassroom(){
+		return $this->classroom->getClassrooms();
+	}
+
+	/* Function getClassroom
+     * Get a classroom by it's Id
+     * @param classroom's id
+     */
+	public function getClassroom($id){
+	 	$classroom =  $this->classroom->getClassroom($id);
+	 	if (!$classroom) {
+			return array (array('description'=>'Turma indisponível','id'=>''));
+	 	}
+ 		return $this->classroom->getClassroom($id);
+	}
 
 	/* Function insert
      * Insert a new classroom
@@ -58,6 +77,23 @@ Class ClassroomController extends Controller{
 		header('location: ../view/classrooms.php');
 		exit;
 	}
+
+	/* Function edit
+     * Update classroom data
+     * @param $fields array with form's fields
+     */
+	public function edit($fields){
+		if($this->classroom->updateClassroom($fields)){
+			$dados = array('msg' => 'Turma editada com sucesso', 'type' => parent::$success);
+			$_SESSION['data'] = $dados;
+			header('location: ../view/classrooms.php');
+			exit;
+		}
+		$dados = array('msg' => 'Erro ao editar a turma', 'type' => parent::$error);
+		$_SESSION['data'] = $dados;
+		header('location: ../view/classrooms.php');
+		exit;
+	}
 }
 
 // -------------------------------------------------------
@@ -66,14 +102,19 @@ $controller = new ClassroomController($dbconfig);
 $controller->validateSession();
 $rows = $controller->loadAllClassrooms();
 
+if (isset($_GET['id'])) {
+	$classroom = $controller->getClassroom($_GET['id']);
+	$classroom = array_pop($classroom);
+}
+
 if (isset($_POST['insert'])) {
-	$fields = array('description' => $_POST['desc']);
+	$fields = array('description' => $_POST['description']);
 	$controller->insert($fields);
 }
 
 if (isset($_POST['edit'])) {
-	// $fields = array("id"=>$_POST['id'],"name"=>$_POST['name'],"users_id"=>$_POST['users_id']);
-	// $controller->edit($fields);
+	$fields = array("id"=>$_POST['id'],"description"=>$_POST['description'],"units_id"=>$_POST['units_id']);
+	$controller->edit($fields);
 }
 
 if (isset($_GET['delete'])) {

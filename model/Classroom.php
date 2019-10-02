@@ -27,6 +27,7 @@ Class Classroom extends Model{
      * @return a single row with a classroom
      */
 	function getClassroom($id){
+		
 		try {
 			$sql = "SELECT * FROM `classrooms` WHERE id = :id";
 			$params = array(':id' => $id);

@@ -12,7 +12,7 @@ require_once 'template/header_dir.php';
             <h1 class="display-4">Alunos Pendentes</h1>
             <?php foreach ($rows as $row => $column): ?>
             
-            <form>
+            <form class="border border-dark rounded p-1 mb-1 text-center text-lg-left">
                 <input type="hidden" id="cid" name="cid" value="<?php echo $column['cid'] ?>">
                 <div class="form-row mt-3">
                     <div class="col-md-3 col-sm mb-2">

@@ -28,10 +28,14 @@ require_once 'template/header_dir.php';
                 <tbody>
                     <?php foreach ($rows as $row => $column):?>            
                         <tr>
-                            <td scope="row" class="text-center">Editar</td>
-                            <td scope="row" class="text-center">Turma</td>
+                            <td scope="row" class="text-center">
+                                <a href="edit_classroom.php?id=<?php echo $column['id'] ?>"><img src="../assets/img/edit.png" width="30" height="30" title="Editar Turma"></a>
+                            </td>
+                            <td scope="row" class="text-center"><?php echo $column['description'] ?></td>
                             <td scope="row" class="text-center">Número de Alunos</td>
-                            <td scope="row" class="text-center">Apagar</td>
+                            <td scope="row" class="text-center">
+                                <a href="#" data-href="../controller/ClassroomController.php?id=<?php echo $column['id'] ?>&delete=1" data-toggle="modal" data-target="#confirm-delete" onclick="modalHref(this)"><img src="../assets/img/delete.png" width="30" height="30" title="Apagar Turma"></a>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>
@@ -43,7 +47,7 @@ require_once 'template/header_dir.php';
     </div>
 <?php
 require_once 'template/footer.php';
-// require_once 'template/delete_candidate_modal.php';
+require_once 'template/delete_classroom_modal.php';
 ?>
 <script type="text/javascript">
     datatableApplyClassrooms();

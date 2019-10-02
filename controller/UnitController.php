@@ -72,9 +72,6 @@ Class UnitController extends Controller {
      * @param $fields array with form's fields
      */
 	public function edit($fields){
-		// $this->checkFields($fields);
-		/*print_r($fields);
-		exit;*/
 		if($this->unit->updateUnit($fields)){
 			$dados = array('msg' => 'Unidade editada com sucesso', 'type' => parent::$success);
 			$_SESSION['data'] = $dados;

@@ -9,7 +9,7 @@ require_once 'template/header_dir.php';
 	<div class="container">
         <div id="page-content-wrapper">
             <section class="container-fluid text-center">
-                <h1 class="mb-5">Cadastrar Turma</h1>
+                <h1 class="mb-5">Editar Turma</h1>
                 <form action="../controller/ClassroomController.php" method="post" class="was-validated">
 	                <div class="row my-md-2 justify-content-center"> 
 	                    <div class="col-md-6 col-sm-12">
@@ -17,18 +17,19 @@ require_once 'template/header_dir.php';
 							  	<div class="input-group-prepend">
 							  		<span class="input-group-text" id="basic-addon-description">Descrição</span>
 								</div>
-								<input type="text" required class="form-control" id="description" name="description" aria-descriptionribedby="basic-addon-description">
+								<input type="text" required class="form-control" id="description" name="description" aria-describedby="basic-addon-description" value="<?php echo $classroom['description'] ?>">
 								<div class="invalid-feedback">
 					          		Por favor escolha um nome válido.
 						        </div>	                    
 							</div> 
 	                    </div>
 					</div>
-
+                    <input type="hidden" id="id" name="id" value="<?php echo $classroom['id'] ?>">
+                    <input type="hidden" id="units_id" name="units_id" value="<?php echo $classroom['units_id'] ?>">
 					<div class="row my-md-2 justify-content-around mt-5">
 	                    <div class="form-group col-md-5 col-sm-6">
-	                       <label class="sr-only" for="insert">Inserir</label>
-	                       <button type="submit" class="btn btn-outline-success btn-block" id="insert" name="insert">Inserir</button>
+	                       <label class="sr-only" for="insert">Editar</label>
+	                       <button type="submit" class="btn btn-outline-success btn-block" id="edit" name="edit">Editar</button>
 	                    </div>
 	                    <div class="form-group col-md-5 col-sm-6">
 	                       <label class="sr-only" for="cancel">Cancelar</label>

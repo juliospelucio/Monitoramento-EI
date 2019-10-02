@@ -10,7 +10,7 @@ require_once 'template/header_dir.php';
         <section class="container-fluid">
             <div class="row justify-content-around"> 
                 <div class="col-03 align-self-center">
-                    <p><h3><u>Salas Cadastrados</u></h3></p>
+                    <p><h3><u>Salas Cadastradas</u></h3></p>
                 </div>
                 <div class="col-09">
                     <a href="new_classroom.php"><img src="../assets/img/add.png" width="100" height="100"></a>

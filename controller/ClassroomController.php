@@ -94,6 +94,23 @@ Class ClassroomController extends Controller{
 		header('location: ../view/classrooms.php');
 		exit;
 	}
+
+	/* Function delete
+     * Delete a classroom data
+     * @param $fields array with form's fields
+     */
+	public function delete($id){
+		if ($this->classroom->deleteClassroom($id)) {
+			$dados = array('msg' => 'Turma apagada com sucesso', 'type' => parent::$success);
+			$_SESSION['data'] = $dados;
+			header('location: ../view/classrooms.php');
+			exit;
+		}
+		$dados = array('msg' => 'Erro a apagar turma', 'type' => parent::$error);
+		$_SESSION['data'] = $dados;
+		header('location: ../view/classrooms.php');
+		exit;
+	}
 }
 
 // -------------------------------------------------------
@@ -118,5 +135,5 @@ if (isset($_POST['edit'])) {
 }
 
 if (isset($_GET['delete'])) {
-	// $controller->delete($_GET['id']);
+	$controller->delete($_GET['id']);
 }

@@ -13,7 +13,7 @@ Class Classroom extends Model{
      */
 	function getClassrooms(){
 		try {
-			$sql = "SELECT * FROM `classrooms` ";
+			$sql = "SELECT * FROM `classrooms` ORDER BY description";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql);
 		} catch (PDOException $e) {

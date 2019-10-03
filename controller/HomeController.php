@@ -2,24 +2,22 @@
 require_once 'Controller.php';
 require_once('../model/settings.config.php');
 require_once '../model/Candidate.php';
+require_once '../model/Classroom.php';
 require_once '../model/Unit.php';
-require_once '../model/Address.php';
-require_once '../model/Parents.php';
 
 Class HomeController extends Controller{
 
 	private $candidate;
 
-	private $parents;
+	private $classroom;
 
 	private $unit;
 
 	public function __construct($dbconfig){
 		parent::__construct($dbconfig);
 		$this->candidate = new Candidate($dbconfig);
-		$this->address = new Address($dbconfig);
-		$this->parents = new Parents($dbconfig);
 		$this->unit = new Unit($dbconfig);
+		$this->classroom = new Classroom($dbconfig);
 	}
 
 	/* Function validateSession
@@ -36,6 +34,42 @@ Class HomeController extends Controller{
 		parent::isAdmin();
 	}
 
+	/* Function loadAllClassrooms
+     * Get all classrooms from classroom table
+     */
+	public function loadAllClassrooms(){
+		$classrooms = $this->classroom->getClassrooms();
+		if (!$classrooms) {
+			return array(array('id' => -1, 'description' => 'Nenhuma turma cadastrada', 'units_id' => -1));
+		}
+		return $classrooms;
+	}
+
+	/* Function loadCandidate
+     * Get a candidate by id from candidate table
+     * @param $id candidate's id
+     * @return a single row with a candidate 
+     */
+	public function loadCandidate($id){
+		return $this->candidate->getCandidate($id);
+	}
+
+	/* Function updateClassroom
+     * Update candidate classroom
+     * @param $fields array with form's fields
+     */
+	public function updateClassroom($fields){
+		if($this->candidate->updateCandidate($fields)){
+			$dados = array('msg' => 'Candidato matriculado', 'type' => parent::$success);
+			$_SESSION['data'] = $dados;
+			header('location: ../view/home.php');
+			exit;
+		}
+		$dados = array('msg' => 'Erro ao matricular candidato', 'type' => parent::$error);
+		$_SESSION['data'] = $dados;
+		header('location: ../view/home.php');
+		exit;
+	}
 
 	/* Function waitingList
      * Get all candidates that are waiting based on a unit
@@ -48,6 +82,19 @@ Class HomeController extends Controller{
 		return $this->candidate->pendingCandidates($unit['id']);
 	}
 
+	/* Function checkClassroom
+     * Check if a class was chosen
+     * @param $classroom value of form
+     */
+	public function checkClassroom($classroom){
+		if ($classroom=='Escolher...') {
+		$dados = array('msg' => 'Escolha uma turma', 'type' => parent::$error);
+		$_SESSION['data'] = $dados;
+		header('location: ../view/home.php');
+		exit;
+		}
+	}
+
 }
 
 // -------------------------------------------------------
@@ -55,3 +102,49 @@ session_start();
 $controller = new HomeController($dbconfig);
 $controller->validateSession();
 $rows = $controller->waitingList($_SESSION['id']);
+$classrooms = $controller->loadAllClassrooms();
+
+if (isset($_POST['conf'])) {
+	$controller->checkClassroom($_POST['classrooms_id']);
+	$candidate = $controller->loadCandidate($_POST['cid']);
+	$candidate = array_pop($candidate);
+	print_r($candidate);
+	/*
+	`id`, 
+	`name`, 
+	`birth_date`, 
+	`tel1`, 
+	`tel2`, 
+	`inscription_date`, 
+	`situation`, 
+	`obs`, 
+	`conf_date`, 
+	`units_id`, 
+	`classrooms_id`, 
+	`parents_id`*/
+	$fields = array('id' => $candidate['cid'],
+					'name' => $candidate['cname'],
+					'birth_date' => $candidate['birth_date'],
+					'tel1' => $candidate['tel1'],
+					'tel2' => $candidate['tel2'],
+					'situation' => 1,//update situation----------------------------
+					'obs' => std_input($candidate['obs']),
+					'conf_date' => date("Y-m-d"),
+					'units_id' => $candidate['uid'],
+					'classrooms_id' => $_POST['classrooms_id'],
+					'parents_id' => $candidate['pid'],
+					'father' => $candidate['father'],
+					'mother' => $candidate['mother'],
+					'addresses_id' => $candidate['aid'],
+					'neighborhood' => $candidate['neighborhood'],
+					'number' => $candidate['number'],
+					'street' => $candidate['street']);
+	
+	print_r($fields);
+	// exit;
+	$controller->updateClassroom($fields);
+}
+
+if (isset($_POST['pass'])) {
+	# code...
+}

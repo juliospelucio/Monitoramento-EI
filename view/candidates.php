@@ -29,7 +29,7 @@ require_once 'template/header.php';
                 </thead>
                 <tbody>
                     <?php $i=0;  foreach ($rows as $row => $column): $i++;?>            
-                        <tr class="custom-anchor" data-href="<?php echo $column['id'] ?>" onclick="candidateData(this)" title="Editar Candidato">
+                        <tr class="custom-anchor <?php echo tableColor($column['situation']) ?>" data-href="<?php echo $column['id'] ?>" onclick="candidateData(this)" title="Editar Candidato">
                             <td scope="row" class="text-center"><?php echo $i ?></td>
                             <td scope="row" class="text-center"><?php echo dateDifference(date("Y-m-d"), $column['birth_date'],'%y') ?></td>
                             <td scope="row" class="text-center"><?php echo $column['name'] ?></td>

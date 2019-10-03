@@ -290,7 +290,7 @@ Class Candidate extends Model{
 	public function pendingCandidates($uid){
 		try {
 			$sql = "SELECT c.id cid, c.name cname, c.birth_date FROM candidates c 
-					INNER JOIN units u ON u.id = c.units_id WHERE u.id = :uid AND c.situation = 0 ORDER BY c.name" ;
+					INNER JOIN units u ON u.id = c.units_id WHERE (u.id = :uid  AND c.classrooms_id IS NULL) ORDER BY c.name" ;
 			$dbc = new DBConnection($this->dbconfig);	
 			$params = array(':uid' => $uid);
 			return $dbc->getQuery($sql,$params);

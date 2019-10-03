@@ -38,17 +38,10 @@ Class ClassroomController extends Controller{
 	}
 
 	/* Function loadClassroom
-     * Get a classroom by Id from classroom table
-     */
-	public function loadClassroom(){
-		return $this->classroom->getClassrooms();
-	}
-
-	/* Function getClassroom
      * Get a classroom by it's Id
      * @param classroom's id
      */
-	public function getClassroom($id){
+	public function loadClassroom($id){
 	 	$classroom =  $this->classroom->getClassroom($id);
 	 	if (!$classroom) {
 			return array (array('description'=>'Turma indisponível','id'=>''));
@@ -120,7 +113,7 @@ $controller->validateSession();
 $rows = $controller->loadAllClassrooms();
 
 if (isset($_GET['id'])) {
-	$classroom = $controller->getClassroom($_GET['id']);
+	$classroom = $controller->loadClassroom($_GET['id']);
 	$classroom = array_pop($classroom);
 }
 

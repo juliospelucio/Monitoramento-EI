@@ -336,10 +336,6 @@ if (isset($_POST['edit'])) {
 		$fields['tel2'] = null;
 	}
 
-	if ($_POST['situation']==1) {
-		$fields['conf_date'] = date("Y-m-d");
-	}
-
 	if (isset($_POST['units_id']) && !empty($_POST['units_id'])) {
 		$fields ['units_id'] = $_POST['units_id'];
 	}

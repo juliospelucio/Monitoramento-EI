@@ -13,7 +13,7 @@ Class Classroom extends Model{
      */
 	function getClassrooms(){
 		try {
-			$sql = "SELECT * FROM `classrooms` ";
+			$sql = "SELECT * FROM `classrooms` ORDER BY description";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql);
 		} catch (PDOException $e) {
@@ -27,8 +27,9 @@ Class Classroom extends Model{
      * @return a single row with a classroom
      */
 	function getClassroom($id){
+		
 		try {
-			$sql = "SELECT * FROM `classroom` WHERE id = :id";
+			$sql = "SELECT * FROM `classrooms` WHERE id = :id";
 			$params = array(':id' => $id);
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql,$params);
@@ -43,7 +44,7 @@ Class Classroom extends Model{
      */
 	function insertClassroom(){
 		try {
-			$sql = "INSERT INTO `classroom` (description, units_id) VALUES (:description, :units_id)";
+			$sql = "INSERT INTO `classrooms` (description, units_id) VALUES (:description, :units_id)";
 			$params = array(':description' => $this->description,
 							':units_id' => $this->units_id);
 			$dbc = new DBConnection($this->dbconfig);

@@ -33,8 +33,7 @@ Class UnitController extends Controller {
      * Get all candidate from cadidate table
      */
 	public function loadAllUnits(){
-		$units = new Unit($this->dbconfig);
-		return $units->getUnits();
+		return $this->unit->getUnits();
 	}
 
 	/* Function getUnit
@@ -73,9 +72,6 @@ Class UnitController extends Controller {
      * @param $fields array with form's fields
      */
 	public function edit($fields){
-		// $this->checkFields($fields);
-		/*print_r($fields);
-		exit;*/
 		if($this->unit->updateUnit($fields)){
 			$dados = array('msg' => 'Unidade editada com sucesso', 'type' => parent::$success);
 			$_SESSION['data'] = $dados;
@@ -145,7 +141,7 @@ if (isset($_GET['id'])) {
 }
 
 if (isset($_POST['insert'])) {
-	$fields = array('name' => $_POST['name'],'users_id' =>$_POST['users_id']);
+	$fields = array('desc' => $_POST['desc']);
 	$controller->insert($fields);
 }
 if (isset($_POST['edit'])) {

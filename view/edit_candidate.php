@@ -133,7 +133,10 @@ require_once 'template/header.php';
 					<input type="hidden" id="id" name="id" value="<?php echo $candidate['cid'] ?>">
 					<input type="hidden" id="aid" name="aid" value="<?php echo $candidate['aid'] ?>">
 					<input type="hidden" id="pid" name="pid" value="<?php echo $candidate['pid'] ?>">
-
+					<?php 
+					echo isset($candidate['crid'])?"<input type='hidden' id='crid' name='crid' value='".$candidate['crid']."'>":""; 
+					?>
+					
 					<div class="row my-md-2 justify-content-around mt-5">
 	                    <div class="form-group col-md-6 col-sm-6">
 	                       <label class="sr-only" for="insert">Editar</label>

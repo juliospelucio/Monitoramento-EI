@@ -8,6 +8,22 @@ function myURL(){
 	return 'http://localhost/Monitoramento-EI/';
 }
 
+function tableColor($situation){
+    switch ($situation) {
+        case 1:
+            return 'table-success';
+        break;
+
+        case -1:
+            return 'table-danger';
+        break;
+
+        default:
+            return '';
+        break;
+    }
+}
+
 
 /*Checks if the session OK*/
 function validateSession(){

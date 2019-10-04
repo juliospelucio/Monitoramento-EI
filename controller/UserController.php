@@ -85,7 +85,7 @@ Class UserController extends Controller {
 			$_SESSION['data'] = $dados;
 			header('location: ../view/users.php');
 			exit;
-     }	
+     }
 
 	/* Function edit
      * Update user data

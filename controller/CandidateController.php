@@ -275,6 +275,7 @@ $controller->validateSession();
 $rows = $controller->loadAllCandidates();//getAll candidates from database
 $units = $controller->loadAllUnits();// getAll units from database
 
+
 if (isset($_GET['id'])) {
 	$candidate = $controller->loadCandidate($_GET['id']); $candidate = array_pop($candidate);
 	$situation = $controller->selectSituation($candidate['situation']);
@@ -297,18 +298,15 @@ if(isset($_POST['insert'])) {
 					'father' => $_POST['father'],
 					'mother' => $_POST['mother']);
 
+	//if telefone 2 is empty
 	if (empty($fields['tel2'])) {
 		$fields['tel2'] = null;
 	}
 
-	if ($fields['situation']==1) {
-		$fields['conf_date'] = date("Y-m-d");
-	}
-
+	//if candidate does have a unit
 	if (isset($_POST['units_id']) && !empty($_POST['units_id'])) {
 		$fields ['units_id'] = $_POST['units_id'];
 	}
-
 
 	$controller->insert($fields);
 }
@@ -330,18 +328,28 @@ if (isset($_POST['edit'])) {
 					'parents_id' => $_POST['pid'],
 					'father' => $_POST['father'],
 					'mother' => $_POST['mother'],
-					'units_id' => null);
+					'units_id' => null,
+					'classrooms_id' => null);
 	
+	//if telefone 2 is empty
 	if (empty($fields['tel2'])) {
 		$fields['tel2'] = null;
 	}
 
-	if ($_POST['situation']==1) {
-		$fields['conf_date'] = date("Y-m-d");
-	}
-
+	//if candidate does have a unit
 	if (isset($_POST['units_id']) && !empty($_POST['units_id'])) {
 		$fields ['units_id'] = $_POST['units_id'];
+	}
+
+	//if candidate does have a class
+	if (isset($_POST['crid']) && !empty($_POST['crid'])) {
+		$fields['classrooms_id'] = $_POST['crid'];
+	}
+
+	//if situation is waiting and does have a unit
+	if ($fields['situation']==0 && !empty($_POST['units_id'])) {
+		$fields['conf_date'] = date("Y-m-d");
+		$fields['classrooms_id'] = null;
 	}
 
 	$controller->edit($fields);

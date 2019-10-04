@@ -113,7 +113,7 @@ require_once 'template/header.php';
 							  	<select class="custom-select" id="units_id" name="units_id" aria-describedby="basic-addon-units_id">
 							  		<option></option>
 						  			<?php foreach ($units as $unit): ?>
-									<option <?php echo "value=".$unit['id'] ?>>
+									<option <?php echo "value=".$unit['unid'] ?>>
 										<?php echo $unit['unname'] ?>
 									</option>
 						  			<?php endforeach ?>

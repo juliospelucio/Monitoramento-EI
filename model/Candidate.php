@@ -66,7 +66,7 @@ Class Candidate extends Model{
 		try {
 			$dbc = new DBConnection($this->dbconfig);
 			$sql = "SELECT c.id cid, c.name cname, c.birth_date, c.tel1, c.tel2, c.inscription_date, c.situation, c.obs, c.conf_date,
-						   a.id aid, a.street, a.number, a.neighborhood, p.id pid, p.mother, p.father, u.id uid, u.name uname
+						   c.classrooms_id crid, a.id aid, a.street, a.number, a.neighborhood, p.id pid, p.mother, p.father, u.id uid, u.name uname
 					FROM candidates c 
 					INNER JOIN addresses_has_candidates h ON h.candidates_id = c.id
 					INNER JOIN addresses a ON a.id = h.addresses_id
@@ -290,7 +290,7 @@ Class Candidate extends Model{
 	public function pendingCandidates($uid){
 		try {
 			$sql = "SELECT c.id cid, c.name cname, c.birth_date FROM candidates c 
-					INNER JOIN units u ON u.id = c.units_id WHERE u.id = :uid AND c.situation = 0 ORDER BY c.name" ;
+					INNER JOIN units u ON u.id = c.units_id WHERE (u.id = :uid  AND c.classrooms_id IS NULL) ORDER BY c.name" ;
 			$dbc = new DBConnection($this->dbconfig);	
 			$params = array(':uid' => $uid);
 			return $dbc->getQuery($sql,$params);

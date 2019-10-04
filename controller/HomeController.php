@@ -54,11 +54,11 @@ Class HomeController extends Controller{
 		return $this->candidate->getCandidate($id);
 	}
 
-	/* Function updateClassroom
-     * Update candidate classroom
+	/* Function registerCandidate
+     * Update candidate classroom and changes situation to confirmed
      * @param $fields array with form's fields
      */
-	public function updateClassroom($fields){
+	public function registerCandidate($fields){
 		if($this->candidate->updateCandidate($fields)){
 			$dados = array('msg' => 'Candidato matriculado', 'type' => parent::$success);
 			$_SESSION['data'] = $dados;
@@ -66,6 +66,23 @@ Class HomeController extends Controller{
 			exit;
 		}
 		$dados = array('msg' => 'Erro ao matricular candidato', 'type' => parent::$error);
+		$_SESSION['data'] = $dados;
+		header('location: ../view/home.php');
+		exit;
+	}
+
+	/* Function unregisterCandidate
+     * Update candidate situation to give up
+     * @param $fields array with form's fields
+     */
+	public function unregisterCandidate($fields){
+		if($this->candidate->updateCandidate($fields)){
+			$dados = array('msg' => 'Candidato não matriculado', 'type' => parent::$success);
+			$_SESSION['data'] = $dados;
+			header('location: ../view/home.php');
+			exit;
+		}
+		$dados = array('msg' => 'Erro ao dessistir da matrícula', 'type' => parent::$error);
 		$_SESSION['data'] = $dados;
 		header('location: ../view/home.php');
 		exit;
@@ -94,7 +111,6 @@ Class HomeController extends Controller{
 		exit;
 		}
 	}
-
 }
 
 // -------------------------------------------------------
@@ -108,28 +124,8 @@ if (isset($_POST['conf'])) {
 	$controller->checkClassroom($_POST['classrooms_id']);
 	$candidate = $controller->loadCandidate($_POST['cid']);
 	$candidate = array_pop($candidate);
-	print_r($candidate);
-	/*
-	`id`, 
-	`name`, 
-	`birth_date`, 
-	`tel1`, 
-	`tel2`, 
-	`inscription_date`, 
-	`situation`, 
-	`obs`, 
-	`conf_date`, 
-	`units_id`, 
-	`classrooms_id`, 
-	`parents_id`*/
 	$fields = array('id' => $candidate['cid'],
-					'name' => $candidate['cname'],
-					'birth_date' => $candidate['birth_date'],
-					'tel1' => $candidate['tel1'],
-					'tel2' => $candidate['tel2'],
 					'situation' => 1,//update situation----------------------------
-					'obs' => std_input($candidate['obs']),
-					'conf_date' => date("Y-m-d"),
 					'units_id' => $candidate['uid'],
 					'classrooms_id' => $_POST['classrooms_id'],
 					'parents_id' => $candidate['pid'],
@@ -139,12 +135,23 @@ if (isset($_POST['conf'])) {
 					'neighborhood' => $candidate['neighborhood'],
 					'number' => $candidate['number'],
 					'street' => $candidate['street']);
-	
-	print_r($fields);
-	// exit;
-	$controller->updateClassroom($fields);
+	$controller->registerCandidate($fields);
 }
 
-if (isset($_POST['pass'])) {
-	# code...
+if (isset($_POST['pass'])) {	
+	$candidate = $controller->loadCandidate($_POST['cid']);
+	$candidate = array_pop($candidate);
+	$fields = array('id' => $candidate['cid'],
+					'situation' => -1,//update situation----------------------------
+					'conf_date' => null,//update conf-date------------------------
+					'units_id' => null,//update units_id------------------------
+					'classrooms_id' => null,//update class------------------------
+					'parents_id' => $candidate['pid'],
+					'father' => $candidate['father'],
+					'mother' => $candidate['mother'],
+					'addresses_id' => $candidate['aid'],
+					'neighborhood' => $candidate['neighborhood'],
+					'number' => $candidate['number'],
+					'street' => $candidate['street']);
+	$controller->unregisterCandidate($fields);
 }

@@ -18,7 +18,7 @@ require_once 'template/header.php';
 							  	<div class="input-group-prepend">
 							  		<span class="input-group-text" id="basic-addon-name">Nome do Usuário</span>
 								</div>
-								<input type="text" class="form-control" id="name" name="name" aria-describedby="basic-addon-name" required>
+								<input type="text" class="form-control" id="name" name="name" aria-describedby="basic-addon-name" required autofocus>
 								<div class="invalid-feedback">
 						          Por favor escolha um nome válido.
 						        </div>

@@ -48,7 +48,7 @@ require_once 'template/header_dir.php';
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Turmas</div>
                             </div>
-                            <select class="custom-select" id="classrooms_id" name="classrooms_id">
+                            <select class="custom-select" id="classrooms_id" name="classrooms_id" autofocus>
                                 <option selected>Escolher...</option>
                                 <?php foreach ($classrooms as $classroom): ?>
                                 <option value="<?php echo $classroom['id'] ?>"><?php echo $classroom['description'] ?></option>

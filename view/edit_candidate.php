@@ -16,7 +16,7 @@ require_once 'template/header.php';
 							  <div class="input-group-prepend">
 							    <span class="input-group-text" id="basic-addon-name">Nome do Candidato</span>
 							  </div>
-							  <input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name" value="<?php echo $candidate['cname'] ?>">
+							  <input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name" value="<?php echo $candidate['cname'] ?>" autofocus>
 							</div>
 	                    </div>
 						<div class="col-md-4 col-sm-12">

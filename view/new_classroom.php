@@ -17,7 +17,7 @@ require_once 'template/header_dir.php';
 							  	<div class="input-group-prepend">
 							  		<span class="input-group-text" id="basic-addon-description">Descrição</span>
 								</div>
-								<input type="text" required class="form-control" id="description" name="description" aria-descriptionribedby="basic-addon-description">
+								<input type="text" required class="form-control" id="description" name="description" aria-descriptionribedby="basic-addon-description" autofocus>
 								<div class="invalid-feedback">
 					          		Por favor escolha um nome válido.
 						        </div>	                    

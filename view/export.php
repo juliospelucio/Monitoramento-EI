@@ -12,7 +12,7 @@ require_once 'template/header.php';
             <form class="form-inline d-flex p-1 justify-content-center" action="export.php" method="post">
                 <div class="mt-5">
                     <label class="sr-only" for="insc-date">Data de Inscrição</label>
-                    <input type="number" min="2010" class="form-control mb-2 mr-sm-2" id="insc-date" name="insc-date" placeholder="Ano de Inscrição" name="insc-date" required>
+                    <input type="number" min="2010" class="form-control mb-2 mr-sm-2" id="insc-date" name="insc-date" placeholder="Ano de Inscrição" name="insc-date" required autofocus>
                     <button type="submit" class="btn btn-outline-success ml-3 mb-2" name="export" value="export">Exportar</button>
                 </div>
             </form>

@@ -19,7 +19,7 @@ require_once 'template/header.php';
 							  		<span class="input-group-text" id="basic-addon-name">Nome da Unidade</span>
 							  	</div>
 							  	<?php foreach ($units as $user): ?>
-							  	<input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name" value="<?php echo $user['unname'] ?>">
+							  	<input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name" value="<?php echo $user['unname'] ?>" autofocus>
 							  	<div class="invalid-feedback">
 					          		Por favor escolha um nome válido.
 						        </div>	

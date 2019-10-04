@@ -8,12 +8,12 @@
                 <div class="modal-body text-center">
                     <input type="hidden" id="uid" name="uid" value="<?php echo $user['id'] ?>">
                     <input type="hidden" id="id_psw" name="id_psw" value="<?php echo $user['password'] ?>">
-                    <input class="form-control mt-md-2 mt-ms-2" type="password" placeholder="Senha Atual" id="psw_now" name="psw_now" required>
+                    <input class="form-control mt-md-2 mt-ms-2" type="password" placeholder="Senha Atual" id="psw_now" name="psw_now" required autofocus>
                     <input class="form-control mt-md-2 mt-ms-2" type="password" placeholder="Nova Senha" id="psw_new" name="psw_new" required>
                     <input class="form-control mt-md-2 mt-ms-2" type="password" placeholder="Confirmar Senha" id="psw_conf" name="psw_conf" required>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" name="psw" autofocus>Atualizar</button>
+                    <button type="submit" class="btn btn-success" name="psw">Atualizar</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                 </div>
             </form>

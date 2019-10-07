@@ -142,6 +142,7 @@ if (isset($_POST['pass'])) {
 	$candidate = $controller->loadCandidate($_POST['cid']);
 	$candidate = array_pop($candidate);
 	$fields = array('id' => $candidate['cid'],
+					'obs' => $_POST['obs'],
 					'situation' => -1,//update situation----------------------------
 					'conf_date' => null,//update conf-date------------------------
 					'units_id' => null,//update units_id------------------------

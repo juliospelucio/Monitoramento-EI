@@ -36,7 +36,7 @@ require_once 'template/header.php';
 							</div>                      
 	                    </div>
 	                    <div class="col-auto">
-	                    	<a href="#" data-href="../controller/UserController.php?<?php echo $user['id'] ?>" data-toggle="modal" data-target="#psw" class="btn btn-secondary">Senha</a>
+	                    	<a href="" data-href="../controller/UserController.php?id=<?php echo $user['id'] ?>" data-toggle="modal" data-target="#psw" class="btn btn-secondary">Senha</a>
 	                    </div>
                         <input type="hidden" id="id" name="id" value="<?php echo $user['id'] ?>">
                         <input type="hidden" id="admin" name="admin" value="<?php echo $user['admin'] ?>">

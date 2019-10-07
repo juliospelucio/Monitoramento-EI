@@ -128,7 +128,7 @@ function modalHref(element) {
   // access element which fired event by > this
   var href = element.getAttribute('data-href');
   // Set attribute
-  document.getElementsByClassName('btn-ok')[0].setAttribute('href', href)
+  document.getElementsByClassName('btn-ok')[0].setAttribute('href', href);
 }
 
 /*PHONE MASK*/

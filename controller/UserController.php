@@ -201,9 +201,9 @@ if (isset($_GET['delete'])) {
 }
 
 if (isset($_POST['psw'])) {
-	// $controller->updatePsw($_POST['uid'],
-	// 					   $_POST['id_psw'],
-	// 					   md5($_POST['psw_now']),
-	// 					   $_POST['psw_new'],
-	// 					   $_POST['psw_conf']);
+	$controller->updatePsw($_POST['uid'],
+						   $_POST['id_psw'],
+						   md5($_POST['psw_now']),
+						   $_POST['psw_new'],
+						   $_POST['psw_conf']);
 }

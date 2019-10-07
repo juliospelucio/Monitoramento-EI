@@ -7,7 +7,7 @@
             <form action="../controller/HomeController.php" method="post">
                 <div class="modal-body text-center">
                     <input type="hidden" id="cid" name="cid" value="<?php echo $column['cid'] ?>">
-                    <textarea class="form-control" id="obs" name="obs" rows="5"> <?php echo $column['obs'] ?></textarea>
+                    <textarea class="form-control" id="obs" name="obs" rows="5"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success" name="pass">Atualizar</button>

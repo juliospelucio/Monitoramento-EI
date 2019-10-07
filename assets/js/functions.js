@@ -114,7 +114,7 @@ function datatableApplyClassrooms() {
             "columnDefs": [
                 { "width": "140px", targets: 0 },//img-edit
                 { "width": "500px", targets: 1 },//nome
-                { "width": "500px", targets: 2 },//email
+                { "width": "500px", targets: 2 },//núm alunos
                 { "width": "140px", targets: 3 }//img-apagar
             ],
             "fixedColumns": true
@@ -130,6 +130,18 @@ function modalHref(element) {
   // Set attribute
   document.getElementsByClassName('btn-ok')[0].setAttribute('href', href);
 }
+
+function fillValuesModal(element) {
+
+  // access element which fired event by > this
+  var id = element.getAttribute('data-id');
+  var obs = element.getAttribute('data-obs');
+  // Set attribute
+  document.getElementById("cid").innerHTML = id;
+  document.getElementById("obs").innerHTML = obs+"\n\nDESISTÊNCIA: ";
+  // document.getElementsByClassName('btn-ok')[0].setAttribute('href', href);
+}
+
 
 /*PHONE MASK*/
 function setupPhoneMaskOnField(selector){

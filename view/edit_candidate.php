@@ -123,7 +123,7 @@ require_once 'template/header.php';
 							  <div class="input-group-prepend">
 							    <span class="input-group-text" id="basic-addon-obs">Observações</span>
 							  </div>
-							  <textarea class="form-control" id="obs" name="obs"> <?php echo $candidate['obs'] ?></textarea>
+							  <textarea class="form-control" id="obs" name="obs" rows="4"> <?php echo $candidate['obs'] ?></textarea>
 							</div>  
 							
 						</div>

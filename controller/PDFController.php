@@ -3,7 +3,7 @@ require_once '../assets/helpers.php';
 require_once '../controller/CandidateController.php';
 require('../assets/lib/FPDF.php');
 
-class PDF extends FPDF{
+class PDFController extends FPDF{
 
     private $candidate;
 

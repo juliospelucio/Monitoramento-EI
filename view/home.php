@@ -2,8 +2,7 @@
 require_once '../assets/helpers.php';
 require_once '../controller/HomeController.php';
 $controller->isAdmin();
-require_once 'template/header_dir.php';
-print_r($rows)
+require_once ($controller->importHeader($_SESSION['admin']));
 ?>
 
 <!-- Page Content -->

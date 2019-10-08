@@ -2,7 +2,7 @@
 require_once '../assets/helpers.php';
 require_once '../controller/ClassroomController.php';
 $controller->isAdmin();
-require_once 'template/header_dir.php';
+require_once ($controller->importHeader($_SESSION['admin']));
 ?>
 
 <!-- Page Content -->

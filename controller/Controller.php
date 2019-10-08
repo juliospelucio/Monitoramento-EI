@@ -64,4 +64,14 @@ abstract Class Controller {
 			}
 		}
 	}
+
+	/* Function importHeader
+     * Returns a header path by using user admin or not
+     * @param $admin status of the current user in session
+     */
+	protected function importHeader($admin){
+	    if($admin)
+	    	return 'template/header.php';
+	    return 'template/header_dir.php';
+	}
 }

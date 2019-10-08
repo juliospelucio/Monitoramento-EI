@@ -1,7 +1,7 @@
 <?php 
 require_once '../assets/helpers.php';
 require_once '../controller/UserController.php';
-require_once 'template/header.php';
+require_once ($controller->importHeader($_SESSION['admin']));
 ?>
 
 

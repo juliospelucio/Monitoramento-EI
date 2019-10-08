@@ -3,8 +3,10 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, all">
+    <meta name="Description" content="Sistema: Monitoramento de Vagas da Educação Infantil do Município de Machado">
+    <meta name="googlebot" content="MVEI, Author: Júlio Pelúcio">
+
     <link rel="icon" href="../assets/img/favicon.png">
 
     <title>Monitoramento de Vagas da Educação Infantil</title>

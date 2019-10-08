@@ -27,6 +27,14 @@ Class MailController extends Controller {
     parent::validateSession();
   }
 
+  /* Function importHeader
+     * Returns a header path by using user admin or not
+     * @param $admin status of the current user in session
+     */
+  public function importHeader($admin){
+      return parent::importHeader($admin);
+  }
+
   /* Function checkMail
    * Checks if the mail is valid in database
    * @return a user if its found on the database

@@ -19,6 +19,14 @@ Class LoginController extends Controller{
 		parent::isAdmin();
 	}
 
+	/* Function importHeader
+     * Returns a header path by using user admin or not
+     * @param $admin status of the current user in session
+     */
+	public function importHeader($admin){
+	    return parent::importHeader($admin);
+	}
+
 	/* Function isSigned
      * Checks if form is submitted
      * @return boolean true if is signed.

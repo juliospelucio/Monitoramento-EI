@@ -2,7 +2,7 @@
 require_once '../assets/helpers.php';
 require_once '../controller/UnitController.php';
 $controller->notAdmin();
-require_once 'template/header.php';
+require_once ($controller->importHeader($_SESSION['admin']));
 // $controller->setFileName = basename(__FILE__);
 ?>
 
@@ -25,7 +25,7 @@ require_once 'template/header.php';
 						        </div>	
 							  	<?php endforeach ?>
 							</div>                      
-                                <input type="hidden" id="id" name="id" value="<?php echo $user['aid'] ?>">
+                                <input type="hidden" id="id" name="id" value="<?php echo $user['unid'] ?>">
 	                    </div>
 	                    <div class="col-md-6 col-sm-12">
 	                    	<div class="input-group mb-md-3 mb-sm-1">

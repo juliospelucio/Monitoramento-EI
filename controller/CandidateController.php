@@ -37,6 +37,14 @@ Class CandidateController extends Controller{
 		parent::notAdmin();
 	}
 
+	/* Function importHeader
+     * Returns a header path by using user admin or not
+     * @param $admin status of the current user in session
+     */
+	public function importHeader($admin){
+	    return parent::importHeader($admin);
+	}
+
 	/* Function insert
      * Insert a new Candidate into candidates table
      * @param $fields array with form's fields

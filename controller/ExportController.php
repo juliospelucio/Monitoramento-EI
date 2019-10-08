@@ -20,6 +20,21 @@ Class ExportController extends Controller{
     parent::validateSession();
   }
 
+  /* Function notAdmin
+     * Checks if is a system administrator
+     */
+  public function notAdmin(){
+    parent::notAdmin();
+  }
+
+  /* Function importHeader
+     * Returns a header path by using user admin or not
+     * @param $admin status of the current user in session
+     */
+  public function importHeader($admin){
+      return parent::importHeader($admin);
+  }
+
   /* Function array2CSV
    * Transform array into a CSV file
    * @param $array a array with candidates data
@@ -66,7 +81,6 @@ Class ExportController extends Controller{
    */
   public function gerCSV($year){
     if (isset($year)) {
-
       $filename = "data_export_".date("Y-m-d").".csv";
       $this->downloadSendHeaders($filename);
 

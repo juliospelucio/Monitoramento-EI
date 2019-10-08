@@ -2,7 +2,7 @@
 require_once '../assets/helpers.php';
 require_once '../controller/CandidateController.php';
 $controller->notAdmin();
-require_once 'template/header.php';
+require_once ($controller->importHeader($_SESSION['admin']));
 ?>
 
 <!-- Page Content -->

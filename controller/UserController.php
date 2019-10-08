@@ -30,6 +30,14 @@ Class UserController extends Controller {
 		parent::notAdmin();
 	}
 
+	/* Function importHeader
+     * Returns a header path by using user admin or not
+     * @param $admin status of the current user in session
+     */
+	public function importHeader($admin){
+	    return parent::importHeader($admin);
+	}
+
 	/* Function loadAllCandidates
      * Get all candidate from cadidate table
      */
@@ -136,7 +144,7 @@ Class UserController extends Controller {
 			header('location: ../view/update_user.php?id='.$uid);
 			exit;
 		}
-		$dados = array('msg' => 'Senha não coincide com a atual', 'type' => parent::$error);
+		$dados = array('msg' => 'Nova senha não coincide com a atual', 'type' => parent::$error);
 		$_SESSION['data'] = $dados;
 		header('location: ../view/update_user.php?id='.$uid);
 		exit;

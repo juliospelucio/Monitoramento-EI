@@ -34,6 +34,14 @@ Class HomeController extends Controller{
 		parent::isAdmin();
 	}
 
+	/* Function importHeader
+     * Returns a header path by using user admin or not
+     * @param $admin status of the current user in session
+     */
+	public function importHeader($admin){
+	    return parent::importHeader($admin);
+	}
+
 	/* Function loadAllClassrooms
      * Get all classrooms from classroom table
      */

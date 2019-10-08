@@ -1,7 +1,7 @@
 <?php 
 require_once '../assets/helpers.php';
 require_once '../controller/CandidateController.php';
-$_SESSION['admin']==1?require_once 'template/header.php':require_once 'template/header_dir.php';
+require_once ($controller->importHeader($_SESSION['admin']));
 ?>
 
 <!-- Page Content -->

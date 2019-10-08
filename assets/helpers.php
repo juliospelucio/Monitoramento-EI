@@ -8,6 +8,7 @@ function myURL(){
 	return 'http://localhost/Monitoramento-EI/';
 }
 
+/* Contextual class to tables*/
 function tableColor($situation){
     switch ($situation) {
         case 1:
@@ -23,7 +24,6 @@ function tableColor($situation){
         break;
     }
 }
-
 
 /*Checks if the session OK*/
 function validateSession(){

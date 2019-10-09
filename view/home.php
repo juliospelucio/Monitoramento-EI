@@ -11,6 +11,9 @@ require_once ($controller->importHeader($_SESSION['admin']));
             <p><h3><u>Bem vindo <?php echo $_SESSION['name'] ?></u></h3></p><br>
             <h1 class="display-4">Alunos Pendentes</h1>
             <span id="demo" class="display-5"></span>
+            <?php if (!$rows): ?>
+                <h3 class="text-info">Não há alunos aguardando vaga nessa unidade no momento!</h3>
+            <?php endif ?>
             <?php foreach ($rows as $row => $column): ?>
             <form class="border border-dark rounded p-1 mb-1" action="../controller/HomeController.php" method="post">
                 <div class="form-row mt-3 justify-content-around">

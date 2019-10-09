@@ -1,7 +1,7 @@
 <!-- Footer -->
     <footer class="fixed-bottom footer">
       <div class="container text-muted text-center align-content-end">
-        <span>Secretaria Municipal de Educação - Machado/MG</span>
+        <span>IFSULDEMINAS - Machado/MG</span>
       </div>
       <div class="container text-muted text-center align-content-around">
         <span>MVEI &copy; 2019</span>

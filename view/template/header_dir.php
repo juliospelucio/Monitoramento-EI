@@ -7,7 +7,7 @@
     <meta name="Description" content="Sistema: Monitoramento de Vagas da Educação Infantil do Município de Machado">
     <meta name="googlebot" content="MVEI, Author: Júlio Pelúcio">
     
-    <link rel="icon" href="../assets/img/favicon.png">
+    <link rel="icon" href="../assets/img/MVEI-favicon.png">
 
     <title>Monitoramento de Vagas da Educação Infantil</title>
     
@@ -26,7 +26,7 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top row">
       <div class="container">
         <a class="navbar-brand" href="index.php">
-          <img class="img-fluid" src="../assets/img/brasão.png" alt="Brasão Machado">
+          <img class="img-fluid" src="../assets/img/MVEI.png" alt="ícone Sistema MVEI">
         </a>
         <a href="index.php" class="decoClear h5"><span class="text-uppercase d-none d-md-block">Monitoramento de Vagas da<br>Educação Infantil</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mynavbar" aria-controls="mynavbar" aria-expanded="false" aria-label="Toggle navigation">

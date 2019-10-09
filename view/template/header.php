@@ -7,7 +7,7 @@
     <meta name="Description" content="Sistema: Monitoramento de Vagas da Educação Infantil do Município de Machado">
     <meta name="googlebot" content="MVEI, Author: Júlio Pelúcio">
 
-    <link rel="icon" href="../assets/img/brasao-favicon.png">
+    <link rel="icon" href="../assets/img/favicon.png">
 
     <title>Monitoramento de Vagas da Educação Infantil</title>
     
@@ -26,7 +26,7 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top row">
       <div class="container">
         <a class="navbar-brand" href="index.php">
-          <img class="img-fluid" src="../assets/img/MVEI-icon.png" alt="Logo Sistema MVEI">
+          <img class="img-fluid" src="../assets/img/brasão.png" alt="Brasão Machado">
         </a>
         <a href="index.php" class="decoClear h5"><span class="text-uppercase d-none d-md-block">Monitoramento de Vagas da<br>Educação Infantil</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mynavbar" aria-controls="mynavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,8 +43,8 @@
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkGerenciar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gerenciar</a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkGerenciar">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkInserir" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Inserir</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkInserir">
                 <a class="dropdown-item" href="candidates.php">Candidato</a>
                 <a class="dropdown-item" href="units.php">Unidade</a>
               </div>

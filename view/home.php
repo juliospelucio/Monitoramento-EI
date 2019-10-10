@@ -11,9 +11,11 @@ require_once ($controller->importHeader($_SESSION['admin']));
             <p><h3><u>Bem vindo <?php echo $_SESSION['name'] ?></u></h3></p><br>
             <h1 class="display-4">Alunos Pendentes</h1>
             <span id="demo" class="display-5"></span>
+
             <?php if (!$rows): ?>
-                <h3 class="text-info">Não há alunos aguardando vaga nessa unidade no momento!</h3>
+            <h3 class="text-info">Não há alunos aguardando vaga nessa unidade no momento!</h3>
             <?php endif ?>
+
             <?php foreach ($rows as $row => $column): ?>
             <form class="border border-dark rounded p-1 mb-1" action="../controller/HomeController.php" method="post">
                 <div class="form-row mt-3 justify-content-around">
@@ -62,12 +64,13 @@ require_once ($controller->importHeader($_SESSION['admin']));
                     <div class="col-md-auto col-sm mb-2 text-center">
                         <button type="submit" class="btn btn-outline-success mr-2" name="conf">Matricular</button>
                         <!-- <button type="submit" class="btn btn-outline-danger mr-2" name="pass">Desistir</button> -->
-                        <a href="#" data-id="<?php echo $column['cid'] ?>" data-obs="<?php echo $column['obs'] ?>" data-toggle="modal" data-target="#pass" class="btn btn-outline-danger mr-2" onclick="fillValuesModal(this)">Desistir</a>
+                        <a href="#" data-id="<?php echo $column['cid'] ?>" data-obs="<?php echo $column['obs'] ?>" data-toggle="modal" data-target="#pass" class="btn btn-outline-danger mr-2" onclick="obsModal(this)">Desistir</a>
                         <a href="candidate_data.php?id=<?php echo $column['cid'] ?>" class="btn btn-outline-secondary" role="button">Detalhes</a>
                     </div>
                 </div>
             </form>
             <?php endforeach ?>       
+            
         </section>
     </div>
 

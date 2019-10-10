@@ -131,7 +131,7 @@ function modalHref(element) {
   document.getElementsByClassName('btn-ok')[0].setAttribute('href', href);
 }
 
-function fillValuesModal(element) {
+function obsModal(element) {
 
   // access element which fired event by > this
   var id = element.getAttribute('data-id');

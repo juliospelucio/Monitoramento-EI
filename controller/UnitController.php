@@ -149,7 +149,7 @@ if (isset($_GET['id'])) {
 }
 
 if (isset($_POST['insert'])) {
-	$fields = array('desc' => $_POST['desc']);
+	$fields = array('name' => $_POST['name'],"users_id"=>$_POST['users_id']);
 	$controller->insert($fields);
 }
 if (isset($_POST['edit'])) {

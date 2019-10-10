@@ -3,7 +3,7 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, all">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="Description" content="Sistema: Monitoramento de Vagas da Educação Infantil do Município de Machado">
     <meta name="googlebot" content="MVEI, Author: Júlio Pelúcio">
 
@@ -43,10 +43,11 @@
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkInserir" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Inserir</a>
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkInserir" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gerenciar</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkInserir">
-                <a class="dropdown-item" href="candidates.php">Candidato</a>
-                <a class="dropdown-item" href="units.php">Unidade</a>
+                <a class="dropdown-item" href="candidates.php">Candidatos</a>
+                <a class="dropdown-item" href="units.php">Unidades</a>
+                <a class="dropdown-item" href="users.php">Usuários</a>
               </div>
             </li>
           </ul>
@@ -56,7 +57,6 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUser">
                 <a class="dropdown-item" href="update_user.php?update=1">Meus dados</a>
                 <a class="dropdown-item" href="export.php">Exportar</a>
-                <a class="dropdown-item" href="users.php">Usuários</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="../controller/LoginController.php?logoff=1">Sair</a>
               </div>

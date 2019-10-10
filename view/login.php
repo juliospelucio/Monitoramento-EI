@@ -6,9 +6,11 @@ require_once '../controller/LoginController.php';
 <!doctype html>
 <html lang="pt-br">
   <head>
-    <!-- Required meta tags -->
+   <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="Description" content="Sistema: Monitoramento de Vagas da Educação Infantil do Município de Machado">
+    <meta name="googlebot" content="MVEI, Author: Júlio Pelúcio">
     
     <link rel="icon" href="../assets/img/MVEI-favicon.png">
 

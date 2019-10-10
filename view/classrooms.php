@@ -19,25 +19,17 @@ require_once ($controller->importHeader($_SESSION['admin']));
             <table id="table_id" class="display table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th scope="col" class="text-center align-middle">Editar</th>
                         <th scope="col" class="text-center align-middle">Turma</th>
                         <th scope="col" class="text-center align-middle">N° de Alunos</th>
-                        <th scope="col" class="text-center align-middle">Apagar</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($rows as $row => $column):?>            
-                        <tr>
-                            <td scope="row" class="text-center">
-                                <a href="edit_classroom.php?id=<?php echo $column['id'] ?>"><img src="../assets/img/edit.png" width="30" height="30" title="Editar Turma"></a>
-                            </td>
-                            <td scope="row" class="text-center"><?php echo $column['description'] ?></td>
-                            <td scope="row" class="text-center">Número de Alunos</td>
-                            <td scope="row" class="text-center">
-                                <a href="#" data-href="../controller/ClassroomController.php?id=<?php echo $column['id'] ?>&delete=1" data-toggle="modal" data-target="#confirm-delete" onclick="modalHref(this)"><img src="../assets/img/delete.png" width="30" height="30" title="Apagar Turma"></a>
-                            </td>
-                        </tr>
-                    <?php endforeach ?>
+                <?php foreach ($rows as $row => $column):?>            
+                    <tr class="custom-anchor" data-id="<?php echo $column['id'] ?>" data-desc="<?php echo $column['description'] ?>" onclick="classroomData(this)" title="Ver turma">
+                        <td scope="row" class="text-center"><?php echo $column['description'] ?></td>
+                        <td scope="row" class="text-center">16</td>
+                    </tr>
+                <?php endforeach ?>
                 </tbody>
             </table>
         </section>

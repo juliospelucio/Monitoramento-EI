@@ -106,18 +106,7 @@ function datatableApplyClassrooms() {
                     "sSortAscending": ": Ordenar colunas de forma ascendente",
                     "sSortDescending": ": Ordenar colunas de forma descendente"
                 }
-            },/*SCROLLING*/
-            "scrollY":        "1000px",
-            "scrollX":        "1000px",
-            "scrollCollapse": true,
-            "paging":         true,
-            "columnDefs": [
-                { "width": "140px", targets: 0 },//img-edit
-                { "width": "500px", targets: 1 },//nome
-                { "width": "500px", targets: 2 },//núm alunos
-                { "width": "140px", targets: 3 }//img-apagar
-            ],
-            "fixedColumns": true
+            }
         });
 }
 
@@ -139,7 +128,6 @@ function obsModal(element) {
   // Set attribute
   document.getElementById("cid").innerHTML = id;
   document.getElementById("obs").innerHTML = obs+"\n\nDESISTÊNCIA: ";
-  // document.getElementsByClassName('btn-ok')[0].setAttribute('href', href);
 }
 
 
@@ -172,6 +160,13 @@ function applyMask(){
 function candidateData(element) {
   // access element which fired event by > this
   var href = "http://localhost/Monitoramento-EI/view/candidate_data.php?id="+element.getAttribute('data-href');
+  window.location = href;
+}
+
+function classroomData(element) {
+  // access element which fired event by > this
+  var href = "http://localhost/Monitoramento-EI/view/classroom.php?clid="+
+  element.getAttribute('data-id')+"&desc="+element.getAttribute('data-desc');
   window.location = href;
 }
 

@@ -11,11 +11,12 @@ Class Classroom extends Model{
      * Get all classrooms
      * @return Associate array classrooms
      */
-	function getClassrooms(){
+	function getClassrooms($id){
 		try {
-			$sql = "SELECT * FROM `classrooms` ORDER BY description";
+			$sql = "SELECT * FROM `classrooms` WHERE units_id = :id ORDER BY description";
+			$params = array(':id' => $id);
 			$dbc = new DBConnection($this->dbconfig);
-			return $dbc->getQuery($sql);
+			return $dbc->getQuery($sql,$params);
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
 		}
@@ -27,7 +28,6 @@ Class Classroom extends Model{
      * @return a single row with a classroom
      */
 	function getClassroom($id){
-		
 		try {
 			$sql = "SELECT * FROM `classrooms` WHERE id = :id";
 			$params = array(':id' => $id);
@@ -90,6 +90,24 @@ Class Classroom extends Model{
 	        $sql.=" WHERE id = :id";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->runQuery($sql,$params);
+		} catch (PDOException $e) {
+			echo __LINE__.$e->getMessage();
+		}
+	}
+
+	/* Function getStudents
+     * Get all Students from a certain class
+     * @param $id from the classroom
+     * @return int count of records affected by running the sql statement into classrooms.
+     */
+	function getStudents($id){
+		try {
+			$sql = "SELECT c.id, c.name, c.birth_date, cl.description FROM `classrooms` cl
+					INNER JOIN `candidates` c ON cl.id = c.classrooms_id
+					WHERE c.classrooms_id = :clid";
+			$params = array(':clid' => $id);
+			$dbc = new DBConnection($this->dbconfig);
+			return $dbc->getQuery($sql,$params);
 		} catch (PDOException $e) {
 			echo __LINE__.$e->getMessage();
 		}

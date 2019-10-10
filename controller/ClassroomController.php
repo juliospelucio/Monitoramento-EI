@@ -38,27 +38,45 @@ Class ClassroomController extends Controller{
 	    return parent::importHeader($admin);
 	}
 	
-	/* Function loadAllClassrooms
+	/* Function loadAllClassroomsByUnit
      * Get all classrooms from classroom table
+     * @param $uid current user's id
+     * @use classrooms.php
+     * @return array with classrooms
      */
-	public function loadAllClassrooms(){
-		return $this->classroom->getClassrooms();
+	public function loadAllClassroomsByUnit($uid){
+		$unit = $this->unit->getUnitByUserId($uid);
+		$unit = array_pop($unit);
+		return $this->classroom->getClassrooms($unit['id']);
+	}
+
+	/* Function loadStudents
+     * Get all students from a class by Id
+     * @use classroom.php
+     * @param $clid classroom's id
+     * @return array with candidates
+     */
+	public function loadStudents($clid){
+		return $this->classroom->getStudents($clid);
 	}
 
 	/* Function loadClassroom
      * Get a classroom by it's Id
+     * @use edit_classroom.php
      * @param classroom's id
+     * @return array with error mensage
      */
 	public function loadClassroom($id){
 	 	$classroom =  $this->classroom->getClassroom($id);
 	 	if (!$classroom) {
 			return array (array('description'=>'Turma indisponível','id'=>''));
 	 	}
- 		return $this->classroom->getClassroom($id);
+ 		return $classroom;
 	}
 
 	/* Function insert
      * Insert a new classroom
+     * @use new_classroom.php
      * @param $fields array with form's fields
      */
 	public function insert($fields){
@@ -81,6 +99,7 @@ Class ClassroomController extends Controller{
 
 	/* Function edit
      * Update classroom data
+     * @use edit_classroom.php
      * @param $fields array with form's fields
      */
 	public function edit($fields){
@@ -98,6 +117,7 @@ Class ClassroomController extends Controller{
 
 	/* Function delete
      * Delete a classroom data
+	 * @use classroom.php
      * @param $fields array with form's fields
      */
 	public function delete($id){
@@ -118,23 +138,27 @@ Class ClassroomController extends Controller{
 session_start();
 $controller = new ClassroomController($dbconfig);
 $controller->validateSession();
-$rows = $controller->loadAllClassrooms();
+$rows = $controller->loadAllClassroomsByUnit($_SESSION['id']);
 
-if (isset($_GET['id'])) {
+if (isset($_GET['id'])) {//edit_classroom.php
 	$classroom = $controller->loadClassroom($_GET['id']);
 	$classroom = array_pop($classroom);
 }
 
-if (isset($_POST['insert'])) {
+if (isset($_GET['clid'])) {
+	$classrooms = $controller->loadStudents($_GET['clid']);
+}
+
+if (isset($_POST['insert'])) {//new_classroom.php
 	$fields = array('description' => $_POST['description']);
 	$controller->insert($fields);
 }
 
-if (isset($_POST['edit'])) {
+if (isset($_POST['edit'])) {//edit_classroom.php classrooms.php
 	$fields = array("id"=>$_POST['id'],"description"=>$_POST['description'],"units_id"=>$_POST['units_id']);
 	$controller->edit($fields);
 }
 
-if (isset($_GET['delete'])) {
+if (isset($_GET['delete'])) {//classrooms.php
 	$controller->delete($_GET['id']);
 }

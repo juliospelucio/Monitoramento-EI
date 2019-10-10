@@ -42,13 +42,18 @@ Class HomeController extends Controller{
 	    return parent::importHeader($admin);
 	}
 
-	/* Function loadAllClassrooms
+	/* Function loadAllClassroomsByUnit
      * Get all classrooms from classroom table
+     * @param $uid current user's id
+     * @use classrooms.php
+     * @return array with classrooms
      */
-	public function loadAllClassrooms(){
-		$classrooms = $this->classroom->getClassrooms();
+	public function loadAllClassroomsByUnit($uid){
+		$unit = $this->unit->getUnitByUserId($uid);
+		$unit = array_pop($unit);
+		$classrooms = $this->classroom->getClassrooms($unit['id']);
 		if (!$classrooms) {
-			return array(array('id' => -1, 'description' => 'Nenhuma turma cadastrada', 'units_id' => -1));
+			array_unshift($classrooms, array('id' => -1, 'description' => 'Nenhuma turma cadastrada', 'units_id' => -1));
 		}
 		return $classrooms;
 	}
@@ -65,6 +70,7 @@ Class HomeController extends Controller{
 	/* Function registerCandidate
      * Update candidate classroom and changes situation to confirmed
      * @param $fields array with form's fields
+     * @use home.php
      */
 	public function registerCandidate($fields){
 		if($this->candidate->updateCandidate($fields)){
@@ -82,6 +88,7 @@ Class HomeController extends Controller{
 	/* Function unregisterCandidate
      * Update candidate situation to give up
      * @param $fields array with form's fields
+	 * @use home.php
      */
 	public function unregisterCandidate($fields){
 		if($this->candidate->updateCandidate($fields)){
@@ -118,6 +125,12 @@ Class HomeController extends Controller{
 		header('location: ../view/home.php');
 		exit;
 		}
+		if ($classroom==-1) {
+		$dados = array('msg' => 'Nenhuma turma disponível', 'type' => parent::$error);
+		$_SESSION['data'] = $dados;
+		header('location: ../view/home.php');
+		exit;
+		}
 	}
 }
 
@@ -126,7 +139,7 @@ session_start();
 $controller = new HomeController($dbconfig);
 $controller->validateSession();
 $rows = $controller->waitingList($_SESSION['id']);
-$classrooms = $controller->loadAllClassrooms();
+$classrooms = $controller->loadAllClassroomsByUnit($_SESSION['id']);
 
 if (isset($_POST['conf'])) {
 	$controller->checkClassroom($_POST['classrooms_id']);

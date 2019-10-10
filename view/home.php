@@ -13,7 +13,7 @@ require_once ($controller->importHeader($_SESSION['admin']));
             <span id="demo" class="display-5"></span>
 
             <?php if (!$rows): ?>
-            <h3 class="text-info">Não há alunos aguardando vaga nessa unidade no momento!</h3>
+            <h3 class="text-info"><u>Não há alunos encaminhados no momento!</u></h3>
             <?php endif ?>
 
             <?php foreach ($rows as $row => $column): ?>

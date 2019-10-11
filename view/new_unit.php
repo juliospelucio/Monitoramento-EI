@@ -1,8 +1,9 @@
 <?php 
 require_once '../assets/helpers.php';
 require_once '../controller/UnitController.php';
-require_once 'template/header.php';
-$controller->filename = basename(__FILE__);
+$controller->notAdmin();
+require_once ($controller->importHeader($_SESSION['admin']));
+// $controller->filename = basename(__FILE__);
 ?>
 
 <!-- Page Content -->
@@ -17,7 +18,7 @@ $controller->filename = basename(__FILE__);
 							  	<div class="input-group-prepend">
 							  		<span class="input-group-text" id="basic-addon-name">Nome da Unidade</span>
 								</div>
-								<input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name">
+								<input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name" autofocus>
 								<div class="invalid-feedback">
 					          		Por favor escolha um nome válido.
 						        </div>	                    

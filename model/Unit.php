@@ -13,7 +13,7 @@ Class Unit extends Model{
      */
 	function getUnits(){
 		try {
-			$sql = "SELECT un.id, un.name unname, us.name usname, us.email 
+			$sql = "SELECT un.id unid, un.name unname, us.name usname, us.email 
 					FROM `units` un INNER JOIN `users` us ON un.users_id = us.id";
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql);
@@ -31,6 +31,22 @@ Class Unit extends Model{
 		try {
 			$sql = "SELECT * FROM `units` WHERE id = :id";
 			$params = array(':id' => $id);
+			$dbc = new DBConnection($this->dbconfig);
+			return $dbc->getQuery($sql,$params);
+		} catch (PDOException $e) {
+			echo __LINE__.$e->getMessage();
+		}
+	}
+
+	/* Function getUnitByUserId
+     * Get a unit by users id
+     * @param $id unit in database
+     * @return a single row with a Unit
+     */
+	function getUnitByUserId($uid){
+		try {
+			$sql = "SELECT * FROM `units` WHERE users_id = :uid";
+			$params = array(':uid' => $uid);
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql,$params);
 		} catch (PDOException $e) {
@@ -101,7 +117,7 @@ Class Unit extends Model{
      */
 	function getUnitEdit($id){
 		try {
-			$sql = "SELECT a.id aid, a.name aname, b.id bid FROM `units` a INNER JOIN `users` b ON a.users_id = b.id WHERE a.id = :id";
+			$sql = "SELECT un.id unid, un.name unname, us.id usid FROM `units` un INNER JOIN `users` us ON un.users_id = us.id WHERE un.id = :id";
 			$params = array(':id' => $id);
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql,$params);

@@ -1,7 +1,8 @@
 <?php 
 require_once '../assets/helpers.php';
 require_once '../controller/CandidateController.php';
-require_once 'template/header.php';
+$controller->notAdmin();
+require_once ($controller->importHeader($_SESSION['admin']));
 ?>
 
 <!-- Page Content -->
@@ -16,7 +17,7 @@ require_once 'template/header.php';
 							  <div class="input-group-prepend">
 							    <span class="input-group-text" id="basic-addon-name">Nome do Candidato</span>
 							  </div>
-							  <input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name">
+							  <input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name" autofocus>
 							</div>                      
 	                    </div>
 	                    <div class="col-md-4 col-sm-12">
@@ -98,7 +99,7 @@ require_once 'template/header.php';
 							    <span class="input-group-text" id="basic-addon-situation">Situação</span>
 							  </div>
 							  <select class="custom-select" id="situation" name="situation" aria-describedby="basic-addon-situation">
-									<option value="0">Aguardando</option><!--  0  -->
+									<option value="0" selected>Aguardando</option><!--  0  -->
 									<option value="1">Confirmado</option><!--  1  -->
 									<option value="-1">Desistente</option><!-- -1  -->
 						  		</select>
@@ -112,7 +113,7 @@ require_once 'template/header.php';
 							  	<select class="custom-select" id="units_id" name="units_id" aria-describedby="basic-addon-units_id">
 							  		<option></option>
 						  			<?php foreach ($units as $unit): ?>
-									<option <?php echo "value=".$unit['id'] ?>>
+									<option <?php echo "value=".$unit['unid'] ?>>
 										<?php echo $unit['unname'] ?>
 									</option>
 						  			<?php endforeach ?>
@@ -126,7 +127,7 @@ require_once 'template/header.php';
 							  <div class="input-group-prepend">
 							    <span class="input-group-text" id="basic-addon-obs">Observações</span>
 							  </div>
-							  <textarea class="form-control" id="obs" name="obs"></textarea>
+							  <textarea class="form-control" id="obs" name="obs" rows="4"></textarea>
 							</div>  
 							
 						</div>

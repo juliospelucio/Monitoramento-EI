@@ -8,6 +8,22 @@ function myURL(){
 	return 'http://localhost/Monitoramento-EI/';
 }
 
+/* Contextual class to tables*/
+function tableColor($situation){
+    switch ($situation) {
+        case 1:
+            return 'table-success';
+        break;
+
+        case -1:
+            return 'table-danger';
+        break;
+
+        default:
+            return '';
+        break;
+    }
+}
 
 /*Checks if the session OK*/
 function validateSession(){
@@ -30,7 +46,7 @@ function isAdmin(){
 
 
 /*Clear all spaces and standardize a string*/
-function test_input($data) {
+function std_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
@@ -141,6 +157,14 @@ function dateDifference($date_1, $date_2, $differenceFormat = '%a'){
 
     if ($interval->format($differenceFormat) == 0) {// checks if is lower than a year
         $differenceFormat = '%m Meses';
+    }
+
+    if ($interval->format($differenceFormat) == 1) {// checks if does have a year
+        $differenceFormat = '%y Ano';
+    }
+
+    if ($interval->format($differenceFormat) > 1) {// checks if does have a year
+        $differenceFormat = '%y Anos';
     }
     
     return $interval->format($differenceFormat);  

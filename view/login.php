@@ -6,14 +6,15 @@ require_once '../controller/LoginController.php';
 <!doctype html>
 <html lang="pt-br">
   <head>
-    <!-- Required meta tags -->
+   <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="Description" content="Sistema: Monitoramento de Vagas da Educação Infantil do Município de Machado">
+    <meta name="googlebot" content="MVEI, Author: Júlio Pelúcio">
     
-    <link rel="icon" href="../assets/img/favicon.png">
+    <link rel="icon" href="../assets/img/MVEI-favicon.png">
 
     <title>Monitoramento de Vagas da Educação Infantil</title>
-
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
@@ -26,7 +27,7 @@ require_once '../controller/LoginController.php';
   
   <body class="text-center">
       <form class="form-signin" action="../controller/LoginController.php" method="post">
-        <img class="mt-2" src="../assets/img/brasão.png" alt="brasão" width="270" height="270" class="img-fluid" title="Monitoramento de Vagas da Educação Infantil" data-toggle="tooltip" data-placement="bottom" alt="Brasão do município de Machado">
+        <img class="mt-2" src="../assets/img/MVEI.png" alt="ícone Sistema MVEI" width="270" height="270" class="img-fluid" title="Monitoramento de Vagas da Educação Infantil" data-toggle="tooltip" data-placement="bottom" alt="Brasão do município de Machado">
         <h1 class="h3 mb-3">Login</h1>  
         <label for="inputEmail" class="sr-only">Email</label>
         <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus name="email">
@@ -36,7 +37,7 @@ require_once '../controller/LoginController.php';
         <div class="alert alert-info my-2" role="alert">
             <a href="password_retrieve.php" class="alert-link"><u>Esqueci minha senha</u></a>
         </div>
-        <p class="text-muted">Secretaria Municipal de Educação<br>Machado/MG &copy; 2019</p>
+        <p class="text-muted">Instituto Federal do Sul de Minas<br>Machado/MG &copy; 2019</p>
       </form>
 
     <!-- Optional JavaScript -->

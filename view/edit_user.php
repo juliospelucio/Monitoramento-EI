@@ -1,7 +1,8 @@
 <?php 
 require_once '../assets/helpers.php';
 require_once '../controller/UserController.php';
-require_once 'template/header.php';
+$controller->notAdmin();
+require_once ($controller->importHeader($_SESSION['admin']));
 // $controller->filename = basename(__FILE__);
 ?>
 
@@ -17,7 +18,7 @@ require_once 'template/header.php';
 	                    		<div class="input-group-prepend">
 							  		<span class="input-group-text" id="basic-addon-name">Nome do Usuário</span>
 							  	</div>
-							  	<input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name" value="<?php echo $user['name'] ?>">
+							  	<input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name" value="<?php echo $user['name'] ?>" autofocus>
 							  	<div class="invalid-feedback">
 					          		Por favor escolha um nome válido.
 						        </div>	
@@ -41,7 +42,7 @@ require_once 'template/header.php';
 							</div>                     
 	                    </div>
                         <input type="hidden" id="id" name="id" value="<?php echo $user['id'] ?>">
-                        <input type="hidden" id="password" name="password" value="<?php echo md5($user['password']) ?>">
+                        <input type="hidden" id="password" name="password" value="<?php echo $user['password'] ?>">
 					</div>
 
 					<div class="row mt-md-5 justify-content-md-around">

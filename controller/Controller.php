@@ -1,5 +1,5 @@
 <?php
-
+require_once '../assets/helpers.php';
 abstract Class Controller {
 
 	protected $dbconfig;
@@ -30,6 +30,26 @@ abstract Class Controller {
 		}
 	}
 
+	/* Function isAdmin
+	 * Checks if is a system administrator and block access to diretor pages
+     */
+	protected function isAdmin(){
+		if (($_SESSION['admin']==1)) {
+			header('location: '. myURL(). 'view/index.php');
+	        exit;
+		}
+	}
+
+	/* Function notAdmin
+	 * Checks if is not a system administrator block access to administrator pages
+     */
+	protected function notAdmin(){
+		if (!($_SESSION['admin']==1)) {
+			header('location: '. myURL(). 'view/home.php');
+	        exit;
+		}
+	}
+
 	/* Function checkFields
      * Checks fields that comes from new_unit form, if not redirects back to new_unit form
      * @param $fields array with form's fields
@@ -43,5 +63,15 @@ abstract Class Controller {
 				exit;
 			}
 		}
+	}
+
+	/* Function importHeader
+     * Returns a header path by using user admin or not
+     * @param $admin status of the current user in session
+     */
+	protected function importHeader($admin){
+	    if($admin)
+	    	return 'template/header.php';
+	    return 'template/header_dir.php';
 	}
 }

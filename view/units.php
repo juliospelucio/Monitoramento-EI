@@ -1,7 +1,8 @@
 <?php 
 require_once '../assets/helpers.php';
 require_once '../controller/UnitController.php';
-require_once 'template/header.php';
+$controller->notAdmin();
+require_once ($controller->importHeader($_SESSION['admin']));
 ?>
 
 <!-- Page Content -->
@@ -28,11 +29,11 @@ require_once 'template/header.php';
                 <tbody>
                     <?php foreach ($rows as $row => $column): ?>
                     <tr>
-                        <td scope="row" class="text-center"><a href="edit_unit.php?id=<?php echo $column['id'] ?>"><img src="../assets/img/edit.png" width="30" height="30" title="Editar Unidade"></a></td>
+                        <td scope="row" class="text-center"><a href="edit_unit.php?id=<?php echo $column['unid'] ?>"><img src="../assets/img/edit.png" width="30" height="30" title="Editar Unidade"></a></td>
                         <td scope="row" class="text-center"><?php echo $column['unname'] ?></td>
                         <td scope="row" class="text-center"><?php echo $column['usname'] ?></td>
                         <td scope="row" class="text-center">
-                            <a href="#" data-href="../controller/UnitController.php?id=<?php echo $column['id'] ?>&delete=1" data-toggle="modal" data-target="#confirm-delete" onclick="modalHref(this)"><img src="../assets/img/delete.png" width="30" height="30" title="Apagar Unidade"></a>
+                            <a href="#" data-href="../controller/UnitController.php?id=<?php echo $column['unid'] ?>&delete=1" data-toggle="modal" data-target="#confirm-delete" onclick="modalHref(this)"><img src="../assets/img/delete.png" width="30" height="30" title="Apagar Unidade"></a>
                         </td>
                     </tr>
                     <?php endforeach ?>

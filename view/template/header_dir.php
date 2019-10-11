@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="Description" content="Sistema: Monitoramento de Vagas da Educação Infantil do Município de Machado">
     <meta name="googlebot" content="MVEI, Author: Júlio Pelúcio">
-
-    <link rel="icon" href="../assets/img/MVEI-favicon.png">
     
+    <link rel="icon" href="../assets/img/MVEI-favicon.png">
+
     <title>Monitoramento de Vagas da Educação Infantil</title>
     
     <!-- Bootstrap CSS -->
@@ -25,30 +25,20 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top row">
       <div class="container">
-        <a class="navbar-brand" href="index.php">
+        <a class="navbar-brand" href="home.php">
           <img class="img-fluid" src="../assets/img/MVEI.png" alt="ícone Sistema MVEI">
         </a>
-        <a href="index.php" class="decoClear h5"><span class="text-uppercase d-none d-md-block">Monitoramento de Vagas da<br>Educação Infantil</span></a>
+        <a href="home.php" class="decoClear h5"><span class="text-uppercase d-none d-md-block">Monitoramento de Vagas da<br>Educação Infantil</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mynavbar" aria-controls="mynavbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="mynavbar">
           <ul class="navbar-nav ml-auto bareffect">
             <li class="position-relative">
-              <a class="nav-link" href="index.php">Início</a>
+              <a class="nav-link" href="home.php">Início</a>
             </li>
             <li class="position-relative">
-              <a class="nav-link" href="categories.php?search=1">Categorias</a>
-            </li>
-          </ul>
-          <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkInserir" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gerenciar</a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkInserir">
-                <a class="dropdown-item" href="candidates.php">Candidatos</a>
-                <a class="dropdown-item" href="units.php">Unidades</a>
-                <a class="dropdown-item" href="users.php">Usuários</a>
-              </div>
+              <a class="nav-link" href="classrooms.php">Salas</a>
             </li>
           </ul>
           <ul class="navbar-nav">

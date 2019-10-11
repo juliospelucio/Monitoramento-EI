@@ -30,6 +30,21 @@ Class CandidateController extends Controller{
 		parent::validateSession();
 	}
 
+	/* Function notAdmin
+     * Checks if is a system administrator
+     */
+	public function notAdmin(){
+		parent::notAdmin();
+	}
+
+	/* Function importHeader
+     * Returns a header path by using user admin or not
+     * @param $admin status of the current user in session
+     */
+	public function importHeader($admin){
+	    return parent::importHeader($admin);
+	}
+
 	/* Function insert
      * Insert a new Candidate into candidates table
      * @param $fields array with form's fields
@@ -183,9 +198,9 @@ Class CandidateController extends Controller{
 			$candidate['uid'] = 0;
 		}
 		foreach ($units as $unit) {			
-			$candidate['uid']==$unit['id'] ?
-			array_push($options,  "<option value='".$unit['id']."'selected>".$unit['unname']."</option>") :
-			array_push($options,  "<option value='".$unit['id']."'>".$unit['unname']."</option>");
+			$candidate['uid']==$unit['unid'] ?
+			array_push($options,  "<option value='".$unit['unid']."'selected>".$unit['unname']."</option>") :
+			array_push($options,  "<option value='".$unit['unid']."'>".$unit['unname']."</option>");
 
 		}
 		return $options;
@@ -232,37 +247,33 @@ Class CandidateController extends Controller{
      */
 	public function getCategories($inf = '',$endDate = ''){
 	
-	switch ($inf) {
-		case 'I':
-			$rows = $this->getInterval("-2 year",$endDate);
-			$rows = $this->getYear($endDate,$rows,1);
-			break;
-		case 'II':
-			$rows = $this->getInterval("-3 year",$endDate);
-			$rows = $this->getYear($endDate,$rows,2);
-			break;
-		case 'III':
-			$rows = $this->getInterval("-4 year",$endDate);
-			$rows = $this->getYear($endDate,$rows,3);
-			break;
-		case 'IV':
-			$rows = $this->getInterval("-5 year",$endDate);
-			$rows = $this->getYear($endDate,$rows,4);
-			break;
-		case 'V':
-			$rows = $this->getInterval("-6 year",$endDate);
-			$rows = $this->getYear($endDate,$rows,5);
-			break;
-		default:
-			$rows = $this->getInterval("-6 year",date("Y-m-d"));
-			break;
+		switch ($inf) {
+			case 'I':
+				$rows = $this->getInterval("-2 year",$endDate);
+				$rows = $this->getYear($endDate,$rows,1);
+				break;
+			case 'II':
+				$rows = $this->getInterval("-3 year",$endDate);
+				$rows = $this->getYear($endDate,$rows,2);
+				break;
+			case 'III':
+				$rows = $this->getInterval("-4 year",$endDate);
+				$rows = $this->getYear($endDate,$rows,3);
+				break;
+			case 'IV':
+				$rows = $this->getInterval("-5 year",$endDate);
+				$rows = $this->getYear($endDate,$rows,4);
+				break;
+			case 'V':
+				$rows = $this->getInterval("-6 year",$endDate);
+				$rows = $this->getYear($endDate,$rows,5);
+				break;
+			default:
+				$rows = $this->getInterval("-6 year",date("Y-m-d"));
+				break;
+		}
+		return $rows;
 	}
-
-	// print_r($rows);
-
-	return $rows;
-}
-
 }
 
 // -------------------------------------------------------
@@ -271,6 +282,7 @@ $controller = new CandidateController($dbconfig);//Create controller
 $controller->validateSession();
 $rows = $controller->loadAllCandidates();//getAll candidates from database
 $units = $controller->loadAllUnits();// getAll units from database
+
 
 if (isset($_GET['id'])) {
 	$candidate = $controller->loadCandidate($_GET['id']); $candidate = array_pop($candidate);
@@ -288,20 +300,21 @@ if(isset($_POST['insert'])) {
 					'tel1' => numberTransform($_POST['tel1']),
 					'tel2' => numberTransform($_POST['tel2']),
 					'inscription_date' => date("Y-m-d"),
-					'situation' => $_POST['situation'],
-					'obs' => $_POST['obs'],
+					'situation' => 0,
+					'obs' => std_input($_POST['obs']),
 					'conf_date' => null,
 					'father' => $_POST['father'],
 					'mother' => $_POST['mother']);
 
-	if ($_POST['situation']==1) {
-		$fields['conf_date'] = date("Y-m-d");
+	//if telefone 2 is empty
+	if (empty($fields['tel2'])) {
+		$fields['tel2'] = null;
 	}
 
+	//if candidate does have a unit
 	if (isset($_POST['units_id']) && !empty($_POST['units_id'])) {
 		$fields ['units_id'] = $_POST['units_id'];
 	}
-
 
 	$controller->insert($fields);
 }
@@ -318,19 +331,33 @@ if (isset($_POST['edit'])) {
 					'tel1' => numberTransform($_POST['tel1']),
 					'tel2' => numberTransform($_POST['tel2']),
 					'situation' => $_POST['situation'],
-					'obs' => $_POST['obs'],
+					'obs' => std_input($_POST['obs']),
 					'conf_date' => null,
 					'parents_id' => $_POST['pid'],
 					'father' => $_POST['father'],
 					'mother' => $_POST['mother'],
-					'units_id' => null);
-
-	if ($_POST['situation']==1) {
-		$fields['conf_date'] = date("Y-m-d");
+					'units_id' => null,
+					'classrooms_id' => null);
+	
+	//if telefone 2 is empty
+	if (empty($fields['tel2'])) {
+		$fields['tel2'] = null;
 	}
 
+	//if candidate does have a unit
 	if (isset($_POST['units_id']) && !empty($_POST['units_id'])) {
 		$fields ['units_id'] = $_POST['units_id'];
+	}
+
+	//if candidate does have a class
+	if (isset($_POST['crid']) && !empty($_POST['crid'])) {
+		$fields['classrooms_id'] = $_POST['crid'];
+	}
+
+	//if situation is waiting and does have a unit
+	if ($fields['situation']==0 && !empty($_POST['units_id'])) {
+		$fields['conf_date'] = date("Y-m-d");
+		$fields['classrooms_id'] = null;
 	}
 
 	$controller->edit($fields);

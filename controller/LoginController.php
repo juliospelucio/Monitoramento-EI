@@ -12,6 +12,21 @@ Class LoginController extends Controller{
 		$this->user = new User($dbconfig);
 	}
 
+	/* Function isAdmin
+     * Checks if is a system administrator
+     */
+	public function isAdmin(){
+		parent::isAdmin();
+	}
+
+	/* Function importHeader
+     * Returns a header path by using user admin or not
+     * @param $admin status of the current user in session
+     */
+	public function importHeader($admin){
+	    return parent::importHeader($admin);
+	}
+
 	/* Function isSigned
      * Checks if form is submitted
      * @return boolean true if is signed.
@@ -36,7 +51,8 @@ Class LoginController extends Controller{
 			$_SESSION['id'] = $this->user['id'];
 			$_SESSION['name'] = $this->user['name'];
 			$_SESSION['admin'] = $this->user['admin'];
-	  		header('location: ../view/index.php');
+			$this->isAdmin();
+	  		header('location: ../view/home.php');
 	  		exit;
 	  	}
 		$dados = array('msg' => 'Usuário ou senha incorreto!', 'type' => parent::$error);

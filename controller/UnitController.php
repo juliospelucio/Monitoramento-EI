@@ -13,7 +13,6 @@ Class UnitController extends Controller {
 		parent::__construct($dbconfig);
 		$this->unit = new Unit($dbconfig);
 		$this->user = new User($dbconfig);
-		parent::validateSession();
 	}
 
 	/* Function validateSession
@@ -23,12 +22,26 @@ Class UnitController extends Controller {
 		parent::validateSession();
 	}
 
+	/* Function notAdmin
+     * Checks if is a system administrator
+     */
+	public function notAdmin(){
+		parent::notAdmin();
+	}
+
+	/* Function importHeader
+     * Returns a header path by using user admin or not
+     * @param $admin status of the current user in session
+     */
+	public function importHeader($admin){
+	    return parent::importHeader($admin);
+	}
+
 	/* Function loadAllCandidates
      * Get all candidate from cadidate table
      */
 	public function loadAllUnits(){
-		$units = new Unit($this->dbconfig);
-		return $units->getUnits();
+		return $this->unit->getUnits();
 	}
 
 	/* Function getUnit
@@ -67,9 +80,6 @@ Class UnitController extends Controller {
      * @param $fields array with form's fields
      */
 	public function edit($fields){
-		// $this->checkFields($fields);
-		/*print_r($fields);
-		exit;*/
 		if($this->unit->updateUnit($fields)){
 			$dados = array('msg' => 'Unidade editada com sucesso', 'type' => parent::$success);
 			$_SESSION['data'] = $dados;
@@ -130,6 +140,7 @@ session_start();
 $controller = new UnitController($dbconfig);
 $controller->validateSession();
 $rows = $controller->loadAllUnits();
+
 $users = $controller->getAllUsers();
 $directors = $controller->getDirectors();
 
@@ -138,7 +149,7 @@ if (isset($_GET['id'])) {
 }
 
 if (isset($_POST['insert'])) {
-	$fields = array('name' => $_POST['name'],'users_id' =>$_POST['users_id']);
+	$fields = array('name' => $_POST['name'],"users_id"=>$_POST['users_id']);
 	$controller->insert($fields);
 }
 if (isset($_POST['edit'])) {

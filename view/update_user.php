@@ -1,7 +1,7 @@
 <?php 
 require_once '../assets/helpers.php';
 require_once '../controller/UserController.php';
-require_once 'template/header.php';
+require_once ($controller->importHeader($_SESSION['admin']));
 ?>
 
 
@@ -18,7 +18,7 @@ require_once 'template/header.php';
 	                    		<div class="input-group-prepend">
 							  		<span class="input-group-text" id="basic-addon-name">Nome do Usuário</span>
 							  	</div>
-							  	<input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name" value="<?php echo $user['name'] ?>">
+							  	<input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name" value="<?php echo $user['name'] ?>" autofocus>
 							  	<div class="invalid-feedback">
 					          		Por favor escolha um nome válido.
 						        </div>	
@@ -36,11 +36,12 @@ require_once 'template/header.php';
 							</div>                      
 	                    </div>
 	                    <div class="col-auto">
-	                    	<a href="#" data-href="../controller/UserController.php?<?php echo $user['id'] ?>" data-toggle="modal" data-target="#psw" class="btn btn-secondary">Senha</a>
+	                    	<a href="" data-href="../controller/UserController.php?id=<?php echo $user['id'] ?>" data-toggle="modal" data-target="#psw" class="btn btn-secondary">Senha</a>
 	                    </div>
                         <input type="hidden" id="id" name="id" value="<?php echo $user['id'] ?>">
                         <input type="hidden" id="admin" name="admin" value="<?php echo $user['admin'] ?>">
-                        <input type="hidden" id="password" name="password" value="<?php echo md5($user['password']) ?>">
+                        <input type="hidden" id="password" name="password" value="<?php echo $user['password'] ?>">
+                        <input type="hidden" id="update" name="update" value="1">
 					</div>
 
 					<div class="row mt-md-5 justify-content-md-center">

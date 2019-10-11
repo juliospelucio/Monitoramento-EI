@@ -58,7 +58,6 @@ Class ClassroomController extends Controller{
      */
 	public function loadStudents($clid){
 		return $this->classroom->getStudents($clid);
-	}	
 
 	/* Function loadClassroom
      * Get a classroom by it's Id

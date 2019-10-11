@@ -1,7 +1,8 @@
 <?php 
 require_once '../assets/helpers.php';
 require_once '../controller/IndexController.php';
-require_once 'template/header.php';
+$controller->notAdmin();
+require_once ($controller->importHeader($_SESSION['admin']));
 ?>
 
 <!-- Page Content -->

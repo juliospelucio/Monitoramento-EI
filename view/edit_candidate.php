@@ -1,7 +1,7 @@
 <?php 
 require_once '../assets/helpers.php';
 require_once '../controller/CandidateController.php';
-require_once 'template/header.php';
+require_once ($controller->importHeader($_SESSION['admin']));
 ?>
 
 <!-- Page Content -->
@@ -16,7 +16,7 @@ require_once 'template/header.php';
 							  <div class="input-group-prepend">
 							    <span class="input-group-text" id="basic-addon-name">Nome do Candidato</span>
 							  </div>
-							  <input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name" value="<?php echo $candidate['cname'] ?>">
+							  <input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name" value="<?php echo $candidate['cname'] ?>" autofocus>
 							</div>
 	                    </div>
 						<div class="col-md-4 col-sm-12">
@@ -123,7 +123,7 @@ require_once 'template/header.php';
 							  <div class="input-group-prepend">
 							    <span class="input-group-text" id="basic-addon-obs">Observações</span>
 							  </div>
-							  <textarea class="form-control" id="obs" name="obs"> <?php echo $candidate['obs'] ?></textarea>
+							  <textarea class="form-control" id="obs" name="obs" rows="4"> <?php echo $candidate['obs'] ?></textarea>
 							</div>  
 							
 						</div>
@@ -133,7 +133,10 @@ require_once 'template/header.php';
 					<input type="hidden" id="id" name="id" value="<?php echo $candidate['cid'] ?>">
 					<input type="hidden" id="aid" name="aid" value="<?php echo $candidate['aid'] ?>">
 					<input type="hidden" id="pid" name="pid" value="<?php echo $candidate['pid'] ?>">
-
+					<?php 
+					echo isset($candidate['crid'])?"<input type='hidden' id='crid' name='crid' value='".$candidate['crid']."'>":""; 
+					?>
+					
 					<div class="row my-md-2 justify-content-around mt-5">
 	                    <div class="form-group col-md-6 col-sm-6">
 	                       <label class="sr-only" for="insert">Editar</label>

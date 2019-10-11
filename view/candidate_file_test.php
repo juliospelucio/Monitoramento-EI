@@ -5,8 +5,6 @@ require('../controller/fpdf_controller.php');
 
 class PDF extends FPDF{
 
-    
-
     // Page header
     function Header(){
         // Logo

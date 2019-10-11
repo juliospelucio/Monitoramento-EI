@@ -1,8 +1,9 @@
 <?php 
 require_once '../assets/helpers.php';
 require_once '../controller/UnitController.php';
-require_once 'template/header.php';
-$controller->setFileName = basename(__FILE__);
+$controller->notAdmin();
+require_once ($controller->importHeader($_SESSION['admin']));
+// $controller->setFileName = basename(__FILE__);
 ?>
 
 <!-- Page Content -->
@@ -18,13 +19,13 @@ $controller->setFileName = basename(__FILE__);
 							  		<span class="input-group-text" id="basic-addon-name">Nome da Unidade</span>
 							  	</div>
 							  	<?php foreach ($units as $user): ?>
-							  	<input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name" value="<?php echo $user['aname'] ?>">
+							  	<input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name" value="<?php echo $user['unname'] ?>" autofocus>
 							  	<div class="invalid-feedback">
 					          		Por favor escolha um nome válido.
 						        </div>	
 							  	<?php endforeach ?>
 							</div>                      
-                                <input type="hidden" id="id" name="id" value="<?php echo $user['aid'] ?>">
+                                <input type="hidden" id="id" name="id" value="<?php echo $user['unid'] ?>">
 	                    </div>
 	                    <div class="col-md-6 col-sm-12">
 	                    	<div class="input-group mb-md-3 mb-sm-1">
@@ -36,7 +37,7 @@ $controller->setFileName = basename(__FILE__);
 									<option 
 									<?php 
 										echo "value='".$user['id']."'"; 
-										if($units[0]['bid']==$user['id'])
+										if($units[0]['usid']==$user['id'])
 											echo "selected" 
 									?>>
 									<?php echo $user['name'] ?>

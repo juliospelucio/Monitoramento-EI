@@ -1,6 +1,6 @@
 /*DATATABLE*/
 function datatableApplyCandidates() {
-            $('#table_id').DataTable({
+        $('#table_id').DataTable({
         	/*TRADUÇÕES*/
         	"language": {
     		    "sEmptyTable": "Nenhum registro encontrado",
@@ -81,6 +81,35 @@ function datatableApplyUsers() {
         });
 }
 
+function datatableApplyClassrooms() {
+        $('#table_id').DataTable({
+            /*TRADUÇÕES*/
+            "language": {
+                "sEmptyTable": "Nenhum registro encontrado",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ".",
+                "sLengthMenu": "_MENU_ Resultados por página",
+                "sLoadingRecords": "Carregando...",
+                "sProcessing": "Processando...",
+                "sZeroRecords": "Nenhum registro encontrado",
+                "sSearch": "Pesquisar",
+                "oPaginate": {
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior",
+                    "sFirst": "Primeiro",
+                    "sLast": "Último"
+                },
+                "oAria": {
+                    "sSortAscending": ": Ordenar colunas de forma ascendente",
+                    "sSortDescending": ": Ordenar colunas de forma descendente"
+                }
+            }
+        });
+}
+
 
 /*MODAL TRIGGER*/
 function modalHref(element) {
@@ -88,8 +117,19 @@ function modalHref(element) {
   // access element which fired event by > this
   var href = element.getAttribute('data-href');
   // Set attribute
-  document.getElementsByClassName('btn-ok')[0].setAttribute('href', href)
+  document.getElementsByClassName('btn-ok')[0].setAttribute('href', href);
 }
+
+function obsModal(element) {
+
+  // access element which fired event by > this
+  var id = element.getAttribute('data-id');
+  var obs = element.getAttribute('data-obs');
+  // Set attribute
+  document.getElementById("cid").innerHTML = id;
+  document.getElementById("obs").innerHTML = obs+"\n\nDESISTÊNCIA: ";
+}
+
 
 /*PHONE MASK*/
 function setupPhoneMaskOnField(selector){
@@ -120,6 +160,13 @@ function applyMask(){
 function candidateData(element) {
   // access element which fired event by > this
   var href = "http://localhost/Monitoramento-EI/view/candidate_data.php?id="+element.getAttribute('data-href');
+  window.location = href;
+}
+
+function classroomData(element) {
+  // access element which fired event by > this
+  var href = "http://localhost/Monitoramento-EI/view/classroom.php?clid="+
+  element.getAttribute('data-id')+"&desc="+element.getAttribute('data-desc');
   window.location = href;
 }
 

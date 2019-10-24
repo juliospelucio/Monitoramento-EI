@@ -27,7 +27,7 @@ require_once ($controller->importHeader($_SESSION['admin']));
                 <?php foreach ($rows as $row => $column):?>            
                     <tr class="custom-anchor" data-id="<?php echo $column['id'] ?>" data-desc="<?php echo $column['description'] ?>" onclick="classroomData(this)" title="Ver turma">
                         <td scope="row" class="text-center"><?php echo $column['description'] ?></td>
-                        <td scope="row" class="text-center">INSERIR</td>
+                        <td scope="row" class="text-center"><?php echo $column['num'] ?></td>
                     </tr>
                 <?php endforeach ?>
                 </tbody>

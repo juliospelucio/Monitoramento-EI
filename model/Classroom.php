@@ -13,7 +13,8 @@ Class Classroom extends Model{
      */
 	function getClassrooms($id){
 		try {
-			$sql = "SELECT * FROM `classrooms` WHERE units_id = :id ORDER BY description";
+			$sql = "SELECT cl.id, cl.description, cl.units_id, COUNT(ca.id) num FROM `classrooms` cl
+					INNER JOIN `candidates` ca ON ca.classrooms_id = cl.id WHERE cl.units_id = :id ORDER BY cl.description";
 			$params = array(':id' => $id);
 			$dbc = new DBConnection($this->dbconfig);
 			return $dbc->getQuery($sql,$params);

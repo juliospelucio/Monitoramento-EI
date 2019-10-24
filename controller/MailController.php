@@ -117,7 +117,7 @@ Class MailController extends Controller {
       $mail->Body    = "Olá ".$user['name'].", sua nova senha para acesso: <b>$newpassword</b>";
       $mail->AltBody = 'Olá <name>, sua nova senha para acesso: <password>';
 
-      $dados = array('msg' => 'Dentro de minutos um email de recuperação será enviado para: .'.$user['email'], 'type' => parent::$success);
+      $dados = array('msg' => 'Dentro de minutos um email de recuperação será enviado para: '.$user['email'], 'type' => parent::$success);
       $_SESSION['data'] = $dados;
       header('location: ../view/login.php');
       $mail->send();

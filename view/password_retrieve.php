@@ -20,7 +20,7 @@
   
     <body class="text-center">
         <form class="form-signin" action="../controller/MailController.php" method="post">
-            <img class="mt-2" src="../assets/img/brasão.png" alt="brasão" width="270" height="270" class="img-fluid" title="Monitoramento de Vagas da Educação Infantil" data-toggle="tooltip" data-placement="bottom">
+            <img class="mt-2" src="../assets/img/MVEI.png" alt="brasão" width="270" height="270" class="img-fluid" title="Monitoramento de Vagas da Educação Infantil" data-toggle="tooltip" data-placement="bottom">
             <h1 class="h3 mb-4">Recuperar Senha</h1>  
             <label for="inputEmail" class="sr-only">Email</label>
             <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus name="email">
@@ -32,7 +32,7 @@
                     <a href="login.php" class="btn btn-block btn-lg btn-outline-secondary" role="button">Voltar</a>
                 </div>
             </div>
-            <p class="text-muted mt-4">Secretaria Municipal de Educação<br>Machado/MG &copy; 2019</p>
+            <p class="text-muted mt-4">Instituto Federal do Sul de Minas<br>Machado/MG &copy; 2019</p>
             </form>
 
         <!-- Optional JavaScript -->

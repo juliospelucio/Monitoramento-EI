@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 10-Out-2019 às 02:15
+-- Generation Time: 15-Out-2019 às 19:34
 -- Versão do servidor: 5.7.26
 -- versão do PHP: 7.2.18
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `id8851733_infantil_education_mch`
+-- Database: `infantil_education_mch`
 --
 
 -- --------------------------------------------------------
@@ -35,14 +35,15 @@ CREATE TABLE IF NOT EXISTS `addresses` (
   `number` int(11) NOT NULL,
   `neighborhood` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `addresses`
 --
 
 INSERT INTO `addresses` (`id`, `street`, `number`, `neighborhood`) VALUES
-(65, 'Caetano Pelúcio', 55, 'Cavaco');
+(66, 'Rua Renato Azeredo', 56, 'Jardim America'),
+(67, 'Caetano Pelúcio', 25, 'Cavaco');
 
 -- --------------------------------------------------------
 
@@ -64,7 +65,8 @@ CREATE TABLE IF NOT EXISTS `addresses_has_candidates` (
 --
 
 INSERT INTO `addresses_has_candidates` (`addresses_id`, `candidates_id`) VALUES
-(65, 33);
+(66, 34),
+(67, 35);
 
 -- --------------------------------------------------------
 
@@ -90,14 +92,15 @@ CREATE TABLE IF NOT EXISTS `candidates` (
   KEY `fk_candidates_classrooms_idx` (`classrooms_id`),
   KEY `fk_candidates_units_idx` (`units_id`),
   KEY `fk_candidates_parents1_idx` (`parents_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `candidates`
 --
 
 INSERT INTO `candidates` (`id`, `name`, `birth_date`, `tel1`, `tel2`, `inscription_date`, `situation`, `obs`, `conf_date`, `units_id`, `classrooms_id`, `parents_id`) VALUES
-(33, 'Marcos Pereira', '1997-12-11', 48523516561, NULL, '2019-10-09', 1, '', '2019-10-09', 9, 12, 65);
+(34, 'Elena Guimarães', '2016-12-15', 64513554654, 89415646848, '2019-10-10', 1, 'Irmã no Iracema', '2019-10-15', 9, 12, 66),
+(35, 'Marcos Pereira', '1997-01-30', 78415248, NULL, '2019-10-15', -1, '\r\n\r\nDESISTÊNCIA: Recusou a vaga', NULL, NULL, NULL, 67);
 
 -- --------------------------------------------------------
 
@@ -112,14 +115,16 @@ CREATE TABLE IF NOT EXISTS `classrooms` (
   `units_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `units_id` (`units_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `classrooms`
 --
 
 INSERT INTO `classrooms` (`id`, `description`, `units_id`) VALUES
-(12, 'Infantil I', 9);
+(12, 'Infantil I', 9),
+(13, 'Infantil I B', 9),
+(14, 'Infantil IV', 10);
 
 -- --------------------------------------------------------
 
@@ -133,14 +138,15 @@ CREATE TABLE IF NOT EXISTS `parents` (
   `mother` varchar(255) DEFAULT NULL,
   `father` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `parents`
 --
 
 INSERT INTO `parents` (`id`, `mother`, `father`) VALUES
-(65, 'Maria', 'Tomaz');
+(66, 'Ângela', 'Ricardo'),
+(67, 'Maria', 'Tomaz');
 
 -- --------------------------------------------------------
 
@@ -155,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `units` (
   `users_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_units_users1_idx` (`users_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `units`
@@ -190,7 +196,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `admin`) VALUES
 (8, 'Admin', 'admin@gmail.com', '202cb962ac59075b964b07152d234b70', '1'),
 (9, 'Núbia', 'nubia@gmail.com', '202cb962ac59075b964b07152d234b70', '0'),
-(11, 'Deila', 'deila@gmail.com', 'ec5dc02a6474cc095620e984af243d19', '0');
+(11, 'Deila', 'deila@gmail.com', '202cb962ac59075b964b07152d234b70', '0');
 
 --
 -- Constraints for dumped tables

@@ -349,8 +349,8 @@ if (isset($_POST['edit'])) {
 		$fields ['units_id'] = $_POST['units_id'];
 	}
 
-	//if candidate does have a class
-	if (isset($_POST['crid']) && !empty($_POST['crid'])) {
+	//if candidate does have a class and unit
+	if (isset($_POST['crid']) && !empty($_POST['crid']) && $fields['units_id']) {
 		$fields['classrooms_id'] = $_POST['crid'];
 	}
 

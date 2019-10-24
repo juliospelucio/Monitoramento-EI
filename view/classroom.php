@@ -25,7 +25,6 @@ require_once ($controller->importHeader($_SESSION['admin']));
                         <th scope="col" class="text-center align-middle">N°</th>
                         <th scope="col" class="text-center align-middle">Idade</th>
                         <th scope="col" class="text-center align-middle">Nome</th>
-                        <th scope="col" class="text-center align-middle">Sexo</th>
                         <th scope="col" class="text-center align-middle">Data de Matrícula</th>
                         <th scope="col" class="text-center align-middle">Data de Saída</th>
                     </tr>
@@ -36,7 +35,6 @@ require_once ($controller->importHeader($_SESSION['admin']));
                             <td scope="row" class="text-center"><?php echo $i ?></td>
                             <td scope="row" class="text-center"><?php echo dateDifference(date("Y-m-d"), $column['birth_date'],'%y') ?></td>
                             <td scope="row" class="text-center"><?php echo $column['name'] ?></td>
-                            <td scope="row" class="text-center"><?php echo stringToDate($column['birth_date']) ?></td>
                             <td scope="row" class="text-center">INSERIR</td>
                             <td scope="row" class="text-center">INSERIR</td>
                         </tr>

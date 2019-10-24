@@ -38,7 +38,7 @@
               <a class="nav-link" href="home.php">Início</a>
             </li>
             <li class="position-relative">
-              <a class="nav-link" href="classrooms.php">Salas</a>
+              <a class="nav-link" href="classrooms.php">Turmas</a>
             </li>
           </ul>
           <ul class="navbar-nav">
@@ -46,7 +46,7 @@
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['name'] ?></a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUser">
                 <a class="dropdown-item" href="update_user.php?update=1">Meus dados</a>
-                <a class="dropdown-item" href="export.php">Exportar</a>
+                <!-- <a class="dropdown-item" href="export.php">Exportar</a> -->
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="../controller/LoginController.php?logoff=1">Sair</a>
               </div>

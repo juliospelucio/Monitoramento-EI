@@ -8,7 +8,7 @@ require_once ($controller->importHeader($_SESSION['admin']));
 <!-- Page Content -->
     <div id="page-content-wrapper" class="w-100"><!-- page-content-wrapper id not used --> 
         <section class="container-fluid text-center">
-            <h1 class="mb-5"><span id='toolTip' tabindex='0' data-toggle='tooltip' title='A idade é baseada na data atual (<?php echo date("d-m-Y") ?>)' style='cursor: help;'> Infantil - <?php echo isset($_GET['inf'])?$_GET['inf']:"" ?></span></h1>
+            <h1 class="mb-5"><span id='toolTip' tabindex='0' data-toggle='tooltip' title='A idade é baseada na data atual (<?php echo date("d/m/Y") ?>)' style='cursor: help;'> Infantil - <?php echo isset($_GET['inf'])?$_GET['inf']:"" ?></span></h1>
             <form action="categories.php" method="get">
                 <div class="row my-md-3 my-sm-5 justify-content-around">
                     <div class="col-md-3 col-sm-12">

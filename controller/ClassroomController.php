@@ -47,7 +47,14 @@ Class ClassroomController extends Controller{
 	public function loadAllClassroomsByUnit($uid){
 		$unit = $this->unit->getUnitByUserId($uid);
 		$unit = array_pop($unit);
-		return $this->classroom->getClassrooms($unit['id']);
+		$classrooms = $this->classroom->getClassrooms($unit['id']);
+		// var_dump($classrooms);
+		foreach ($classrooms as $key => $classroom) {
+			if ($classroom['description']==null) {
+				unset($classrooms[$key]);
+			}
+		}
+		return $classrooms;
 	}
 
 	/* Function loadStudents

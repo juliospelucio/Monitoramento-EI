@@ -32,7 +32,7 @@ require_once '../controller/LoginController.php';
         <label for="inputEmail" class="sr-only">Email</label>
         <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus name="email">
         <label for="inputPassword" class="sr-only">Senha</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Senha" name="password">
+        <input type="password" id="inputPassword" class="form-control" placeholder="Senha" name="password" required>
         <button type="submit" class="btn btn-lg btn-color btn-block" name="signed">Acessar</button>
         <div class="alert alert-info my-2" role="alert">
             <a href="password_retrieve.php" class="alert-link"><u>Esqueci minha senha</u></a>

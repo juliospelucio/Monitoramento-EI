@@ -10,7 +10,7 @@ require_once ($controller->importHeader($_SESSION['admin']));
         <section class="container-fluid">
             <div class="row justify-content-around"> 
                 <div class="col-03 align-self-center">
-                    <p><h3><u><span id='toolTip' tabindex='0' data-toggle='tooltip' title='A idade é baseada na data atual (<?php echo date("d-m-Y") ?>)' style='cursor: help;'>Candidatos Cadastrados</span></u></h3></p>
+                    <p><h3><u><span id='toolTip' tabindex='0' data-toggle='tooltip' title='A idade é baseada na data atual (<?php echo date("d/m/Y") ?>)' style='cursor: help;'>Candidatos Cadastrados</span></u></h3></p>
                 </div>
                 <div class="col-09">
                     <a href="new_candidate.php"><img src="../assets/img/add.png" width="100" height="100"></a>

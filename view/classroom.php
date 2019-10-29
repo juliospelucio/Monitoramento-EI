@@ -18,7 +18,7 @@ require_once ($controller->importHeader($_SESSION['admin']));
                 <div class="col col-md-2 my-2">
                     <a id="btndelete" class="btn btn-outline-danger btn-block" href="../controller/CandidateController.php?id=<?php echo $_GET['clid'] ?>&delete=1"  data-href="../controller/ClassroomController.php?id=<?php echo $_GET['clid'] ?>&delete=1" data-toggle="modal" data-target="#confirm-delete" onclick="modalHref(this)" role="button">Apagar Turma</a>
                 </div>
-            </div>    
+            </div>
             <table id="table_id" class="display table table-bordered table-hover">
                 <thead>
                     <tr>
@@ -52,7 +52,7 @@ require_once 'template/footer.php';
 require_once 'template/delete_classroom_modal.php';
 ?>
 <script type="text/javascript">
-    datatableApplyCandidates();
+    datatableApplyStudents();
     $('#toolTip').tooltip();
 </script>
 <?php if (isset($_SESSION['data']))triggerModal() ?>

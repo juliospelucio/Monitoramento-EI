@@ -53,7 +53,7 @@ require_once ($controller->importHeader($_SESSION['admin']));
                 </thead>
                 <tbody>
                     <?php $i=0;  foreach ($rows as $row => $column): $i++;?>            
-                        <tr class="custom-anchor" data-href="<?php echo $column['cid'] ?>" onclick="candidateData(this)" title="Editar Candidato">
+                        <tr class="custom-anchor <?php echo tableColor($column['situation']) ?>" data-href="<?php echo $column['cid'] ?>" onclick="candidateData(this)" title="Editar Candidato">
                             <td scope="row" class="text-center"><?php echo $i ?></td>
                             <?php //isset($_GET['date'])?$date=$_GET['date']:$date=date("Y-m-d")?>
                                 

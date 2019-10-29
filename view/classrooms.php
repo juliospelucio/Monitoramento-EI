@@ -16,7 +16,7 @@ require_once ($controller->importHeader($_SESSION['admin']));
                     <a href="new_classroom.php"><img src="../assets/img/add.png" width="100" height="100" title="Nova Sala"></a>
                 </div>
             </div>
-            <table id="table_id" class="display table table-bordered table-hover">
+            <table id="table_id" class="display table table-bordered align-middle">
                 <thead>
                     <tr>
                         <th scope="col" class="text-center align-middle">Turma</th>

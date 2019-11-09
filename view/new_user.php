@@ -11,10 +11,10 @@ require_once ($controller->importHeader($_SESSION['admin']));
         <div id="page-content-wrapper">
             <section class="container-fluid text-center">
                 <h1 class="mb-5">Cadastrar Usuário</h1>
-                <form action="../controller/UserController.php" method="post" class="was-validated">
+                <form action="../controller/UserController.php" method="post">
 	                <div class="row my-md-2">
 	                    <div class="col-md-5 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
+	                    	<div class="input-group mb-3">
 							  	<div class="input-group-prepend">
 							  		<span class="input-group-text" id="basic-addon-name">Nome do Usuário</span>
 								</div>
@@ -63,4 +63,3 @@ require_once ($controller->importHeader($_SESSION['admin']));
     <div class="container p-5 m-2">
     </div>
 <?php require_once 'template/footer.php'; ?>
-<script type="text/javascript">applyMask()</script>

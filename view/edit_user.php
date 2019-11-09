@@ -14,7 +14,7 @@ require_once ($controller->importHeader($_SESSION['admin']));
                 <form action="../controller/UserController.php" method="post" class="was-validated">
 	                <div class="row my-md-2"> 
 	                    <div class="col-md-5 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
+	                    	<div class="input-group mb-3">
 	                    		<div class="input-group-prepend">
 							  		<span class="input-group-text" id="basic-addon-name">Nome do Usuário</span>
 							  	</div>
@@ -25,7 +25,7 @@ require_once ($controller->importHeader($_SESSION['admin']));
 							</div>                      
 	                    </div>
 	                    <div class="col-md-5 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
+	                    	<div class="input-group mb-3">
 	                    		<div class="input-group-prepend">
 							  		<span class="input-group-text" id="basic-addon-email">Email</span>
 							  	</div>

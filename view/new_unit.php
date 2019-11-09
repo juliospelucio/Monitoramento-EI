@@ -11,17 +11,14 @@ require_once ($controller->importHeader($_SESSION['admin']));
         <div id="page-content-wrapper">
             <section class="container-fluid text-center">
                 <h1 class="mb-5">Cadastrar Unidade</h1>
-                <form action="../controller/UnitController.php" method="post" class="was-validated">
-	                <div class="row my-md-2"> 
+                <form action="../controller/UnitController.php" method="post">
+	                <div class="row my-md-2">
 	                    <div class="col-md-6 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
+	                    	<div class="input-group mb-3">
 							  	<div class="input-group-prepend">
 							  		<span class="input-group-text" id="basic-addon-name">Nome da Unidade</span>
 								</div>
-								<input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name" autofocus>
-								<div class="invalid-feedback">
-					          		Por favor escolha um nome válido.
-						        </div>	                    
+								<input type="text" required class="form-control" id="name" name="name" aria-describedby="basic-addon-name" autofocus>                    
 							</div> 
 	                    </div>
 	                    <div class="col-md-6 col-sm-12">

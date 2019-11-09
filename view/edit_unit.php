@@ -14,7 +14,7 @@ require_once ($controller->importHeader($_SESSION['admin']));
                 <form action="../controller/UnitController.php" method="post" class="was-validated">
 	                <div class="row my-md-2"> 
 	                    <div class="col-md-6 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
+	                    	<div class="input-group mb-3">
 	                    		<div class="input-group-prepend">
 							  		<span class="input-group-text" id="basic-addon-name">Nome da Unidade</span>
 							  	</div>
@@ -28,7 +28,7 @@ require_once ($controller->importHeader($_SESSION['admin']));
                                 <input type="hidden" id="id" name="id" value="<?php echo $user['unid'] ?>">
 	                    </div>
 	                    <div class="col-md-6 col-sm-12">
-	                    	<div class="input-group mb-md-3 mb-sm-1">
+	                    	<div class="input-group mb-3">
 							  	<div class="input-group-prepend">
 							    	<span class="input-group-text" id="basic-addon-users_id">Responsável pela Unidade</span>
 							  	</div>

@@ -41,6 +41,47 @@ function datatableApplyCandidates() {
         });
 }
 
+
+function datatableApplyUnits() {
+        $('#table_id').DataTable({
+            /*TRADUÇÕES*/
+            "language": {
+                "sEmptyTable": "Nenhum registro encontrado",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ".",
+                "sLengthMenu": "_MENU_ Resultados por página",
+                "sLoadingRecords": "Carregando...",
+                "sProcessing": "Processando...",
+                "sZeroRecords": "Nenhum registro encontrado",
+                "sSearch": "Pesquisar",
+                "oPaginate": {
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior",
+                    "sFirst": "Primeiro",
+                    "sLast": "Último"
+                },
+                "oAria": {
+                    "sSortAscending": ": Ordenar colunas de forma ascendente",
+                    "sSortDescending": ": Ordenar colunas de forma descendente"
+                }
+            },/*SCROLLING*/
+            "scrollY":        "1000px",
+            "scrollX":        "1000px",
+            "scrollCollapse": true,
+            "paging":         true,
+            "columnDefs": [
+                { "width": "140px", targets: 0 },//img-edit
+                { "width": "500px", targets: 1 },//nome
+                { "width": "500px", targets: 2 },//admin
+                { "width": "140px", targets: 3 }//img-apagar
+            ],
+            "fixedColumns": true
+        });
+}
+
 function datatableApplyUsers() {
         $('#table_id').DataTable({
             /*TRADUÇÕES*/
@@ -107,6 +148,47 @@ function datatableApplyClassrooms() {
                     "sSortDescending": ": Ordenar colunas de forma descendente"
                 }
             }
+        });
+}
+
+function datatableApplyDirCandidates() {
+        $('#table_id').DataTable({
+            /*TRADUÇÕES*/
+            "language": {
+                "sEmptyTable": "Nenhum registro encontrado",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ".",
+                "sLengthMenu": "_MENU_ Resultados por página",
+                "sLoadingRecords": "Carregando...",
+                "sProcessing": "Processando...",
+                "sZeroRecords": "Nenhum registro encontrado",
+                "sSearch": "Pesquisar",
+                "oPaginate": {
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior",
+                    "sFirst": "Primeiro",
+                    "sLast": "Último"
+                },
+                "oAria": {
+                    "sSortAscending": ": Ordenar colunas de forma ascendente",
+                    "sSortDescending": ": Ordenar colunas de forma descendente"
+                }
+            },/*SCROLLING*/
+            "scrollY":        "1000px",
+            "scrollX":        "1000px",
+            "scrollCollapse": true,
+            "paging":         true,
+            "columnDefs": [
+                { "width": "140px", targets: 0 },//Nº
+                { "width": "140px", targets: 1 },//idade
+                { "width": "700px", targets: 2 },//nome
+                { "width": "130px", targets: 3 },//mat
+                { "width": "130px", targets: 4 }//saída
+            ],
+            "fixedColumns": true
         });
 }
 

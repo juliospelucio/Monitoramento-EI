@@ -232,3 +232,9 @@ transform: translateY(0.625rem);
 .border-gray-bottom{
   border-bottom: solid 2px #565656;
 }
+/* LIST GROUP */
+.list-group-item.active {
+  color: #000;
+  background-color: #cecece;
+  border-color: #000000;
+}

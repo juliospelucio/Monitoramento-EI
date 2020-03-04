@@ -26,6 +26,7 @@
                 O Sistema de Monitoramento de vagas da Educação Infantil do município de Machado/MG,
                 tem a finalidade de realizar o controle das vagas da Educação Infantil do município, baseando na usabilidade e satisfação do usuário.
             </p>
+            <p class="p-3 mb-2 bg-warning text-dark rounded">O módulo do diretor é experimental, algumas funcionalidades estão em fase de desenvolvimento.</p>
             <div class="container text-left">
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-info">Para acessar com o perfil de administrador</li>

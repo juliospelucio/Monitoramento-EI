@@ -11,7 +11,7 @@ require_once ($controller->importHeader($_SESSION['admin']));
                     <a class="btn btn-outline-success btn-block" href="../view/edit_classroom.php?id=<?php echo $_GET['clid'] ?>" role="button">Editar Turma</a>
             </div>
             <div class="col col-md-2 my-2">
-                <a id="btndelete" class="btn btn-outline-danger btn-block" href="../controller/CandidateController.php?id=<?php echo $_GET['clid'] ?>&delete=1"  data-href="../controller/ClassroomController.php?id=<?php echo $_GET['clid'] ?>&delete=1" data-toggle="modal" data-target="#confirm-delete" onclick="modalHref(this)" role="button">Apagar Turma</a>
+                <a id="btndelete" class="btn btn-outline-danger btn-block" href="#" data-toggle="modal" data-target="#confirm-delete" onclick="modalHref(this)" role="button">Apagar Turma</a>
             </div>
         </div>    
         <table id="table_id" class="display table table-bordered table-hover">

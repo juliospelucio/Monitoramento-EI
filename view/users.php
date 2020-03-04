@@ -30,7 +30,7 @@ require_once ($controller->importHeader($_SESSION['admin']));
                     <td scope="row" class="text-center"><?php echo $column['name'] ?></td>
                     <td scope="row" class="text-center"><?php echo $column['email'] ?></td>
                     <td scope="row" class="text-center">
-                        <a href="#" data-href="../controller/UserController.php?id=<?php echo $column['id'] ?>&delete=1" data-toggle="modal" data-target="#confirm-delete" onclick="modalHref(this)">
+                        <a href="#" data-toggle="modal" data-target="#confirm-delete" onclick="modalHref(this)">
                             <img src="../assets/img/delete.png" width="30" height="30" title="Apagar Usuário">
                         </a>
                     </td>

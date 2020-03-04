@@ -6,7 +6,7 @@ require_once ($controller->importHeader($_SESSION['admin']));
 ?>
     <section class="container text-center">
         <h1 class="mb-5">Cadastrar Candidato</h1>
-        <form action="../controller/CandidateController.php" method="post" class="was-validated">
+        <form action="#" method="post" class="was-validated">
             <div class="row my-md-2"> 
                 <div class="col-md-8 col-sm-12">
                 	<div class="input-group mb-2">

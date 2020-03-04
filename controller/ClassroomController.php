@@ -148,16 +148,16 @@ if (isset($_GET['clid'])) {
 	$classrooms = $controller->loadStudents($_GET['clid']);
 }
 
-if (isset($_POST['insert'])) {//new_classroom.php
-	$fields = array('description' => $_POST['description']);
-	$controller->insert($fields);
-}
+// if (isset($_POST['insert'])) {//new_classroom.php
+// 	$fields = array('description' => $_POST['description']);
+// 	$controller->insert($fields);
+// }
 
-if (isset($_POST['edit'])) {//edit_classroom.php classrooms.php
-	$fields = array("id"=>$_POST['id'],"description"=>$_POST['description'],"units_id"=>$_POST['units_id']);
-	$controller->edit($fields);
-}
+// if (isset($_POST['edit'])) {//edit_classroom.php classrooms.php
+// 	$fields = array("id"=>$_POST['id'],"description"=>$_POST['description'],"units_id"=>$_POST['units_id']);
+// 	$controller->edit($fields);
+// }
 
-if (isset($_GET['delete'])) {//classrooms.php
-	$controller->delete($_GET['id']);
-}
+// if (isset($_GET['delete'])) {//classrooms.php
+// 	$controller->delete($_GET['id']);
+// }

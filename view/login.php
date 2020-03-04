@@ -37,6 +37,9 @@ require_once '../controller/LoginController.php';
         <div class="alert alert-info my-2" role="alert">
             <a href="password_retrieve.php" class="alert-link"><u>Esqueci minha senha</u></a>
         </div>
+        <div class="alert alert-warning my-2" role="alert">
+            <a href="about.php" class="alert-link">Sobre o MVEI</a>
+        </div>
         <p class="text-muted">Instituto Federal do Sul de Minas<br>Machado/MG &copy; 2019</p>
       </form>
 

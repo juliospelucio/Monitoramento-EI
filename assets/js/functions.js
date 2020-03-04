@@ -194,13 +194,13 @@ function datatableApplyDirCandidates() {
 
 
 /*MODAL TRIGGER*/
-function modalHref(element) {
+/*function modalHref(element) {
 
   // access element which fired event by > this
   var href = element.getAttribute('data-href');
   // Set attribute
   document.getElementsByClassName('btn-ok')[0].setAttribute('href', href);
-}
+}*/
 
 function obsModal(element) {
 
@@ -243,7 +243,7 @@ function candidateData(element) {
   // access element which fired event by > this
   var href = "http://localhost/Monitoramento-EI/view/candidate_data.php?id="+element.getAttribute('data-href');
   window.location = href;
-}
+} 
 
 function classroomData(element) {
   // access element which fired event by > this

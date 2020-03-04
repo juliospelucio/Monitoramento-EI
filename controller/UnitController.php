@@ -148,15 +148,15 @@ if (isset($_GET['id'])) {
 	$units = $controller->getUnit($_GET['id']);
 }
 
-if (isset($_POST['insert'])) {
-	$fields = array('name' => $_POST['name'],"users_id"=>$_POST['users_id']);
-	$controller->insert($fields);
-}
-if (isset($_POST['edit'])) {
-	$fields = array("id"=>$_POST['id'],"name"=>$_POST['name'],"users_id"=>$_POST['users_id']);
-	$controller->edit($fields);
-}
+// if (isset($_POST['insert'])) {
+// 	$fields = array('name' => $_POST['name'],"users_id"=>$_POST['users_id']);
+// 	$controller->insert($fields);
+// }
+// if (isset($_POST['edit'])) {
+// 	$fields = array("id"=>$_POST['id'],"name"=>$_POST['name'],"users_id"=>$_POST['users_id']);
+// 	$controller->edit($fields);
+// }
 
-if (isset($_GET['delete'])) {
-	$controller->delete($_GET['id']);
-}
+// if (isset($_GET['delete'])) {
+// 	$controller->delete($_GET['id']);
+// }

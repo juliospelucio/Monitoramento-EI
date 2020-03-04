@@ -178,40 +178,41 @@ if (isset($_GET['id'])) {
 
 }
 
+// if (isset($_POST['insert'])) {
+// 	if (!isset($_POST['admin'])) $_POST['admin'] = 0;
+// 	$fields = array('name' => $_POST['name'],
+// 					'email' =>$_POST['email'],
+// 					'password' =>md5("semedmch"),//default password
+// 					'admin' =>$_POST['admin']);
+// 	$controller->insert($fields);
+// }
+
+// if (isset($_POST['edit'])) {
+// 	if (!isset($_POST['admin'])) $_POST['admin'] = 0;
+// 	$fields = array('id' => $_POST['id'],
+// 					'name' => $_POST['name'],
+// 					'email' =>$_POST['email'],
+// 					'password' =>$_POST['password'],
+// 					'admin' =>$_POST['admin']);
+
+// 	$update = isset($_POST['update'])?$_POST['update']:null;
+// 	$controller->edit($fields,$update);
+// }
+
+// if (isset($_GET['delete'])) {
+// 	$controller->delete($_GET['id']);
+// }
+
+
 if (isset($_GET['update'])) {
 	$user = $controller->getUser($_SESSION['id']);
 	$user = array_pop($user);	
 }
 
-if (isset($_POST['insert'])) {
-	if (!isset($_POST['admin'])) $_POST['admin'] = 0;
-	$fields = array('name' => $_POST['name'],
-					'email' =>$_POST['email'],
-					'password' =>md5("semedmch"),//default password
-					'admin' =>$_POST['admin']);
-	$controller->insert($fields);
-}
-
-if (isset($_POST['edit'])) {
-	if (!isset($_POST['admin'])) $_POST['admin'] = 0;
-	$fields = array('id' => $_POST['id'],
-					'name' => $_POST['name'],
-					'email' =>$_POST['email'],
-					'password' =>$_POST['password'],
-					'admin' =>$_POST['admin']);
-
-	$update = isset($_POST['update'])?$_POST['update']:null;
-	$controller->edit($fields,$update);
-}
-
-if (isset($_GET['delete'])) {
-	$controller->delete($_GET['id']);
-}
-
-if (isset($_POST['psw'])) {
-	$controller->updatePsw($_POST['uid'],
-						   $_POST['id_psw'],
-						   md5($_POST['psw_now']),
-						   $_POST['psw_new'],
-						   $_POST['psw_conf']);
-}
+// if (isset($_POST['psw'])) {
+// 	$controller->updatePsw($_POST['uid'],
+// 						   $_POST['id_psw'],
+// 						   md5($_POST['psw_now']),
+// 						   $_POST['psw_new'],
+// 						   $_POST['psw_conf']);
+// }

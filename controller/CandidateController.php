@@ -290,82 +290,82 @@ if (isset($_GET['id'])) {
 	$uoptions = $controller->selectUnit($candidate);//units options
 }
 
-if(isset($_POST['insert'])) {
-	$controller->filename = $_POST['filename'];
-	$fields = array('name' => $_POST['name'],
-					'birth_date' => $_POST['birth_date'],
-					'neighborhood' => $_POST['neighborhood'],
-					'number' => $_POST['number'],
-					'street' => $_POST['street'],
-					'tel1' => numberTransform($_POST['tel1']),
-					'tel2' => numberTransform($_POST['tel2']),
-					'inscription_date' => date("Y-m-d"),
-					'situation' => 0,
-					'obs' => std_input($_POST['obs']),
-					'conf_date' => null,
-					'father' => $_POST['father'],
-					'mother' => $_POST['mother']);
+// if(isset($_POST['insert'])) {
+// 	$controller->filename = $_POST['filename'];
+// 	$fields = array('name' => $_POST['name'],
+// 					'birth_date' => $_POST['birth_date'],
+// 					'neighborhood' => $_POST['neighborhood'],
+// 					'number' => $_POST['number'],
+// 					'street' => $_POST['street'],
+// 					'tel1' => numberTransform($_POST['tel1']),
+// 					'tel2' => numberTransform($_POST['tel2']),
+// 					'inscription_date' => date("Y-m-d"),
+// 					'situation' => 0,
+// 					'obs' => std_input($_POST['obs']),
+// 					'conf_date' => null,
+// 					'father' => $_POST['father'],
+// 					'mother' => $_POST['mother']);
 
-	//if telefone 2 is empty
-	if (empty($fields['tel2'])) {
-		$fields['tel2'] = null;
-	}
+// 	//if telefone 2 is empty
+// 	if (empty($fields['tel2'])) {
+// 		$fields['tel2'] = null;
+// 	}
 
-	//if candidate does have a unit
-	if (isset($_POST['units_id']) && !empty($_POST['units_id'])) {
-		$fields ['units_id'] = $_POST['units_id'];
-	}
+// 	//if candidate does have a unit
+// 	if (isset($_POST['units_id']) && !empty($_POST['units_id'])) {
+// 		$fields ['units_id'] = $_POST['units_id'];
+// 	}
 
-	$controller->insert($fields);
-}
+// 	$controller->insert($fields);
+// }
 
-if (isset($_POST['edit'])) {
-	$controller->filename = $_POST['filename'];
-	$fields = array('id' => $_POST['id'],
-					'name' => $_POST['name'],
-					'birth_date' => $_POST['birth_date'],
-					'addresses_id' => $_POST['aid'],
-					'neighborhood' => $_POST['neighborhood'],
-					'number' => $_POST['number'],
-					'street' => $_POST['street'],
-					'tel1' => numberTransform($_POST['tel1']),
-					'tel2' => numberTransform($_POST['tel2']),
-					'situation' => $_POST['situation'],
-					'obs' => std_input($_POST['obs']),
-					'conf_date' => null,
-					'parents_id' => $_POST['pid'],
-					'father' => $_POST['father'],
-					'mother' => $_POST['mother'],
-					'units_id' => null,
-					'classrooms_id' => null);
+// if (isset($_POST['edit'])) {
+// 	$controller->filename = $_POST['filename'];
+// 	$fields = array('id' => $_POST['id'],
+// 					'name' => $_POST['name'],
+// 					'birth_date' => $_POST['birth_date'],
+// 					'addresses_id' => $_POST['aid'],
+// 					'neighborhood' => $_POST['neighborhood'],
+// 					'number' => $_POST['number'],
+// 					'street' => $_POST['street'],
+// 					'tel1' => numberTransform($_POST['tel1']),
+// 					'tel2' => numberTransform($_POST['tel2']),
+// 					'situation' => $_POST['situation'],
+// 					'obs' => std_input($_POST['obs']),
+// 					'conf_date' => null,
+// 					'parents_id' => $_POST['pid'],
+// 					'father' => $_POST['father'],
+// 					'mother' => $_POST['mother'],
+// 					'units_id' => null,
+// 					'classrooms_id' => null);
 	
-	//if telefone 2 is empty
-	if (empty($fields['tel2'])) {
-		$fields['tel2'] = null;
-	}
+// 	//if telefone 2 is empty
+// 	if (empty($fields['tel2'])) {
+// 		$fields['tel2'] = null;
+// 	}
 
-	//if candidate does have a unit
-	if (isset($_POST['units_id']) && !empty($_POST['units_id'])) {
-		$fields ['units_id'] = $_POST['units_id'];
-	}
+// 	//if candidate does have a unit
+// 	if (isset($_POST['units_id']) && !empty($_POST['units_id'])) {
+// 		$fields ['units_id'] = $_POST['units_id'];
+// 	}
 
-	//if candidate does have a class and unit
-	if (isset($_POST['crid']) && !empty($_POST['crid']) && $fields['units_id']) {
-		$fields['classrooms_id'] = $_POST['crid'];
-	}
+// 	//if candidate does have a class and unit
+// 	if (isset($_POST['crid']) && !empty($_POST['crid']) && $fields['units_id']) {
+// 		$fields['classrooms_id'] = $_POST['crid'];
+// 	}
 
-	//if situation is waiting and does have a unit
-	if ($fields['situation']==0 && !empty($_POST['units_id'])) {
-		$fields['conf_date'] = date("Y-m-d");
-		$fields['classrooms_id'] = null;
-	}
+// 	//if situation is waiting and does have a unit
+// 	if ($fields['situation']==0 && !empty($_POST['units_id'])) {
+// 		$fields['conf_date'] = date("Y-m-d");
+// 		$fields['classrooms_id'] = null;
+// 	}
 
-	$controller->edit($fields);
-}
+// 	$controller->edit($fields);
+// }
 
-if (isset($_GET['delete'])) {
-	$controller->delete($_GET['id']);
-}
+// if (isset($_GET['delete'])) {
+// 	$controller->delete($_GET['id']);
+// }
 
 if (isset($_GET['search']) && $_GET['search'] == 1) {
 	if (isset($_GET['inf']) && isset($_GET['date'])) {

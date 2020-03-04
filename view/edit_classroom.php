@@ -6,7 +6,7 @@ require_once ($controller->importHeader($_SESSION['admin']));
 ?>
     <section class="container text-center">
         <h1 class="mb-5">Editar Turma</h1>
-        <form action="../controller/ClassroomController.php" method="post" class="was-validated">
+        <form action="#" method="post" class="was-validated">
             <div class="row my-md-2 justify-content-center"> 
                 <div class="col-md-6 col-sm-12">
                 	<div class="input-group mb-md-3 mb-sm-1">

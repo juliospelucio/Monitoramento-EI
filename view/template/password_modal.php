@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <h4 title="Updatepsw">Atualizar Senha</h4>
             </div>
-            <form action="../controller/UserController.php" method="post">
+            <form action="#" method="post">
                 <div class="modal-body text-center">
                     <input type="hidden" id="uid" name="uid" value="<?php echo $user['id'] ?>">
                     <input type="hidden" id="id_psw" name="id_psw" value="<?php echo $user['password'] ?>">

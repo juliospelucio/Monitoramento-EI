@@ -76,7 +76,6 @@ Class DBConnection extends PDO{
      * @returns associative array
      */
     public function getQuery($sql,array $params = null) {
-
         $stmt = $this->dbc->prepare($sql);
         $stmt->execute($params);
         // echo $stmt->debugDumpParams() . "<br />";

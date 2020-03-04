@@ -187,7 +187,7 @@ if (isset($_POST['insert'])) {
 	if (!isset($_POST['admin'])) $_POST['admin'] = 0;
 	$fields = array('name' => $_POST['name'],
 					'email' =>$_POST['email'],
-					'password' =>md5("semedmch"),
+					'password' =>md5("semedmch"),//default password
 					'admin' =>$_POST['admin']);
 	$controller->insert($fields);
 }
